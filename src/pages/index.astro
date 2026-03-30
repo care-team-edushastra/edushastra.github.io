@@ -563,13 +563,13 @@
      STATS BAND
 ═══════════════════════════════════════════ -->
 <section class="py-20 px-6 bg-ink-800/30">
-  <div class="max-w-7xl mx-auto grid grid-cols-2 md:flex md:flex-wrap md:justify-center gap-8">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:flex md:flex-wrap md:justify-center gap-8">
     {[
       { num: "+62,000+", label: "Students Enrolled", sub: "Since 2016" },
       { num: "+56,000",    label: "+90%ilers", sub: "Since 2016" },
       { num: "+90%",  label: "Success Rate", sub: "Since 2016" },
     ].map(s => (
-      <div class="reveal text-center space-y-1 min-w-[300px]">
+      <div class="reveal text-center space-y-1 md:min-w-[300px]">
         <p class="font-display text-4xl md:text-5xl font-800 text-brand-500 stat-num">{s.num}</p>
         <p class="font-semibold text-white text-sm">{s.label}</p>
         <p class="text-ink-400 text-xs">{s.sub}</p>
