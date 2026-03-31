@@ -860,24 +860,26 @@
     </div>
 
     <!-- Apex application steps -->
-    <div class="reveal glass rounded-3xl p-8">
-      <h3 class="font-display text-xl font-700 text-white mb-6">How to Apply for Apex-25</h3>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        {[
-          ["Pay ₹2", "Click Apply Now in the fees section above"],
-          ["Share Details", "Email name, contact & course to contact@edushastra.com"],
-          ["Mapping Test", "Receive IQ-based entrance test on your email"],
-          ["Result",        "Selected based on test performance & academic record"],
-          ["Batch Starts",  "Join your percentile-matched batch immediately"],
-        ].map(([step, desc], i) => (
-          <div class="glass-orange rounded-2xl p-5 text-center">
-            <div class="w-8 h-8 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400 font-display font-800 text-sm mx-auto mb-3">{i+1}</div>
-            <p class="font-display font-700 text-white text-sm mb-1">{step}</p>
-            <p class="text-ink-400 text-xs leading-relaxed">{desc}</p>
-          </div>
-        ))}
+        <div class="reveal glass rounded-3xl p-8">
+  <h3 class="font-display text-xl font-700 text-white mb-6">How to Apply for Apex-25</h3>
+  
+  {/* Changed gap and forced a single column layout */}
+  <div class="grid grid-cols-1 gap-1">
+    {[
+      ["Apply Now:", "To secure your spot, click Apply Now in the Program Fees section."],
+      ["Application Fees:", "The fees to apply in the +99%ile Apex-25 batch is ₹2."],
+      ["Post Fee Payment Procedure:", "After the successful payment please share details to contact@edushastra.com with your Name, Email ID, Contact number and Course details."],
+      ["Entrance Mapping Test:", "After the payment confirmation a Mapping Test will be sent to a student."],
+      ["Enrollment Invite:", "The selection of students will be determined by their performance on the Entrance Mapping Test and a review of their academic records. Selected students will receive Batch enrollment invite in their email."],
+    ].map(([step, desc], i) => (
+      /* Changed to flex for a horizontal look within each vertical step */
+      <div class="glass-orange rounded-2xl p-2 flex items-center gap-5">
+        <div class="text-left">
+          <p class="font-display font-700 text-brand-400 text-xl mb-1">Step {i + 1}: {step} <span class="text-white text-base">{desc}</span></p>
+        </div>
       </div>
-    </div>
+    ))}
+  </div>
 
   </div>
 </section>
