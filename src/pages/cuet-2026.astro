@@ -611,10 +611,10 @@
 
 
     <!-- ── COURSE TIERS ── -->
-     <section id="batches" class="py-6 px-6">
+     <section id="batches" class="py-6 px-6 max-w-7xl mx-auto">
     <div class="reveal mb-6 ">
       <h3 class="font-display text-3xl font-800 text-white mb-2">Elite Batches <span class="text-base font-body font-normal text-ink-400 ml-2">CUET 2026</span></h3>
-      <p class="text-ink-200 text-sm">Large-format live courses with 24×7 doubt support. 50% off currently.</p>
+      <p class="text-ink-200 text-sm">Batch Size of 100-150 Students. Chat Interaction during Live Online Classes</p>
     </div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
@@ -755,8 +755,8 @@
 
     <!-- Elite Plus -->
     <div class="reveal mb-6">
-      <h3 class="font-display text-3xl font-800 text-white mb-2">Elite Plus Batches <span class="text-base font-body font-normal text-ink-400 ml-2">Smaller · More Personal</span></h3>
-      <p class="text-ink-200 text-sm">Batch size 25–30. Available Online, Offline Classroom, and Hybrid.</p>
+      <h3 class="font-display text-3xl font-800 text-white mb-2">Elite Plus Batches <span class="text-base font-body font-normal text-ink-400 ml-2">CUET 2026</span></h3>
+      <p class="text-ink-200 text-sm">Batch size of 25–30 studets. Audio, Video and Chat Interaction</p>
     </div>
 
     <div class="grid md:grid-cols-3 gap-6 mb-6">
@@ -1111,41 +1111,24 @@
   <div class="max-w-7xl mx-auto">
 
     <div class="reveal mb-10 text-center">
-      <p class="text-brand-400 text-xs font-semibold tracking-widest uppercase mb-3">How We Teach</p>
       <h2 class="font-display text-4xl md:text-5xl font-800 text-white">
-        Individualized Learning,<br/><span class="text-brand-500">Not Herd Teaching</span>
+       <span class="text-brand-500">Why Us?</span>
       </h2>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
-      <div class="space-y-6">
-        <p class="text-ink-200 leading-relaxed">
-          Most coaching institutes make large batches to maximize profit. We call this "Herd Teaching." EduShastra is built on the opposite principle.
-        </p>
-        <p class="text-ink-200 leading-relaxed">
-          We specialize in teaching where content, instructional technology, and pace are based on the abilities and interests of each individual learner — not a predetermined syllabus timeline.
-        </p>
-        <p class="text-ink-200 leading-relaxed font-medium text-white">
-          All courses are designed as a "One-on-One" instruction experience, even in batch mode.
-        </p>
-        <a href="https://www.edushastra.com/ability-based-model" target="_blank" rel="noopener" class="inline-block text-brand-400 hover:text-brand-300 text-sm font-semibold transition-colors">
-          Learn about our Ability-Based Model →
-        </a>
-      </div>
 
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid md:grid-cols-3 gap-4">
         {[
-          { icon: "🧠", title: "IQ-Based Mapping", desc: "Proprietary Entrance Test segments every student into the right ability group" },
-          { icon: "🎯", title: "4-Phase Program", desc: "Mapping → Foundation → Testing → Control. Each phase has a clear objective." },
-          { icon: "📈", title: "Weekly Upgradation", desc: "Perform well on weekly tests and move to a more advanced batch automatically" },
-          { icon: "🔄", title: "Lifetime Validity", desc: "Retake the course as many times as needed until you hit your target percentile" },
-          { icon: "❓", title: "24/7 Doubt Connect", desc: "Forum, live sessions, social groups, and direct teacher access — always-on support" },
-          { icon: "💸", title: "Money-Back Promise", desc: "Miss your target? Full fee returned. We stand behind our results." },
+          { icon: "🧠", title: "5-Levels Percentile Based Batches", desc: "Students are mapped into one of five homogeneous Series (from 60 to 100 percentile) to ensure the teaching pace and level of competition perfectly match their current standing." },
+          { icon: "🎯", title: "CAT/GMAT 100%ilers as Faculty", desc: "The program is driven by top-tier mentors who have personally achieved a 100 percentile, ensuring students learn the exact strategies used by the world's highest scorers." },
+          { icon: "📈", title: "IQ-Based Batch Segregation", desc: "Using a scientific Mapping Test, students are grouped by cognitive ability to provide a customized learning environment where lower-IQ groups focus on fundamentals and higher-IQ groups focus on rapid application." },
+          { icon: "🔄", title: "Ability Based Model - Lifetime Validity", desc: "This model replaces fixed timelines with mastery-based progression, allowing students to repeat course cycles for free until they reach their optimal potential." },
+          { icon: "❓", title: "+99%ile or Fee Refund Promise", desc: "EduShastra offers a formal money-back guarantee where the course fee is refunded if a student fails to achieve the promised 99+ percentile (or 720+ GMAT) after completing the program requirements." },
+          { icon: "💸", title: "Free End-to-End Admission Services", desc: "Beyond test prep, students receive complimentary, one-on-one support for the entire journey, including profile evaluation, B-school selection, application editing, and interview preparation." },
         ].map(f => (
           <div class="reveal glass rounded-2xl p-5">
-            <div class="text-2xl mb-3">{f.icon}</div>
-            <h4 class="font-display font-700 text-white text-sm mb-1.5">{f.title}</h4>
-            <p class="text-ink-400 text-xs leading-relaxed">{f.desc}</p>
+            <div class="text-2xl mb-3"><h4 class="font-display font-700 text-brand-500 text-2x1 mb-3">{f.icon} {f.title}</h4></div>
+            <p class="text-white text-base leading-relaxed">{f.desc}</p>
           </div>
         ))}
       </div>
@@ -1153,7 +1136,6 @@
 
   </div>
 </section>
-
 <!-- ══════════════════════════════
      SECTION: CITIES
 ══════════════════════════════ -->
