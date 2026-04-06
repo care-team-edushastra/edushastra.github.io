@@ -1,0 +1,577 @@
+---
+// EduShastra — About Us Page (Astro)
+// Matches Contact Us design: dark bg, orange accent, glassmorphism, Syne + DM Sans
+---
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About EduShastra | Affordable Quality Education & Global Services</title>
+  <meta name="description" content="EduShastra is an Education & Real Estate Group founded by IIT, IIM and Ivy League alumni. We offer world-class CAT, GMAT, CUET preparation at affordable prices, built on the philosophy of 'For People, Not Profits'." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.edushastra.com/about-us/" />
+
+  <meta property="og:title" content="About EduShastra | Affordable Quality Education" />
+  <meta property="og:description" content="Founded by IIT, IIM, Ivy League alumni. 130–170% YoY growth. Zero marketing. For People, Not Profits." />
+  <meta property="og:url" content="https://www.edushastra.com/about-us/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.edushastra.com/wp-content/uploads/2020/07/card-header.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+  <script is:inline src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50:  '#fff7ed',
+              100: '#ffedd5',
+              400: '#fb923c',
+              500: '#f97316',
+              600: '#ea6c0a',
+              700: '#c2540a',
+            },
+            ink: {
+              900: '#0d0d0d',
+              800: '#1a1a1a',
+              700: '#2d2d2d',
+              400: '#6b6b6b',
+              300: '#a3a3a3',
+              200: '#d4d4d4',
+              100: '#f5f5f5',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'DM Sans', sans-serif; background: #0d0d0d; color: #f5f5f5; }
+    h1,h2,h3,h4,h5,.font-display { font-family: 'Syne', sans-serif; }
+
+    /* Noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.35;
+    }
+
+    .hero-bg {
+      background:
+        radial-gradient(ellipse 70% 60% at 15% 50%, rgba(249,115,22,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 70% at 85% 20%, rgba(249,115,22,0.08) 0%, transparent 55%),
+        #0d0d0d;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      backdrop-filter: blur(12px);
+    }
+
+    .glass-orange {
+      background: rgba(249,115,22,0.08);
+      border: 1px solid rgba(249,115,22,0.2);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-blur {
+      background: rgba(13,13,13,0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .cta-glow:hover { box-shadow: 0 0 32px rgba(249,115,22,0.5); }
+
+    /* Reveal animation */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .revealed { opacity: 1; transform: translateY(0); }
+
+    /* Stat counter cards */
+    .stat-card { transition: all 0.3s ease; }
+    .stat-card:hover { transform: translateY(-6px); border-color: rgba(249,115,22,0.4); box-shadow: 0 20px 60px rgba(249,115,22,0.1); }
+
+    /* Mission item */
+    .mission-card { transition: all 0.3s ease; }
+    .mission-card:hover { transform: translateY(-4px); border-color: rgba(249,115,22,0.3); }
+
+    /* Ticker animation */
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-inner { animation: ticker 30s linear infinite; }
+    .ticker-inner:hover { animation-play-state: paused; }
+
+    /* Checkmark list */
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-weight: 500;
+      color: rgba(212,212,212,0.9);
+    }
+    .check-list li:last-child { border-bottom: none; }
+    .check-list li::before {
+      content: '✓';
+      color: #f97316;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Timeline */
+    .timeline-item { position: relative; padding-left: 2rem; }
+    .timeline-item::before {
+      content: '';
+      position: absolute; left: 0; top: 6px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #f97316;
+      box-shadow: 0 0 12px rgba(249,115,22,0.6);
+    }
+    .timeline-item::after {
+      content: '';
+      position: absolute; left: 4px; top: 20px;
+      width: 2px;
+      height: calc(100% - 10px);
+      background: linear-gradient(to bottom, rgba(249,115,22,0.4), transparent);
+    }
+    .timeline-item:last-child::after { display: none; }
+
+    /* Accent line */
+    .accent-line {
+      display: block;
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, #f97316, transparent);
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Orange number counter */
+    .big-stat { font-family: 'Syne', sans-serif; font-weight: 800; color: #f97316; line-height: 1; }
+  </style>
+</head>
+
+<body class="relative overflow-x-hidden">
+
+<!-- ═══════════════════════════════════════════
+     NAVBAR
+═══════════════════════════════════════════ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-blur">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2">
+      <span class="font-display text-2xl font-800 text-white tracking-tight">Edu<span class="text-brand-500">Shastra</span></span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-ink-200">
+      <li><a href="#courses" class="hover:text-brand-400 transition-colors">Courses</a></li>
+      <li><a href="#apex" class="hover:text-brand-400 transition-colors">Apex Batch</a></li>
+      <li><a href="#faculty" class="hover:text-brand-400 transition-colors">Faculty</a></li>
+      <li><a href="#results" class="hover:text-brand-400 transition-colors">Results</a></li>
+      <li><a href="#about" class="hover:text-brand-400 transition-colors">About</a></li>
+    </ul>
+
+    <div class="flex items-center gap-3">
+      <a href="https://www.edushastra.com/login/" class="hidden text-sm text-ink-200 hover:text-white transition-colors px-4 py-2">Login</a>
+      <a href="#enroll" class="hidden cta-glow bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-300">
+        Enroll Now →
+      </a>
+      <!-- Mobile menu toggle -->
+      <button id="menuBtn" class="md:hidden text-white p-1" aria-label="Menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="hidden md:hidden px-6 pb-6 pt-2 flex flex-col gap-4 text-sm font-medium text-ink-200">
+    <a href="#courses" class="hover:text-brand-400 transition-colors">Courses</a>
+    <a href="#apex" class="hover:text-brand-400 transition-colors">Apex Batch</a>
+    <a href="#faculty" class="hover:text-brand-400 transition-colors">Faculty</a>
+    <a href="#results" class="hover:text-brand-400 transition-colors">Results</a>
+    <a href="#about" class="hover:text-brand-400 transition-colors">About</a>
+    <a href="https://www.edushastra.com/login/" class="hover:text-brand-400 transition-colors">Login</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════
+     HERO
+══════════════════════════════ -->
+<section class="hero-bg relative min-h-screen flex items-center pt-20 pb-10 px-6">
+  <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-16 items-center relative z-10">
+
+    <!-- Left -->
+    <div class="space-y-6">
+      <div class="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/30 rounded-full px-4 py-1.5 text-brand-400 text-xs font-semibold tracking-widest uppercase">
+        <span class="w-1.5 h-1.5 bg-brand-400 rounded-full animate-pulse"></span>
+        CAT 2026 · Batches Open
+      </div>
+
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-800 leading-[1.05] text-white [font-variant-numeric:lining-nums]">
+        Top Rated <span class="text-brand-500">+4.9/5</span><br/>
+        Everywhere<br/></h1>
+<a href="https://www.edushastra.com/adaptive-course-path-personalized-learning/" ><h1 class="font-display text-[35px] md:text-[42px] lg:text-[48px] font-800 leading-[1.05] text-white [font-variant-numeric:lining-nums]"><span class="text-brand-500">5-Levels Percentile</span><br/>
+        Based Batches
+      </h1></a>
+
+      <!-- Guarantees row -->
+      <div class="flex flex-wrap gap-3">
+        <a href="https://www.edushastra.com/our-faculty-2/"  class="glass rounded-full px-4 py-2 text-[17px] font-medium text-white">📊 CAT 100%ilers as Faculty</a>
+        <a href="https://www.edushastra.com/ability-based-model/"  class="glass rounded-full px-4 py-2 text-[17px] font-medium text-white">✅ Ability Based Model - Lifetime Validity</a>
+        <a href="https://www.edushastra.com/money-back-promise/"  class="glass rounded-full px-4 py-2 text-[17px] font-medium text-white">🎯 +99%ile or Fee Refund Promise</a>
+      </div>
+
+      <p class="text-lg text-ink-200 max-w-xl leading-relaxed">
+        EduShastra's proprietary Entrance Mapping Test segments you into one of five ability-based percentile groups. Every student gets a custom curriculum, pace, and panel of dedicated teachers — not a one-size lecture.
+      </p>
+      
+    </div>
+
+    <!-- Right: Exam overview card -->
+    
+<div class="relative -top-[10px]">
+      <div class="relative rounded-3xl overflow-hidden border border-white/10">
+        <img
+          src="https://www.edushastra.com/wp-content/uploads/2026/03/Apex-final-e1774841680687.webp"
+          alt="EduShastra Apex Batch – Elite Test Prep"
+          class="w-full object-cover rounded-3xl"
+          loading="eager"
+          fetchpriority="high"
+        />  
+    </div>
+
+      <!-- Batch starts badge -->
+      <div class="glass-orange rounded-2xl p-5 flex items-center gap-5">
+        <div class="w-12 h-12 bg-brand-500/20 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">📅</div>
+        <div>
+          <p class="font-display font-700 text-white text-base">Next Batch Starts March 31</p>
+          <p class="text-ink-200 text-xs mt-1">Weekday & Weekend options · Seats filling fast</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     HERO SECTION
+══════════════════════════════ -->
+<section class="hero-bg relative min-h-[75vh] flex items-center py-6 px-6">
+  <!-- Decorative blobs -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute top-1/3 right-10 w-96 h-96 rounded-full bg-brand-500/5 blur-3xl"></div>
+    <div class="absolute bottom-10 left-1/4 w-80 h-80 rounded-full bg-brand-400/5 blur-3xl"></div>
+    <div class="absolute top-20 left-10 w-64 h-64 rounded-full bg-brand-500/5 blur-3xl"></div>
+  </div>
+
+  <div class="max-w-5xl mx-auto w-full relative z-10">
+    <!-- Centered Card -->
+    <div class="bg-white/5 border border-white/10 rounded-2xl px-12 py-16 text-center reveal">
+
+      <!-- Heading -->
+      <h1 class="font-display text-5xl md:text-6xl font-900 tracking-tight text-white mb-4">
+        ABOUT EDUSHASTRA
+      </h1>
+
+      <!-- Tagline row -->
+      <p class="text-brand-400 font-semibold text-sm uppercase tracking-widest mb-10 flex items-center justify-center gap-3">
+        <span>Think Big</span>
+        <span class="opacity-50">•</span>
+        <span>Innovate</span>
+        <span class="opacity-50">•</span>
+        <span>Scale Up</span>
+        <span class="opacity-50">•</span>
+        <span>Disrupt</span>
+      </p>
+
+      <!-- Body -->
+      <p class="text-base text-ink-200 leading-relaxed max-w-2xl mx-auto">
+        Founded by alumni from IIT, IIM, and Ivy League institutions, EduShastra is a rapidly expanding EdTech
+        force built at the intersection of profit and purpose. We are a unique Education & Real Estate Group
+        proving that rapid business scaling and profound social impact can coexist seamlessly.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- ══════════════════════════════
+     GROWTH & K-FACTOR
+══════════════════════════════ -->
+<section id="growth-strategy" class="py-6 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-2 gap-8">
+
+      <!-- LEFT CARD: Unprecedented Growth & The K-Factor -->
+      <div class="glass rounded-3xl p-10 border border-white/10 reveal">
+        <h2 class="font-display text-2xl md:text-3xl font-800 text-white mb-6">
+          Unprecedented Growth &amp; The K-Factor
+        </h2>
+
+        <p class="text-ink-200 leading-relaxed mb-4 text-sm">
+          Since our inaugural year with <strong class="text-white">₹1.85 CR in revenue</strong>, we have maintained an aggressive
+          <strong class="text-brand-400">130–170% YoY growth</strong> trajectory. In FY 2023–2026, we leveraged this financial strength to honor our
+          philanthropic roots by providing our entire curriculum completely free of charge.
+        </p>
+
+        <p class="text-ink-200 leading-relaxed mb-8 text-sm">
+          This deliberate strategic move catalyzed a viral growth loop—<strong class="text-white">The K-Factor</strong>—solidifying our position as a dominant market leader. While
+          trading short-term margins, we achieved a massive surge in brand equity:
+        </p>
+
+        <!-- Bullet list -->
+        <ul class="space-y-4">
+          <li class="flex items-center gap-3 pb-4 border-b border-white/10">
+            <span class="text-brand-500 font-bold text-lg leading-none">✓</span>
+            <span class="text-brand-400 font-semibold text-sm">6 Lakh+ Social Media Followers</span>
+          </li>
+          <li class="flex items-center gap-3 pb-4 border-b border-white/10">
+            <span class="text-brand-500 font-bold text-lg leading-none">✓</span>
+            <span class="text-brand-400 font-semibold text-sm">3 Lakh+ YouTube Subscribers</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="text-brand-500 font-bold text-lg leading-none">✓</span>
+            <span class="text-brand-400 font-semibold text-sm">Exponential Social Impact</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- RIGHT CARD: Our Unique Business Strategy -->
+      <div class="glass rounded-3xl p-10 border border-white/10 reveal">
+        <h2 class="font-display text-2xl md:text-3xl font-800 text-white mb-4">
+          Our Unique Business Strategy
+        </h2>
+
+        <p class="text-ink-200 leading-relaxed mb-8 text-sm">
+          We operate on a distinctive model that prioritizes product excellence
+          and organic growth over traditional marketing.
+        </p>
+
+        <!-- Strategy bullet list -->
+        <ul class="space-y-6">
+          <li class="flex items-start gap-3 pb-6 border-b border-white/10">
+            <span class="text-brand-500 font-bold text-lg leading-none mt-0.5">✓</span>
+            <p class="text-ink-200 text-sm leading-relaxed">
+              <strong class="text-brand-400">Product-Centric Approach:</strong> We believe a strong product
+              inherently requires <strong class="text-brand-400">"Zero Marketing."</strong>
+              Our results and students do the talking.
+            </p>
+          </li>
+          <li class="flex items-start gap-3 pb-6 border-b border-white/10">
+            <span class="text-brand-500 font-bold text-lg leading-none mt-0.5">✓</span>
+            <p class="text-ink-200 text-sm leading-relaxed">
+              <strong class="text-brand-400">Financial Independence:</strong> We experience steady organic growth
+              and have <strong class="text-brand-400">deliberately declined external funding</strong> to maintain our
+              independent mission.
+            </p>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-brand-500 font-bold text-lg leading-none mt-0.5">✓</span>
+            <p class="text-ink-200 text-sm leading-relaxed">
+              <strong class="text-brand-400">Lean Operations:</strong> Operating <strong class="text-brand-400">without a Sales &amp; Marketing
+              Department</strong>, we rely entirely on our students and product quality
+              as our primary strength.
+            </p>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     PHILANTHROPIC MISSION
+══════════════════════════════ -->
+<section id="mission" class="py-6 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="accent-line reveal mx-auto" style="margin: 0 auto 1.5rem;"></span>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white mb-4 reveal">
+        Our <span class="text-brand-500">Philanthropic Mission</span>
+      </h2>
+      <p class="text-ink-200 max-w-2xl mx-auto reveal">
+        Every decision we make is guided by a single north star: <em>For People, Not for Profits.</em>
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      <div class="reveal mission-card glass rounded-2xl p-6 border border-white/10">
+        <div class="text-4xl mb-4">🎓</div>
+        <h4 class="font-display text-lg font-700 text-white mb-3">Affordable Quality Education</h4>
+        <p class="text-ink-300 text-sm leading-relaxed">
+          We offer diverse educational solutions — from Test Prep and Business Courses to Special and Moral Education — at the <strong class="text-brand-400">lowest market prices</strong>.
+        </p>
+      </div>
+
+      <div class="reveal mission-card glass rounded-2xl p-6 border border-white/10">
+        <div class="text-4xl mb-4">🤝</div>
+        <h4 class="font-display text-lg font-700 text-white mb-3">"For People, Not for Profits"</h4>
+        <p class="text-ink-300 text-sm leading-relaxed">
+          This is our foundational ideology. We are a <strong class="text-brand-400">people-centric organization</strong> providing world-class education at minimal cost.
+        </p>
+      </div>
+
+      <div class="reveal mission-card glass rounded-2xl p-6 border border-white/10">
+        <div class="text-4xl mb-4">🔋</div>
+        <h4 class="font-display text-lg font-700 text-white mb-3">Self-Sustainability</h4>
+        <p class="text-ink-300 text-sm leading-relaxed">
+          We aim for <strong class="text-brand-400">complete self-sufficiency</strong> through our earnings, pursuing our mission without relying on external charity or funding.
+        </p>
+      </div>
+
+      <div class="reveal mission-card glass rounded-2xl p-6 border border-white/10">
+        <div class="text-4xl mb-4">⚖️</div>
+        <h4 class="font-display text-lg font-700 text-white mb-3">Opposing Commercialization</h4>
+        <p class="text-ink-300 text-sm leading-relaxed">
+          We stand fundamentally against the <strong class="text-brand-400">profit-driven privatization</strong> of education that prioritizes ability to pay over merit.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════
+     EVOLUTION / DARK BANNER
+══════════════════════════════ -->
+<section id="evolution" class="py-6 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal rounded-3xl overflow-hidden relative" style="background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%); border: 1px solid rgba(249,115,22,0.2);">
+      <!-- Top accent -->
+      <div class="h-1 w-full bg-gradient-to-r from-brand-600 via-brand-400 to-brand-600"></div>
+
+      <div class="p-10 md:p-16">
+        <div class="absolute top-10 right-10 w-64 h-64 rounded-full bg-brand-500/08 blur-3xl pointer-events-none"></div>
+
+        <p class="text-brand-400 font-semibold text-sm uppercase tracking-widest mb-4">The Evolution</p>
+        <h2 class="font-display text-3xl md:text-5xl font-800 text-white mb-8 leading-tight">
+          Redefining the<br/>Industry Standard
+        </h2>
+        <p class="text-ink-200 text-lg leading-relaxed mb-8 max-w-3xl">
+          We are not just growing — we are redefining the industry standard. By trading short-term margins for long-term ecosystem leadership, we are now parlaying this massive reach into our most significant milestone yet: the transformation of EduShastra from a premier Test Prep leader into a <span class="text-brand-500">COMPREHENSIVE, HOLISTIC EDUCATION COMPANY.</span> We are here to support a student's journey from foundational learning to ultimate professional success — bridging the gap between aspiration and achievement for every Indian student, regardless of financial background.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     FOOTER
+══════════════════════════════ -->
+<footer class="border-t border-white/06 bg-ink-900 pt-16 pb-8 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-12 mb-12">
+      <div class="md:col-span-1 space-y-4">
+        <p class="font-display text-2xl font-800 text-white">Edu<span class="text-brand-500">Shastra</span></p>
+        <p class="text-ink-400 text-sm leading-relaxed">Affordable Quality Education for All. For People, Not Profits. Since 2016.</p>
+        <div class="flex gap-3 mt-4">
+          <a href="https://www.facebook.com/EduShastra.Philanthropy/" target="_blank" class="glass w-9 h-9 rounded-full flex items-center justify-center text-xs hover:border-brand-500/30 transition-all">fb</a>
+          <a href="https://www.instagram.com/edushastra/" target="_blank" class="glass w-9 h-9 rounded-full flex items-center justify-center text-xs hover:border-brand-500/30 transition-all">ig</a>
+          <a href="https://www.linkedin.com/company/edushastra" target="_blank" class="glass w-9 h-9 rounded-full flex items-center justify-center text-xs hover:border-brand-500/30 transition-all">in</a>
+          <a href="https://www.youtube.com/c/EduShastra" target="_blank" class="glass w-9 h-9 rounded-full flex items-center justify-center text-xs hover:border-brand-500/30 transition-all">yt</a>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Courses</p>
+        <ul class="space-y-2 text-ink-400 text-sm">
+          <li><a href="https://www.edushastra.com/cat-2026/" class="hover:text-brand-400 transition-colors">CAT 2026</a></li>
+          <li><a href="https://www.edushastra.com/gmat-prep/" class="hover:text-brand-400 transition-colors">GMAT Focus</a></li>
+          <li><a href="https://www.edushastra.com/common-universities-entrance-test/" class="hover:text-brand-400 transition-colors">CUET 2026</a></li>
+          <li><a href="https://www.edushastra.com/xat-preparation/" class="hover:text-brand-400 transition-colors">XAT Prep</a></li>
+          <li><a href="https://www.edushastra.com/sat-preparation/" class="hover:text-brand-400 transition-colors">SAT Prep</a></li>
+        </ul>
+      </div>
+
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Company</p>
+        <ul class="space-y-2 text-ink-400 text-sm">
+          <li><a href="https://www.edushastra.com/about-us/" class="hover:text-brand-400 transition-colors">About Us</a></li>
+          <li><a href="https://www.edushastra.com/why-us/" class="hover:text-brand-400 transition-colors">Why Us</a></li>
+          <li><a href="https://www.edushastra.com/edushastra-results/" class="hover:text-brand-400 transition-colors">Results</a></li>
+          <li><a href="https://www.edushastra.com/blog/" class="hover:text-brand-400 transition-colors">Blog</a></li>
+          <li><a href="https://www.edushastra.com/contact-us/" class="hover:text-brand-400 transition-colors">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Get in Touch</p>
+        <ul class="space-y-2 text-ink-400 text-sm">
+          <li><a href="tel:01147082205" class="hover:text-brand-400 transition-colors">011-47082205</a></li>
+          <li><a href="mailto:contact@edushastra.com" class="hover:text-brand-400 transition-colors">contact@edushastra.com</a></li>
+          <li class="text-xs leading-relaxed pt-2">EduShastra Knowledge House<br/>6th Floor, Brilliant Solitaire,<br/>Vijay Nagar, Indore, MP</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-white/06 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-ink-400 text-xs">
+      <p>© 2026 EduShastra Education Solutions Pvt. Ltd. All rights reserved.</p>
+      <div class="flex gap-4">
+        <a href="https://www.edushastra.com/terms-conditions-and-policies/" class="hover:text-brand-400 transition-colors">Terms</a>
+        <a href="https://www.edushastra.com/privacy-policy/" class="hover:text-brand-400 transition-colors">Privacy</a>
+        <a href="https://www.edushastra.com/hr-policy/" class="hover:text-brand-400 transition-colors">HR Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════
+     JAVASCRIPT
+══════════════════════════════ -->
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.style.background = window.scrollY > 80
+      ? 'rgba(13,13,13,0.97)'
+      : 'rgba(13,13,13,0.8)';
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('revealed'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
