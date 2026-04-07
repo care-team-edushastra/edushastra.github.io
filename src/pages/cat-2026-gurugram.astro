@@ -1,0 +1,1240 @@
+---
+// EduShastra — CAT 2026 Page (Astro)
+// Matches CUET design: dark bg, orange accent, glassmorphism, Syne + DM Sans
+---
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CAT 2026 Prep: Personalized IQ-Based Batches | EduShastra</title>
+  <meta name="description" content="Master CAT 2026 with EduShastra's scientific IQ-based batching. Personalized ability-based prep with 4-phase training. Target +99%ile with our Apex-25 batches." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.edushastra.com/cat-2026/" />
+
+  <meta property="og:title" content="CAT 2026 Prep: Personalized IQ-Based Batches | EduShastra" />
+  <meta property="og:description" content="Master CAT 2026 with EduShastra's IQ-based batching. +99%ile or Fee Refund Promise." />
+  <meta property="og:url" content="https://www.edushastra.com/cat-2026/" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+  <script is:inline src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50:  '#fff7ed',
+              100: '#ffedd5',
+              400: '#fb923c',
+              500: '#f97316',
+              600: '#ea6c0a',
+              700: '#c2540a',
+            },
+            ink: {
+              900: '#0d0d0d',
+              800: '#1a1a1a',
+              700: '#2d2d2d',
+              400: '#6b6b6b',
+              200: '#d4d4d4',
+              100: '#f5f5f5',
+            }
+          },
+          animation: {
+            'marquee': 'marquee 35s linear infinite',
+          },
+          keyframes: {
+            marquee: {
+              '0%':   { transform: 'translateX(0)' },
+              '100%': { transform: 'translateX(-50%)' },
+            },
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'DM Sans', sans-serif; background: #0d0d0d; color: #f5f5f5; }
+    h1,h2,h3,h4,h5,.font-display { font-family: 'Syne', sans-serif; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.35;
+    }
+
+    .hero-bg {
+      background:
+        radial-gradient(ellipse 70% 60% at 15% 50%, rgba(249,115,22,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 70% at 85% 20%, rgba(249,115,22,0.08) 0%, transparent 55%),
+        #0d0d0d;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      backdrop-filter: blur(12px);
+    }
+
+    .glass-orange {
+      background: rgba(249,115,22,0.06);
+      border: 1px solid rgba(249,115,22,0.2);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-blur {
+      background: rgba(13,13,13,0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .cta-glow:hover { box-shadow: 0 0 32px rgba(249,115,22,0.5); }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .revealed { opacity: 1; transform: translateY(0); }
+
+    .slider-track { display: flex; gap: 1.5rem; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
+
+    .batch-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .tier-card { transition: transform 0.3s ease, border-color 0.3s ease; }
+    .tier-card:hover { transform: translateY(-4px); }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(249,115,22,0.3), transparent);
+      margin: 0 auto;
+      width: 60%;
+    }
+
+    .table-row:nth-child(even) { background: rgba(255,255,255,0.02); }
+    .table-row:hover { background: rgba(249,115,22,0.06); }
+
+    /* Badge colors by mode */
+    .badge-online  { background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
+    .badge-offline { background: rgba(34,197,94,0.12); color: #86efac; border: 1px solid rgba(34,197,94,0.25); }
+    .badge-hybrid  { background: rgba(168,85,247,0.12); color: #d8b4fe; border: 1px solid rgba(168,85,247,0.25); }
+  </style>
+</head>
+
+<body class="relative overflow-x-hidden">
+
+<!-- ══════════════════════════════
+     NAVBAR
+══════════════════════════════ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-blur">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2">
+      <span class="font-display text-2xl font-800 text-white tracking-tight">Edu<span class="text-brand-500">Shastra</span></span>
+    </a>
+    <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-ink-200">
+      <li><a href="https://www.edushastra.com/courses/" class="hover:text-brand-400 transition-colors">Courses</a></li>
+      <li><a href="#batches" class="hover:text-brand-400 transition-colors">Batches</a></li>
+      <li><a href="#syllabus" class="hover:text-brand-400 transition-colors">Exam</a></li>
+      <li><a href="#faculty" class="hover:text-brand-400 transition-colors">Faculty</a></li>
+      <li><a href="#faqs" class="hover:text-brand-400 transition-colors">FAQs</a></li>
+    </ul>
+    <div class="flex items-center gap-3">
+      <a href="https://www.edushastra.com/login/" class="hidden md:block text-sm text-ink-200 hover:text-white transition-colors px-4 py-2">Login</a>
+      <a href="#enroll" class="cta-glow bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-300">
+        Enroll Now →
+      </a>
+      <button id="menuBtn" class="md:hidden text-white p-1" aria-label="Menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden px-6 pb-6 pt-2 flex flex-col gap-4 text-sm font-medium text-ink-200">
+    <a href="#batches">Batches</a>
+    <a href="#syllabus">Exam</a>
+    <a href="#faculty">Faculty</a>
+    <a href="#faqs">FAQs</a>
+    <a href="https://www.edushastra.com/login/">Login</a>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════
+     HERO
+══════════════════════════════ -->
+<section class="hero-bg relative min-h-screen flex items-center pt-20 pb-10 px-6">
+  <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-16 items-center relative z-10">
+
+    <!-- Left -->
+    <div class="space-y-6">
+      <div class="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/30 rounded-full px-4 py-1.5 text-brand-400 text-xs font-semibold tracking-widest uppercase">
+        <span class="w-1.5 h-1.5 bg-brand-400 rounded-full animate-pulse"></span>
+        CAT 2026 Gurugram · Batches Open
+      </div>
+
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-800 leading-[1.05] text-white [font-variant-numeric:lining-nums]">
+        Top Rated <span class="text-brand-500">+4.9/5</span><br/>
+        Everywhere<br/></h1>
+<a href="https://www.edushastra.com/adaptive-course-path-personalized-learning/" ><h1 class="font-display text-[35px] md:text-[42px] lg:text-[48px] font-800 leading-[1.05] text-white [font-variant-numeric:lining-nums]"><span class="text-brand-500">5-Levels Percentile</span><br/>
+        Based Batches
+      </h1></a>
+
+      <!-- Guarantees row -->
+      <div class="flex flex-wrap gap-3">
+        <a href="https://www.edushastra.com/our-faculty-2/"  class="glass rounded-full px-4 py-2 text-[17px] font-medium text-white">📊 CAT 100%ilers as Faculty</a>
+        <a href="https://www.edushastra.com/ability-based-model/"  class="glass rounded-full px-4 py-2 text-[17px] font-medium text-white">✅ Ability Based Model - Lifetime Validity</a>
+        <a href="https://www.edushastra.com/money-back-promise/"  class="glass rounded-full px-4 py-2 text-[17px] font-medium text-white">🎯 +99%ile or Fee Refund Promise</a>
+      </div>
+
+      <p class="text-lg text-ink-200 max-w-xl leading-relaxed">
+        EduShastra's proprietary Entrance Mapping Test segments you into one of five ability-based percentile groups. Every student gets a custom curriculum, pace, and panel of dedicated teachers — not a one-size lecture.
+      </p>
+      
+    </div>
+
+    <!-- Right: Exam overview card -->
+    
+<div class="relative -top-[10px]">
+      <div class="relative rounded-3xl overflow-hidden border border-white/10">
+        <img
+          src="https://www.edushastra.com/wp-content/uploads/2026/03/Apex-final-e1774841680687.webp"
+          alt="EduShastra Apex Batch – Elite Test Prep"
+          class="w-full object-cover rounded-3xl"
+          loading="eager"
+          fetchpriority="high"
+        />  
+    </div>
+
+      <!-- Batch starts badge -->
+      <div class="glass-orange rounded-2xl p-5 flex items-center gap-5">
+        <div class="w-12 h-12 bg-brand-500/20 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">📅</div>
+        <div>
+          <p class="font-display font-700 text-white text-base">Next Batch Starts March 31</p>
+          <p class="text-ink-200 text-xs mt-1">Weekday & Weekend options · Seats filling fast</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="evolution" class="py-6 px-6">
+  <div class="max-w-7xl mx-auto">
+        <div class="glass rounded-2xl overflow-hidden hover:border-brand-500/30 transition-all group">
+          <div class="reveal glass rounded-2xl p-6">
+            <p class="text-white text-lg font-600 tracking-wide mb-3">Maximize your productivity at EduShastra Gurugram, where we offer the city’s most flexible Triple-Shift scheduling. Our Gurugram center provides <span class="text-brand-400">dedicated morning, afternoon, and evening batches</span> to accommodate the diverse timing needs of working aspirants. This flexibility is integrated with our <span class="text-brand-400">5-level percentile-based personalization</span>, ensuring that regardless of when you attend, you receive instruction tailored to your specific competency level. Whether you are a corporate professional or a student, our Gurugram hub provides a high-stakes learning environment that adapts to your clock.</p>
+   </div>
+      </div>
+    </div>
+</section>
+
+<section class="py-6 px-6">
+  <div class="max-w-7xl mx-auto">
+<!-- GURUGRAM Centers -->
+    <div class="mb-6">
+      <h3 class="font-display text-2xl font-700 text-brand-500 mb-8">Gurugram Centers</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="glass rounded-2xl overflow-hidden hover:border-brand-500/30 transition-all group">
+          <div class="reveal glass rounded-2xl p-6">
+            <p class="text-white text-xs font-600 uppercase tracking-wide mb-3">Gurugram: Excelsior American School</p>
+            <div class="border-t border-white/10 pt-4">
+              <h3 class="font-display text-base font-700 text-brand-400 mb-2 group-hover:text-brand-300 transition-colors">Knowledge House</h3>
+              <p class="text-ink-300 text-sm leading-relaxed">
+                Golf Course Road, DLF Phase-1,<br/>
+                Sector-43, Gurugram,<br/>
+                 Haryana-122001.
+              </p>
+            </div>
+          </div>
+        </div>
+
+                <div class="glass rounded-2xl overflow-hidden hover:border-brand-500/30 transition-all group">
+          <div class="reveal glass rounded-2xl p-6">
+            <p class="text-white text-xs font-600 uppercase tracking-wide mb-3">Gurugram: DLF Sector-14</p>
+            <div class="border-t border-white/10 pt-4">
+              <h3 class="font-display text-base font-700 text-brand-400 mb-2 group-hover:text-brand-300 transition-colors">Knowledge House</h3>
+              <p class="text-ink-300 text-sm leading-relaxed">
+                1st Floor, 21, Old DLF Colony,<br/>
+                Sector-14, Block H, Gurugram<br/>
+                Haryana (Under Renovation)
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="glass rounded-2xl overflow-hidden hover:border-brand-500/30 transition-all group">
+          <div class="reveal glass rounded-2xl p-6">
+            <p class="text-white text-xs font-600 uppercase tracking-wide mb-3">Gurugram: DLF Phase-IV</p>
+            <div class="border-t border-white/10 pt-4">
+              <h3 class="font-display text-base font-700 text-brand-400 mb-2 group-hover:text-brand-300 transition-colors">Knowledge House</h3>
+              <p class="text-ink-300 text-sm leading-relaxed">
+                101, DLF Phase-IV,<br/>
+                Gurugram,<br/>
+                 Haryana-122002.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        
+      </div>
+    </div>
+    </div></section>
+<!-- ══════════════════════════════
+     SECTION: BATCH SCHEDULE
+══════════════════════════════ -->
+<section id="batches" class="py-4 px-6">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="reveal mb-4 text-left">
+      <p class="text-brand-400 text-base font-semibold tracking-widest uppercase mb-3">Upcoming Batches</p>
+      </h2>
+    </div>
+
+    <!-- Schedule table -->
+    <div class="reveal glass rounded-3xl overflow-hidden mb-16">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-white/08 bg-white/03">
+              <th class="text-left px-6 py-4 font-600 text-brand-400 font-display">Weekend & Weekday Batches @ Centers</th>
+              <th class="text-left px-6 py-4 font-600 text-brand-400 font-display">Reg. Deadline</th>
+              <th class="text-left px-6 py-4 font-600 text-brand-400 font-display">Mapping Start</th>
+              <th class="text-left px-6 py-4 font-600 text-brand-400 font-display">Batch Start</th>
+              <th class="text-left px-6 py-4 font-600 text-brand-400 font-display">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ["Weekday-CAT, Aurobindo Bhavan, C-56/36, Sector-62, Noida",        "31 March", "31 March", "31 March"],
+              ["Weekday-GMCAT, Aurobindo Bhavan, C-56/36, Sec.-62, Noida",         "31 March", "31 March", "31 March"],
+              ["Weekend-CAT, Aurobindo Bhavan, C-56/36, Sector-62, Noida", "31 March", "31 March", "31 March"],
+              ["Weekend-GMCAT, Aurobindo Bhavan, C-56/36, Sec. 62, Noida", "31 March", "31 March", "31 March"],
+            ].map(([name, reg, map, start]) => (
+              <tr class="table-row border-b border-white/05 hover:bg-brand-500/04 transition-colors">
+                <td class="px-6 py-4 text-white font-medium">{name}</td>
+                <td class="px-6 py-4 text-ink-200">{reg}</td>
+                <td class="px-6 py-4 text-ink-200">{map}</td>
+                <td class="px-6 py-4 text-ink-200">{start}</td>
+                <td class="px-6 py-4"><span class="batch-tag badge-online">Open</span></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+
+
+<!-- ═══════════════════════════════════════════
+     SUCCESS STORIES VIDEO SLIDER
+═══════════════════════════════════════════ -->
+<section id="results" class="py-8 px-6 bg-ink-800/20">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-6 text-center">
+      <p class="text-brand-400 text-xs font-semibold tracking-widest uppercase mb-1">Real Results</p>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">
+        Success Stories
+      </h2>
+    </div>
+
+     <!-- CAT Toppers -->    <div class="reveal mb-6 ">
+       <p class="text-brand-400 text-[30px] font-bold tracking-widest uppercase mb-1">CAT Toppers.</p>
+    <div class="relative" id="videoSlider">
+      <div class="overflow-hidden rounded-2xl">
+        <div class="slider-track" id="sliderTrack">
+
+          <div class="min-w-full md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-16px)]">
+            <div class="glass rounded-2xl overflow-hidden">
+              <div class="aspect-video bg-ink-800 relative">
+                <iframe
+                  class="w-full h-full"
+                  src="https://www.youtube.com/embed/iFB7LK6QsmQ?rel=0&modestbranding=1"
+                  title="EduShastra CAT Success Story 1"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="min-w-full md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-16px)]">
+            <div class="glass rounded-2xl overflow-hidden">
+              <div class="aspect-video bg-ink-800">
+                <iframe
+                  class="w-full h-full"
+                  src="https://www.youtube.com/embed/7mI6dHD-OeM?rel=0&modestbranding=1"
+                  title="EduShastra CAT Success Story 2"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="min-w-full md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-16px)]">
+            <div class="glass rounded-2xl overflow-hidden">
+              <div class="aspect-video bg-ink-800">
+                <iframe
+                  class="w-full h-full"
+                  src="https://www.youtube.com/embed/epHftXoU3Rg?rel=0&modestbranding=1"
+                  title="EduShastra CAT Success Story 3"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="min-w-full md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-16px)]">
+            <div class="glass rounded-2xl overflow-hidden">
+              <div class="aspect-video bg-ink-800">
+                <iframe
+                  class="w-full h-full"
+                  src="https://www.youtube.com/embed/TRYDqI99-wY?rel=0&modestbranding=1"
+                  title="EduShastra CAT Success Story 4"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+  </div>    </div>
+
+    <!-- GMAT Toppers -->    <div class="reveal mb-6 ">
+      <p class="text-brand-400 text-[30px] font-bold tracking-widest uppercase mb-3">GMAT Toppers.</p>
+    <div class="relative" id="videoSlider">
+      <div class="overflow-hidden rounded-2xl">
+        <div class="slider-track" id="sliderTrack">
+
+          <div class="min-w-full md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-16px)]">
+            <div class="glass rounded-2xl overflow-hidden">
+              <div class="aspect-video bg-ink-800 relative">
+                <iframe
+                  class="w-full h-full"
+                  src="https://www.youtube.com/embed/QJrt3bV31VM?rel=0&modestbranding=1"
+                  title="EduShastra GMAT Success Story 1"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="min-w-full md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-16px)]">
+            <div class="glass rounded-2xl overflow-hidden">
+              <div class="aspect-video bg-ink-800">
+                <iframe
+                  class="w-full h-full"
+                  src="https://www.youtube.com/embed/eUNSfRbbaAs?rel=0&modestbranding=1"
+                  title="EduShastra GMAT Success Story 2"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="min-w-full md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-16px)]">
+            <div class="glass rounded-2xl overflow-hidden">
+              <div class="aspect-video bg-ink-800">
+                <iframe
+                  class="w-full h-full"
+                  src="https://www.youtube.com/embed/iOUNqX6AKnY?rel=0&modestbranding=1"
+                  title="EduShastra GMAT Success Story 3"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="min-w-full md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-16px)]">
+            <div class="glass rounded-2xl overflow-hidden">
+              <div class="aspect-video bg-ink-800">
+                <iframe
+                  class="w-full h-full"
+                  src="https://www.youtube.com/embed/3bTP8Yv1F70?rel=0&modestbranding=1"
+                  title="EduShastra GMAT Success Story 4"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+  </div></div>
+    <!-- GMCAT Toppers -->    <div class="reveal mb-6 ">
+      <p class="text-brand-400 text-[30px] font-bold tracking-widest uppercase mb-3">GMCAT Toppers.</p>
+    <div class="relative" id="videoSlider">
+      <div class="overflow-hidden rounded-2xl">
+        <div class="slider-track" id="sliderTrack">
+
+          <div class="min-w-full md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-16px)]">
+            <div class="glass rounded-2xl overflow-hidden">
+              <div class="aspect-video bg-ink-800 relative">
+                <iframe
+                  class="w-full h-full"
+                  src="https://www.youtube.com/embed/gBOw4auB_zI?rel=0&modestbranding=1"
+                  title="EduShastra GMCAT Success Story 1"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="min-w-full md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-16px)]">
+            <div class="glass rounded-2xl overflow-hidden">
+              <div class="aspect-video bg-ink-800">
+                <iframe
+                  class="w-full h-full"
+                  src="https://www.youtube.com/embed/3golzQGiZtY?rel=0&modestbranding=1"
+                  title="EduShastra GMCAT Success Story 2"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="min-w-full md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-16px)]">
+            <div class="glass rounded-2xl overflow-hidden">
+              <div class="aspect-video bg-ink-800">
+                <iframe
+                  class="w-full h-full"
+                  src="https://www.youtube.com/embed/3_MvXZ3ydeY?rel=0&modestbranding=1"
+                  title="EduShastra GMCAT Success Story 3"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="min-w-full md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-16px)]">
+            <div class="glass rounded-2xl overflow-hidden">
+              <div class="aspect-video bg-ink-800">
+                <iframe
+                  class="w-full h-full"
+                  src="https://www.youtube.com/embed/FqC1bf-X9lA?rel=0&modestbranding=1"
+                  title="EduShastra GMCAT Success Story 4"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+  </div></div>
+ 
+  
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     SECTION: FACULTY
+══════════════════════════════ -->
+<section id="faculty" class="py-10 px-6">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="reveal mb-16 text-center">
+      <p class="text-brand-400 text-xs font-semibold tracking-widest uppercase mb-3">Who Teaches You</p>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">
+        Faculty Verified by<br/><span class="text-brand-500">Third-Party Audit</span>
+      </h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {[
+        { img: "https://www.edushastra.com/wp-content/uploads/2023/08/M_L_Parashar.webp",      name: "Mr. M L Parashar",    cred: "Rtd. Director, Dept. of Science & Tech., Govt. of India",           role: "Rtd. Deputy Secretary, Govt. of India, IIM-A, IIT-K" },
+        { img: "https://www.edushastra.com/wp-content/uploads/2025/09/Vipul-Parashar-EduShastra.webp", name: "Mr. Vipul Parashar",  cred: "CAT 2024 99.99%ile, CAT 2023 99.98%ile, GMAT 780",     role: "12+ yrs Teaching Exp in Education Industry" },
+        { img: "https://www.edushastra.com/wp-content/uploads/2025/02/ayush1.webp",            name: "Mr. Ayush Matcha",    cred: "CAT'22 99.78%, CAT Topper, IIM 2023-25",           role: "4+ yrs Teaching Exp in Education Industry" },
+        { img: "https://www.edushastra.com/wp-content/uploads/2026/01/vibha-e1767786486545.webp", name: "Ms. Vibha Malhotra",  cred: "CAT QA 100%iler, GMAT FE 745 Scorer",          role: "16+ yrs Teaching Exp in Education Industry" },
+        { img: "https://www.edushastra.com/wp-content/uploads/2024/12/teachers007.webp",       name: "Mr. Pawan Shahi",     cred: "CAT 2024 99.92%ile, GMAT FE 765 Scorer", role: "NIT Alumnus. CAT Topper." },
+        { img: "https://www.edushastra.com/wp-content/uploads/2023/08/Deepak_Jain.webp",       name: "Mr. Deepak Jain",     cred: "IIT/IIM Alumnus, CAT 100%iler & GMAT 790 Scorer",  role: "Rtd. Indian Administrative Service Officer - UT" },
+        { img: "https://www.edushastra.com/wp-content/uploads/2023/08/kushalbhardwaj.webp",    name: "Dr. Kushal Bhardwaj", cred: "Ph.D. (DU), CAT 99.99%iler & GMAT 780 Scorer", role: "16+ yrs Exp at Leadership Level in IT & Retail" },
+        { img: "https://www.edushastra.com/wp-content/uploads/2023/08/ankur-agarwal.webp",      name: "Mr. Ankur Agarwal",      cred: "16+ yrs Teaching Exp in Education Industry",  role: "Former Deputy Director-LPU, Multiple Top Scores" },
+      ].map(f => (
+        <div class="reveal glass rounded-3xl overflow-hidden group hover:border-brand-500/30 transition-all duration-300 hover:-translate-y-1">
+          <div class="aspect-[4/4] bg-ink-800 overflow-hidden">
+            <img src={f.img} alt={f.name} class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          </div>
+          <div class="p-5">
+            <p class="font-display font-700 text-white text-[20px]">{f.name}</p>
+            <p class="text-brand-400 text-[18px] font-semibold mt-0.5 mb-1.5">{f.cred}</p>
+            <p class="text-ink-400 text-white text-[18px] leading-relaxed">{f.role}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="text-center mt-10">
+      <a href="https://www.edushastra.com/our-faculty-2" target="_blank" rel="noopener" class="glass hover:bg-white/10 text-ink-200 hover:text-white text-sm font-semibold px-8 py-3.5 rounded-full transition-all duration-300 inline-block">
+        Meet All Faculty →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     SECTION: COURSE TIERS
+══════════════════════════════ -->
+<section id="batches" class="py-6 px-6" >
+  <div class="max-w-7xl mx-auto">
+    
+    <div class="reveal mb-6">
+    <h3 class="font-display text-3xl font-800 text-white mb-2">Elite Batches <span class="text-base font-body font-normal text-ink-400 ml-2">CAT 2026</span></h3>
+    <p class="text-ink-200 text-base">Batch Size of 100-150 Students. Interactive Live Online Classes</p>
+    </div>
+
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+
+    <!-- Free Hybrid -->
+    <div class="tier-card glass rounded-3xl overflow-hidden">
+      <div class="h-1 bg-gradient-to-r from-brand-500 to-brand-400"></div>
+      <div class="p-7">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <span class="batch-tag badge-hybrid mb-2 inline-block">Hybrid</span>
+            <h4 class="font-display text-lg font-700 text-white">Free Live Hybrid Course</h4>
+          </div>
+          <div class="text-right">
+            <p class="font-display text-2xl font-800 text-brand-400">Free</p>
+            <p class="text-ink-400 text-xs line-through">₹15,999</p>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm text-ink-200 mb-6">
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> 500+ Hours Course Cycle</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Audio, Video & Chat Interaction</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Live In-class Doubt Solving</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Personalized Learning Experience</li>
+        </ul>
+        <div class="flex gap-2">
+          <a href="https://www.edushastra.com/faq-cat-live-online-free-course/" class="flex-1 text-center border border-brand-500/40 text-brand-400 text-xs font-semibold px-4 py-2.5 rounded-full hover:bg-brand-500/10 transition-all">Explore</a>
+          <a href="https://www.edushastra.com/faq-cat-live-online-free-course/" class="flex-1 text-center bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">Enroll Free</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Self Paced -->
+    <div class="tier-card glass rounded-3xl overflow-hidden">
+      <div class="p-7">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <span class="batch-tag badge-online mb-2 inline-block">Online</span>
+            <h4 class="font-display text-lg font-700 text-white">Self-Paced Personalized</h4>
+          </div>
+          <div class="text-right">
+            <p class="font-display text-2xl font-800 text-brand-400">₹6,999</p>
+            <p class="text-ink-400 text-xs line-through">₹12,069</p>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm text-ink-200 mb-6">
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> 500+ Hours Course Cycle</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Fully Personalized Path</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> 24×7 Doubt Solving</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Validity till April 2027</li>
+        </ul>
+        <div class="flex gap-2">
+          <a href="https://www.edushastra.com/faqs-self-paced-personalized-course/" class="flex-1 text-center border border-brand-500/40 text-brand-400 text-xs font-semibold px-4 py-2.5 rounded-full hover:bg-brand-500/10 transition-all">Explore</a>
+          <a href="https://www.edushastra.com/cat-courses-payment-portal/" class="flex-1 text-center bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">Enroll Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Elite Test Series -->
+    <div class="tier-card glass rounded-3xl overflow-hidden">
+      <div class="p-7">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <span class="batch-tag badge-online mb-2 inline-block">Online</span>
+            <h4 class="font-display text-lg font-700 text-white">Elite Plus Test Series</h4>
+          </div>
+          <div class="text-right">
+            <p class="font-display text-2xl font-800 text-brand-400">₹2,999</p>
+            <p class="text-ink-400 text-xs line-through">₹5,998</p>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm text-ink-200 mb-6">
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> 500+ FL & Sectional Tests</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Computer-Adaptive Tests</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> AI-Based Performance Analytics</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Validity till April 2027</li>
+        </ul>
+        <div class="flex gap-2">
+          <a href="https://www.edushastra.com/faqs-elite-plus-cat-test-series/" class="flex-1 text-center border border-brand-500/40 text-brand-400 text-xs font-semibold px-4 py-2.5 rounded-full hover:bg-brand-500/10 transition-all">Explore</a>
+          <a href="https://www.edushastra.com/cat-courses-payment-portal/" class="flex-1 text-center bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">Enroll Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Elite Live Online -->
+    <div class="tier-card glass rounded-3xl overflow-hidden">
+      <div class="p-7">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <span class="batch-tag badge-online mb-2 inline-block">Online</span>
+            <h4 class="font-display text-lg font-700 text-white">Elite Live Online Course</h4>
+          </div>
+          <div class="text-right">
+            <p class="font-display text-2xl font-800 text-brand-400">₹6,999</p>
+            <p class="text-ink-400 text-xs line-through">₹14,899</p>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm text-ink-200 mb-6">
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> 500+ Hours Course Cycle</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Live Classes & Recordings</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Batch Size: 150–200 Students</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Validity till April 2027</li>
+        </ul>
+        <div class="flex gap-2">
+          <a href="https://www.edushastra.com/elite-eliteplus" class="flex-1 text-center border border-brand-500/40 text-brand-400 text-xs font-semibold px-4 py-2.5 rounded-full hover:bg-brand-500/10 transition-all">Explore</a>
+          <a href="https://www.edushastra.com/cat-courses-payment-portal/" class="flex-1 text-center bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">Enroll Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+
+  <!-- Elite Plus Hybrid -->
+<section id="batches" class="py-6 px-6" >
+  <div class="max-w-7xl mx-auto">
+    
+    <div class="reveal mb-6">
+    <h3 class="font-display text-3xl font-800 text-white mb-2">Elite Plus Batches <span class="text-base font-body font-normal text-ink-400 ml-2">CAT 2026</span></h3>
+    <p class="text-ink-200 text-base">Batch size of 25–30 studets. Audio, Video, Writing, and Chat Interaction</p>
+  </div>
+
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+
+
+   <!-- Elite Plus Live Online -->
+    <div class="tier-card glass rounded-3xl overflow-hidden border-brand-500/25">
+      <div class="h-1 bg-gradient-to-r from-brand-500 to-brand-400"></div>
+      <div class="p-7">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <span class="batch-tag badge-online mb-2 inline-block">Online</span>
+            <h4 class="font-display text-lg font-700 text-white">Elite Plus Live Online</h4>
+          </div>
+          <div class="text-right">
+            <p class="font-display text-2xl font-800 text-brand-400">₹18,999</p>
+            <p class="text-ink-400 text-xs line-through">₹42,220</p>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm text-ink-200 mb-6">
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> 500+ Hours Course Cycle</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Audio, Video & Chat Interaction</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Batch Size: 25–30 Students</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Validity till April 2027</li>
+        </ul>
+        <div class="flex gap-2">
+          <a href="https://www.edushastra.com/elite-eliteplus" class="flex-1 text-center border border-brand-500/40 text-brand-400 text-xs font-semibold px-4 py-2.5 rounded-full hover:bg-brand-500/10 transition-all">Explore</a>
+          <a href="https://www.edushastra.com/cat-courses-payment-portal/" class="flex-1 text-center bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">Enroll Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Classroom -->
+    <div class="tier-card glass rounded-3xl overflow-hidden">
+      <div class="p-7">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <span class="batch-tag badge-offline mb-2 inline-block">Classroom</span>
+            <h4 class="font-display text-lg font-700 text-white">Elite Plus Classroom</h4>
+          </div>
+          <div class="text-right">
+            <p class="font-display text-2xl font-800 text-brand-400">₹54,999</p>
+            <p class="text-ink-400 text-xs line-through">₹94,826</p>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm text-ink-200 mb-6">
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> 500+ Hours Course Cycle</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Batch Size: 25–30 Students</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> In-class Doubt Solving</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Validity till April 2027</li>
+        </ul>
+        <div class="flex gap-2">
+          <a href="https://www.edushastra.com/elite-eliteplus" class="flex-1 text-center border border-brand-500/40 text-brand-400 text-xs font-semibold px-4 py-2.5 rounded-full hover:bg-brand-500/10 transition-all">Explore</a>
+          <a href="https://www.edushastra.com/cat-courses-payment-portal/" class="flex-1 text-center bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">Enroll Now</a>
+        </div>
+      </div>
+    </div>
+     <!-- elite plus hybrid-->
+    <div class="tier-card glass rounded-3xl overflow-hidden">
+      <div class="p-7">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <span class="batch-tag badge-hybrid mb-2 inline-block">Hybrid</span>
+            <h4 class="font-display text-lg font-700 text-white">Elite Plus Hybrid Course</h4>
+          </div>
+          <div class="text-right">
+            <p class="font-display text-2xl font-800 text-brand-400">₹55,999</p>
+            <p class="text-ink-400 text-xs line-through">₹103,702</p>
+          </div>
+        </div>
+        <ul class="space-y-2 text-sm text-ink-200 mb-6">
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> 500+ Hours Course Cycle</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Personalized Learning Experience</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Batch Size: 25–30 Students</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Validity till April 2027</li>
+        </ul>
+        <div class="flex gap-2">
+          <a href="https://www.edushastra.com/elite-eliteplus" class="flex-1 text-center border border-brand-500/40 text-brand-400 text-xs font-semibold px-4 py-2.5 rounded-full hover:bg-brand-500/10 transition-all">Explore</a>
+          <a href="https://www.edushastra.com/cat-courses-payment-portal/" class="flex-1 text-center bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">Enroll Now</a>
+        </div>
+      </div>
+    </div>
+
+    </div>
+        </div>
+
+</section>
+
+<!-- ══════════════════════════════
+     SECTION: APEX-25 SPOTLIGHT
+══════════════════════════════ -->
+<section class="py-6 px-6 relative overflow-hidden bg-ink-800/20">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-brand-500/06 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto relative z-10">
+
+    <div class="reveal text-center mb-14">
+      <span class="inline-block bg-brand-500/15 border border-brand-500/30 text-brand-400 text-xs font-bold tracking-widest uppercase px-5 py-2 rounded-full mb-5">
+        ⚡ Most Exclusive CAT Program
+      </span>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">
+        +99%ile Apex-25 Batch
+      </h2>
+      <p class="text-ink-200 mt-4 max-w-2xl mx-auto text-sm leading-relaxed">
+        Only 25 seats. IQ-based entrance test. 8–9 dedicated teachers. Lifetime validity. This is test prep redesigned from first principles.
+      </p>
+    </div>
+
+    <!-- Apex pricing -->
+    <div class="reveal mb-6">
+      <h3 class="font-display text-2xl font-800 text-white">Apex-25 Program Fees</h3>
+      <p class="text-ink-400 text-sm mt-1">Batch Size of 25 Students. Highly Personalized Course.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 mb-10">
+      {[
+        { mode: "Live Online",          badge: "badge-online",  price: "₹34,999",  orig: "₹79,544", link: "/faqs-99ile-apex-30-batch-course-details/" },
+        { mode: "Classroom (Offline)",  badge: "badge-offline", price: "₹58,999", orig: "₹122,915", link: "/faqs-99ile-apex-30-batch-course-details/" },
+        { mode: "Hybrid",               badge: "badge-hybrid",  price: "₹59,999", orig: "₹127,658", link: "/faqs-99ile-apex-30-batch-course-details/" },
+      ].map(c => (
+        <div class="glass rounded-3xl overflow-hidden">
+          <div class="h-1 bg-gradient-to-r from-brand-700 to-brand-500"></div>
+          <div class="p-7">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <span class={`batch-tag ${c.badge} mb-2 inline-block`}>{c.mode}</span>
+                <h4 class="font-display text-lg font-700 text-white">+99%ile Apex-25</h4>
+              </div>
+              <div class="text-right">
+                <p class="font-display text-2xl font-800 text-brand-400">{c.price}</p>
+                <p class="text-ink-400 text-xs line-through">{c.orig}</p>
+              </div>
+            </div>
+            <ul class="space-y-2 text-sm text-ink-200 mb-6">
+              <li class="flex gap-2"><span class="text-brand-400">✓</span> 500+ Hours Course Cycle</li>
+              <li class="flex gap-2"><span class="text-brand-400">✓</span> Average 25 Students per Batch</li>
+              <li class="flex gap-2"><span class="text-brand-400">✓</span> Live 24×7 Doubt Solving</li>
+              <li class="flex gap-2"><span class="text-brand-400">✓</span> Lifetime Validity</li>
+              <li class="flex gap-2 text-brand-300 font-medium"><span>⭐</span> Application Fee: ₹2 only</li>
+            </ul>
+            <div class="flex gap-2">
+              <a href={`https://www.edushastra.com${c.link}`} class="flex-1 text-center border border-brand-500/40 text-brand-400 text-xs font-semibold px-4 py-2.5 rounded-full hover:bg-brand-500/10 transition-all">Explore</a>
+              <a href={`https://www.edushastra.com${c.link}`} class="flex-1 text-center bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">Apply Now</a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Apex application steps -->
+    <div class="reveal glass rounded-3xl p-8">
+  <h3 class="font-display text-xl font-700 text-white mb-6">How to Apply for Apex-25</h3>
+  
+  {/* Changed gap and forced a single column layout */}
+  <div class="grid grid-cols-1 gap-1">
+    {[
+      ["Apply Now:", "To secure your spot, click Apply Now in the Program Fees section."],
+      ["Application Fees:", "The fees to apply in the +99%ile Apex-25 batch is ₹2."],
+      ["Post Fee Payment Procedure:", "After the successful payment please share details to contact@edushastra.com with your Name, Email ID, Contact number and Course details."],
+      ["Entrance Mapping Test:", "After the payment confirmation a Mapping Test will be sent to a student."],
+      ["Enrollment Invite:", "The selection of students will be determined by their performance on the Entrance Mapping Test and a review of their academic records. Selected students will receive Batch enrollment invite in their email."],
+    ].map(([step, desc], i) => (
+      /* Changed to flex for a horizontal look within each vertical step */
+      <div class="glass-orange rounded-2xl p-2 flex items-center gap-5">
+        <div class="text-left">
+          <p class="font-display font-700 text-brand-400 text-xl mb-1">Step {i + 1}: {step} <span class="text-white text-base">{desc}</span></p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     SECTION: EXAM STRUCTURE
+══════════════════════════════ -->
+<section id="syllabus" class="py-10 px-6 bg-ink-800/20">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="reveal mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div>
+        <p class="text-brand-400 text-xs font-semibold tracking-widest uppercase mb-3">What You're Preparing For</p>
+        <h2 class="font-display text-4xl md:text-5xl font-800 text-white leading-tight">
+          CAT Exam<br/><span class="text-brand-500">Structure</span>
+        </h2>
+      </div>
+      <p class="text-ink-200 max-w-sm text-sm leading-relaxed">2-hour computer-based test. 3 timed sections. 40 minutes per section. MCQs and TITA format.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+      {[
+        {
+          label: "Section I",
+          title: "VARC",
+          detail: "Verbal Ability & Reading Comprehension — Critical reading, grammar, vocabulary, sentence completion, and logical reading.",
+          questions: "40 of 40",
+          time: "40 min",
+          color: "blue"
+        },
+        {
+          label: "Section II",
+          title: "DILR",
+          detail: "Data Interpretation & Logical Reasoning — Caselets, tables, charts, graphs, puzzles, and analytical reasoning.",
+          questions: "40 of 40",
+          time: "40 min",
+          color: "purple"
+        },
+        {
+          label: "Section III",
+          title: "QA",
+          detail: "Quantitative Ability — Arithmetic, Algebra, Geometry, Modern Math, numbers, and numerical reasoning.",
+          questions: "40 of 40",
+          time: "40 min",
+          color: "orange"
+        },
+      ].map(s => (
+        <div class={`reveal tier-card glass rounded-3xl p-7 ${s.color === 'orange' ? 'border-brand-500/30' : ''}`}>
+          <span class="batch-tag mb-4 inline-block" style={`background: rgba(${s.color==='blue'?'59,130,246':s.color==='purple'?'168,85,247':'249,115,22'},0.12); color: ${s.color==='blue'?'#93c5fd':s.color==='purple'?'#d8b4fe':'#fb923c'}; border: 1px solid rgba(${s.color==='blue'?'59,130,246':s.color==='purple'?'168,85,247':'249,115,22'},0.3);`}>
+            {s.label}
+          </span>
+          <h3 class="font-display text-xl font-700 text-white mb-3">{s.title}</h3>
+          <p class="text-ink-200 text-xs leading-relaxed mb-5">{s.detail}</p>
+          <div class="flex gap-4 text-xs">
+            <div class="glass rounded-lg px-3 py-2 text-center">
+              <p class="font-display font-700 text-white">{s.questions}</p>
+              <p class="text-ink-400 mt-0.5">Questions</p>
+            </div>
+            <div class="glass rounded-lg px-3 py-2 text-center">
+              <p class="font-display font-700 text-white">{s.time}</p>
+              <p class="text-ink-400 mt-0.5">Duration</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Syllabus details -->
+    <div class="reveal glass rounded-3xl p-8">
+      <h3 class="font-display text-xl font-700 text-white mb-6">CAT 2026 Syllabus Overview</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div>
+          <h4 class="font-display font-700 text-brand-400 text-sm mb-4">VARC Topics</h4>
+          <ul class="space-y-2 text-sm text-ink-200">
+            {["Reading Comprehension", "Para Jumbles", "Sentence Completion", "Odd Sentence Out", "Critical Reasoning", "Grammar & Vocabulary"].map(t => (
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-500 rounded-full flex-shrink-0"></span>{t}</li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-display font-700 text-brand-400 text-sm mb-4">DILR Topics</h4>
+          <ul class="space-y-2 text-sm text-ink-200">
+            {["Tables & Caselets", "Line & Bar Graphs", "Venn Diagrams", "Blood Relations", "Syllogisms", "Seating Arrangements"].map(t => (
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-500 rounded-full flex-shrink-0"></span>{t}</li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-display font-700 text-brand-400 text-sm mb-4">QA Topics</h4>
+          <ul class="space-y-2 text-sm text-ink-200">
+            {["Arithmetic", "Algebra", "Geometry", "Trigonometry", "Permutation & Combination", "Probability"].map(t => (
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-500 rounded-full flex-shrink-0"></span>{t}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <a href="https://www.edushastra.com/cat-introduction/" target="_blank" rel="noopener" class="inline-block mt-6 text-brand-400 hover:text-brand-300 text-sm font-semibold transition-colors">
+        View full CAT exam details →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════
+     SECTION: TEACHING MODEL
+══════════════════════════════ -->
+<section class="py-6 px-6 bg-ink-800/20">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="reveal mb-10 text-center">
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">
+       <span class="text-brand-500">Why Us?</span>
+      </h2>
+    </div>
+
+
+      <div class="grid md:grid-cols-3 gap-4">
+        {[
+          { icon: "🧠", title: "5-Levels Percentile Based Batches", desc: "Students are mapped into one of five homogeneous Series (from 60 to 100 percentile) to ensure the teaching pace and level of competition perfectly match their current standing." },
+          { icon: "🎯", title: "CAT/GMAT 100%ilers as Faculty", desc: "The program is driven by top-tier mentors who have personally achieved a 100 percentile, ensuring students learn the exact strategies used by the world's highest scorers." },
+          { icon: "📈", title: "IQ-Based Batch Segregation", desc: "Using a scientific Mapping Test, students are grouped by cognitive ability to provide a customized learning environment where lower-IQ groups focus on fundamentals and higher-IQ groups focus on rapid application." },
+          { icon: "🔄", title: "Ability Based Model - Lifetime Validity", desc: "This model replaces fixed timelines with mastery-based progression, allowing students to repeat course cycles for free until they reach their optimal potential." },
+          { icon: "💸", title: "+99%ile or Fee Refund Promise", desc: "EduShastra offers a formal money-back guarantee where the course fee is refunded if a student fails to achieve the promised 99+ percentile (or 720+ GMAT) after completing the program requirements." },
+          { icon: "🎯", title: "Free End-to-End Admission Services", desc: "Beyond test prep, students receive complimentary, one-on-one support for the entire journey, including profile evaluation, B-school selection, application editing, and interview preparation." },
+        ].map(f => (
+          <div class="reveal glass rounded-2xl p-5">
+            <div class="text-2xl mb-3"><h4 class="font-display font-700 text-brand-500 text-2x1 mb-3">{f.icon} {f.title}</h4></div>
+            <p class="text-white text-base leading-relaxed">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     SECTION: CITIES
+══════════════════════════════ -->
+<section class="py-10 px-6 bg-ink-800/20">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal text-center mb-6">
+      <p class="text-brand-400 text-xs font-semibold tracking-widest uppercase mb-3">Find Your Centre</p>
+      <h2 class="font-display text-4xl font-800 text-white">Available Across India</h2>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      {[
+        { city: "Delhi NCR",  link: "/cat-2026-delhi/" },
+        { city: "Gurugram",   link: "/cat2026-preparation-in-gurugram/" },
+        { city: "Noida",      link: "/cat-2026-noida/" },
+        { city: "Hyderabad",  link: "/cat2026-preparation-in-hyderabad/" },
+        { city: "Bengaluru",  link: "/cat2026-preparation-in-bengaluru/" },
+        { city: "Mumbai",     link: "/cat2026-preparation-in-mumbai/" },
+        { city: "Chennai",    link: "/cat2026-preparation-in-chennai/" },
+        { city: "Kolkata",    link: "/cat2026-preparation-in-kolkata/" },
+      ].map(c => (
+        <a href={`https://www.edushastra.com${c.link}`} class="reveal tier-card glass rounded-2xl p-6 text-center hover:border-brand-500/30 group">
+          <p class="font-display font-700 text-white text-base group-hover:text-brand-400 transition-colors">{c.city}</p>
+          <p class="text-ink-400 text-xs mt-1">CAT Centre</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     SECTION: FAQs
+══════════════════════════════ -->
+<section id="faqs" class="py-10 px-6">
+  <div class="max-w-4xl mx-auto">
+
+    <div class="reveal mb-12 text-center">
+      <p class="text-brand-400 text-xs font-semibold tracking-widest uppercase mb-3">Common Questions</p>
+      <h2 class="font-display text-4xl font-800 text-white">Frequently Asked</h2>
+    </div>
+
+    <div class="space-y-3" id="faqList">
+      {[
+        { q: "What is CAT 2026 and who should appear for it?", a: "CAT (Common Admission Test) is the entrance exam for admission to India's 21 IIMs and 1,200+ top management and business schools. Any student with a bachelor's degree (50% aggregate, 45% for SC/ST/PwD) or final-year students can appear." },
+        { q: "What is EduShastra's Entrance Mapping Test?", a: "The Mapping Test is an IQ-based (not knowledge-based) test used to segment students into one of five percentile groups. No preparation is required. It measures innate aptitude so we can place you in the batch that matches your current ability." },
+        { q: "What is the Apex-25 batch and how is it different from Elite batches?", a: "Apex-25 batches have a maximum of 25 students (vs. 150+ in Elite). Each Apex batch has 8–9 dedicated teachers, creating a 1:3 teacher-student ratio. Admission is through merit-based Entrance Mapping Test. Elite batches are ideal for students who want structured learning at a lower price." },
+        { q: "What does 'Lifetime Validity' mean?", a: "Once enrolled in an Apex-25 batch, you can retake the full course — all classes, tests, and sessions — as many times as needed at zero additional cost. The goal is to ensure you hit your target percentile, not just complete a course." },
+        { q: "How does the Money-Back Promise work?", a: "If you complete the full course requirements and don't achieve the guaranteed percentile for your batch series (e.g., 90%ile+ for a 9-series batch, 99%ile+ for a 10-series batch), you receive a full fee refund. Specific terms are outlined at enrollment." },
+        { q: "Can I start with a free course before committing?", a: "Yes — EduShastra offers a Free Live Hybrid Course for CAT that covers the full syllabus. It's completely free (original value ₹15,999). You can experience the teaching style, faculty, and platform before upgrading to Elite Plus or Apex-25." },
+        { q: "What are the sections in CAT 2026?", a: "CAT has 3 sections: VARC (Verbal Ability & Reading Comprehension), DILR (Data Interpretation & Logical Reasoning), and QA (Quantitative Ability). Each section has 40 questions and 40 minutes. Total duration is 2 hours. Correct answers get +3 marks; wrong MCQs get -1 mark." },
+        { q: "How do I contact EduShastra for city-specific batch details?", a: "Visit the Contact Us page on edushastra.com, or email contact@edushastra.com. You can also find city-specific class schedules and study centre locations via the dedicated city pages linked in the 'Available Across India' section above." },
+      ].map((faq, i) => (
+        <div class="reveal glass rounded-2xl overflow-hidden">
+          <button class="faq-btn w-full text-left px-7 py-5 flex items-start justify-between gap-4 group" data-index={i}>
+            <span class="font-display font-700 text-white text-sm leading-relaxed">{faq.q}</span>
+            <span class="faq-icon text-brand-400 flex-shrink-0 mt-0.5 transition-transform duration-300 text-lg">+</span>
+          </button>
+          <div class="faq-body hidden px-7 pb-6">
+            <p class="text-ink-200 text-sm leading-relaxed">{faq.a}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="text-center mt-8">
+      <a href="https://www.edushastra.com/faqs/" target="_blank" rel="noopener" class="text-brand-400 hover:text-brand-300 text-sm font-semibold transition-colors">
+        View all CAT FAQs →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     FOOTER
+══════════════════════════════ -->
+<footer class="border-t border-white/06 bg-ink-900 pt-16 pb-8 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-12 mb-12">
+      <div class="md:col-span-1 space-y-4">
+        <p class="font-display text-2xl font-800 text-white">Edu<span class="text-brand-500">Shastra</span></p>
+        <p class="text-ink-400 text-sm leading-relaxed">Affordable Quality Education for All. For People, Not Profits. Since 2016.</p><br>
+        <p class="font-display text-2xl font-800 text-white text-sm">Connect With Edu<span class="text-brand-500 text-sm">Shastra</span>:</p>
+        <a href="https://www.facebook.com/EduShastra.Philanthropy/" class="text-ink-400 text-sm hover:text-brand-400 transition-colors">ⓕ Facebook</a><br/>
+        <a href="https://www.instagram.com/edushastra/" class="text-ink-400 text-sm hover:text-brand-400 transition-colors"> 📸 Instagram</a><br/>
+        <a href="https://www.linkedin.com/company/edushastra" class="text-ink-400 text-sm hover:text-brand-400 transition-colors">🇮🇳Linkedin</a><br/>
+        <a href="https://www.youtube.com/channel/UCjLd8GlyCosf2jD49kdUGhA" class="text-ink-400 text-sm hover:text-brand-400 transition-colors">▶️Youtube</a>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Courses</p>
+        <ul class="space-y-2 text-ink-400 text-sm">
+          <li><a href="https://www.edushastra.com/cat-2026/" class="hover:text-brand-400 transition-colors">CAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/gmat-prep/" class="hover:text-brand-400 transition-colors">GMAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/gmat-cat-coaching/" class="hover:text-brand-400 transition-colors">GMCAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/common-universities-entrance-test/" class="hover:text-brand-400 transition-colors">CUET Preparation</a></li>
+        </ul>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Links</p>
+        <ul class="space-y-2 text-ink-400 text-sm">
+          <li><a href="https://www.edushastra.com/courses" class="hover:text-brand-400 transition-colors">Courses</a></li>
+          <li><a href="https://www.edushastra.com/why-us" class="hover:text-brand-400 transition-colors">Why Us</a></li>
+          <li><a href="https://www.edushastra.com/faqs/" class="hover:text-brand-400 transition-colors">FAQs</a></li>
+          <li><a href="https://www.edushastra.com/blog/" class="hover:text-brand-400 transition-colors">Blog</a></li>
+        </ul>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Contact</p>
+        <ul class="space-y-2 text-ink-400 text-sm">
+          <li><a href="tel:01147082205" class="hover:text-brand-400 transition-colors">011-47082205</a></li>
+          <li><a href="mailto:contact@edushastra.com" class="hover:text-brand-400 transition-colors">contact@edushastra.com</a></li>
+          <li><a href="https://www.edushastra.com/contact-us/" class="hover:text-brand-400 transition-colors">View All Offices</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/06 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-ink-400 text-xs">
+      <p>© 2026 EduShastra Education Solutions Pvt. Ltd. All rights reserved.</p>
+      <div class="flex gap-4">
+        <a href="https://www.edushastra.com/terms-conditions-and-policies" class="hover:text-brand-400 transition-colors">Terms & Conditions</a>
+        <a href="https://www.edushastra.com/privacy-policy" class="hover:text-brand-400 transition-colors">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════
+     JAVASCRIPT
+══════════════════════════════ -->
+<script>
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.style.background = window.scrollY > 80
+      ? 'rgba(13,13,13,0.97)'
+      : 'rgba(13,13,13,0.8)';
+  });
+
+  // Mobile menu
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('hidden');
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('revealed'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const body = btn.nextElementSibling;
+      const icon = btn.querySelector('.faq-icon');
+      const isOpen = !body.classList.contains('hidden');
+
+      // Close all
+      document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+      document.querySelectorAll('.faq-icon').forEach(ic => { ic.textContent = '+'; ic.style.transform = 'rotate(0deg)'; });
+
+      if (!isOpen) {
+        body.classList.remove('hidden');
+        icon.textContent = '−';
+        icon.style.transform = 'rotate(0deg)';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
