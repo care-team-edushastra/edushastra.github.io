@@ -1,0 +1,429 @@
+---
+// EduShastra — Free Study Suite Page (Astro)
+// Matches CAT 2026 / Sectional Tests design: dark bg, orange accent, glassmorphism, Syne + DM Sans
+
+// ── LINK CONFIG ───────────────────────────────────────────────────────────
+// Every "Access Now" button defaults to FALLBACK_LINK. To point an individual
+// resource somewhere else, just fill in its own URL below — leave it as
+// FALLBACK_LINK to keep using the shared placeholder.
+
+---
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Study Suite — Mocks, Sectionals, Daily Tests, Lectures & More | EduShastra</title>
+  <meta name="description" content="EduShastra's free Study Suite: free mocks, sectional tests, daily practice tests, video lectures, study material, progress tracker, and detailed test solutions. No paywalls, no ads." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.edushastra.com/free-resources/" />
+
+  <meta property="og:title" content="Free Study Suite | EduShastra" />
+  <meta property="og:description" content="Free mocks, sectionals, daily tests, lectures, study material, progress tracker and detailed solutions — fully free, no paywalls." />
+  <meta property="og:url" content="https://www.edushastra.com/free-resources/" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+  <script is:inline src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50:  '#fff7ed',
+              100: '#ffedd5',
+              400: '#fb923c',
+              500: '#f97316',
+              600: '#ea6c0a',
+              700: '#c2540a',
+            },
+            ink: {
+              900: '#0d0d0d',
+              800: '#1a1a1a',
+              700: '#2d2d2d',
+              400: '#6b6b6b',
+              200: '#d4d4d4',
+              100: '#f5f5f5',
+            }
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'DM Sans', sans-serif; background: #0d0d0d; color: #f5f5f5; }
+    h1,h2,h3,h4,h5,.font-display { font-family: 'Syne', sans-serif; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.35;
+    }
+
+    .hero-bg {
+      background:
+        radial-gradient(ellipse 70% 60% at 15% 50%, rgba(249,115,22,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 70% at 85% 20%, rgba(249,115,22,0.08) 0%, transparent 55%),
+        #0d0d0d;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      backdrop-filter: blur(12px);
+    }
+
+    .glass-orange {
+      background: rgba(249,115,22,0.06);
+      border: 1px solid rgba(249,115,22,0.2);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-blur {
+      background: rgba(13,13,13,0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .cta-glow:hover { box-shadow: 0 0 32px rgba(249,115,22,0.5); }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .revealed { opacity: 1; transform: translateY(0); }
+
+    .batch-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .tier-card { transition: transform 0.3s ease, border-color 0.3s ease; }
+    .tier-card:hover { transform: translateY(-4px); }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(249,115,22,0.3), transparent);
+      margin: 0 auto;
+      width: 60%;
+    }
+
+    .badge-blue   { background: rgba(59,130,246,0.12);  color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
+    .badge-purple { background: rgba(168,85,247,0.12);  color: #d8b4fe; border: 1px solid rgba(168,85,247,0.3); }
+    .badge-orange { background: rgba(249,115,22,0.12);  color: #fb923c; border: 1px solid rgba(249,115,22,0.3); }
+    .badge-green  { background: rgba(34,197,94,0.12);   color: #86efac; border: 1px solid rgba(34,197,94,0.25); }
+
+    .resource-card { transition: transform 0.3s ease, border-color 0.3s ease; }
+    .resource-card:hover { transform: translateY(-4px); }
+  </style>
+</head>
+
+<body class="relative overflow-x-hidden">
+
+<!-- ══════════════════════════════
+     NAVBAR (site-wide — same as edushastra.com)
+══════════════════════════════ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-blur">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="https://www.edushastra.com/" class="flex items-center gap-2">
+      <span class="font-display text-2xl font-800 text-white tracking-tight">Edu<span class="text-brand-500">Shastra</span></span>
+    </a>
+    <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-ink-200">
+      <li><a href="https://www.edushastra.com/courses/" class="hover:text-brand-400 transition-colors">Courses</a></li>
+      <li><a href="https://www.edushastra.com/cat-2026/#batches" class="hover:text-brand-400 transition-colors">Batches</a></li>
+      <li><a href="#resources" class="hover:text-brand-400 transition-colors">Free Study Suite</a></li>
+      <li><a href="https://www.edushastra.com/our-faculty-2/" class="hover:text-brand-400 transition-colors">Faculty</a></li>
+      <li><a href="https://www.edushastra.com/faqs/" class="hover:text-brand-400 transition-colors">FAQs</a></li>
+    </ul>
+    <div class="flex items-center gap-3">
+      <a href="https://www.edushastra.com/login/" class="hidden md:block text-sm text-ink-200 hover:text-white transition-colors px-4 py-2">Login</a>
+      <a href="#resources" class="cta-glow bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-300">
+        Get Started Free →
+      </a>
+      <button id="menuBtn" class="md:hidden text-white p-1" aria-label="Menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden px-6 pb-6 pt-2 flex flex-col gap-4 text-sm font-medium text-ink-200">
+    <a href="https://www.edushastra.com/courses/">Courses</a>
+    <a href="https://www.edushastra.com/cat-2026/#batches">Batches</a>
+    <a href="#resources">Free Study Suite</a>
+    <a href="https://www.edushastra.com/our-faculty-2/">Faculty</a>
+    <a href="https://www.edushastra.com/faqs/">FAQs</a>
+    <a href="https://www.edushastra.com/login/">Login</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════
+     HERO
+══════════════════════════════ -->
+<section class="hero-bg relative min-h-[65vh] flex items-center pt-32 pb-16 px-6">
+  <div class="max-w-7xl mx-auto w-full relative z-10">
+    <div class="max-w-3xl">
+      <div class="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/30 rounded-full px-4 py-1.5 text-brand-400 text-xs font-semibold tracking-widest uppercase mb-6">
+        <span class="w-1.5 h-1.5 bg-brand-400 rounded-full animate-pulse"></span>
+        Start Your CAT Prep Today
+      </div>
+
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-800 leading-[1.05] text-white mb-6">
+       EduShastra<br/>
+        <span class="text-brand-500">Free Study Suite</span>
+      </h1>
+
+      <p class="text-lg text-ink-200 max-w-xl leading-relaxed mb-8">
+        We've built a complete, prep ecosystem — mocks, sectionals, daily practice tests, video lectures, study material, a progress tracker, and detailed solutions. Fully accessible, no catch.
+      </p>
+
+      <div class="flex flex-wrap gap-3">
+        <span class="glass rounded-full px-4 py-2 text-sm font-medium text-white">Free Mocks</span>
+        <span class="glass rounded-full px-4 py-2 text-sm font-medium text-white">Free Classes</span>
+        <span class="glass rounded-full px-4 py-2 text-sm font-medium text-white">Free Daily Tests</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     SECTION: YOUR FREE STUDY SUITE (7 items)
+══════════════════════════════ -->
+<section id="resources" class="py-16 px-6 scroll-mt-28">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="reveal mb-12">
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">Your Free Study Suite</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <!-- 1. Free Mocks -->
+      <div class="reveal resource-card glass rounded-3xl overflow-hidden hover:border-purple-400/30">
+        <div class="h-1 bg-gradient-to-r from-purple-500 to-purple-400"></div>
+        <div class="p-7">
+          <div class="flex items-start justify-between gap-4 mb-3">
+            <span class="batch-tag badge-purple inline-block">Full-Length</span>
+            <span class="text-2xl">🧪</span>
+          </div>
+          <h3 class="font-display text-xl font-700 text-white mb-2">Free Mocks</h3>
+          <p class="text-ink-200 text-sm leading-relaxed mb-6">Simulate the complete 2-hour CAT exam across all three sections — build stamina, pacing, and exam-day confidence.</p>
+          <a href="https://edushastra-free.onrender.com/" class="inline-block bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-all cta-glow">
+            Access Now →
+          </a>
+        </div>
+      </div>
+
+      <!-- 2. Free Sectionals -->
+      <div class="reveal resource-card glass rounded-3xl overflow-hidden hover:border-blue-400/30">
+        <div class="h-1 bg-gradient-to-r from-blue-500 to-blue-400"></div>
+        <div class="p-7">
+          <div class="flex items-start justify-between gap-4 mb-3">
+            <span class="batch-tag badge-blue inline-block">Focused Practice</span>
+            <span class="text-2xl">🎯</span>
+          </div>
+          <h3 class="font-display text-xl font-700 text-white mb-2">Free Sectionals</h3>
+          <p class="text-ink-200 text-sm leading-relaxed mb-6">Drill VARC, DILR and QA individually in real exam timing — isolate your weak section and fix it before it costs you percentile.</p>
+          <a href="https://edushastra.education1.workers.dev/cat-mocks/" class="inline-block bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-all cta-glow">
+            Access Now →
+          </a>
+        </div>
+      </div>
+
+      <!-- 3. Daily Free Practice Test -->
+      <div class="reveal resource-card glass rounded-3xl overflow-hidden hover:border-orange-400/30">
+        <div class="h-1 bg-gradient-to-r from-brand-700 to-brand-500"></div>
+        <div class="p-7">
+          <div class="flex items-start justify-between gap-4 mb-3">
+            <span class="batch-tag badge-orange inline-block">Updated Daily</span>
+            <span class="text-2xl">🗓️</span>
+          </div>
+          <h3 class="font-display text-xl font-700 text-white mb-2">Daily Free Practice Test</h3>
+          <p class="text-ink-200 text-sm leading-relaxed mb-6">New test questions generated every day to keep you fresh and engaged with the material — practice consistently, without repeating the same questions.</p>
+          <a href="https://edushastra-free.onrender.com/" class="inline-block bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-all cta-glow">
+            Access Now →
+          </a>
+        </div>
+      </div>
+
+      <!-- 4. Free Lectures -->
+      <div class="reveal resource-card glass rounded-3xl overflow-hidden hover:border-green-400/30">
+        <div class="h-1 bg-gradient-to-r from-green-500 to-green-400"></div>
+        <div class="p-7">
+          <div class="flex items-start justify-between gap-4 mb-3">
+            <span class="batch-tag badge-green inline-block">Concept Building</span>
+            <span class="text-2xl">🎥</span>
+          </div>
+          <h3 class="font-display text-xl font-700 text-white mb-2">Free Lectures</h3>
+          <p class="text-ink-200 text-sm leading-relaxed mb-6">In-depth video lectures on concepts across VARC, DILR and QA — taught by 100%ile faculty, available on demand.</p>
+          <a href="https://edushastra-free.onrender.com/" class="inline-block bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-all cta-glow">
+            Access Now →
+          </a>
+        </div>
+      </div>
+
+      <!-- 5. Free Study Materials -->
+      <div class="reveal resource-card glass rounded-3xl overflow-hidden hover:border-brand-500/30">
+        <div class="h-1 bg-gradient-to-r from-brand-700 to-brand-500"></div>
+        <div class="p-7">
+          <div class="flex items-start justify-between gap-4 mb-3">
+            <span class="batch-tag badge-orange inline-block">Always Free</span>
+            <span class="text-2xl">📚</span>
+          </div>
+          <h3 class="font-display text-xl font-700 text-white mb-2">Free Study Materials</h3>
+          <p class="text-ink-200 text-sm leading-relaxed mb-6">Organized notes and resources across multiple subjects and topics fully accessible whenever you need them.</p>
+          <a href="https://edushastra-free.onrender.com/" class="inline-block bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-all cta-glow">
+            Access Now →
+          </a>
+        </div>
+      </div>
+
+      <!-- 6. Progress Tracker -->
+      <div class="reveal resource-card glass rounded-3xl overflow-hidden hover:border-purple-400/30">
+        <div class="h-1 bg-gradient-to-r from-purple-500 to-purple-400"></div>
+        <div class="p-7">
+          <div class="flex items-start justify-between gap-4 mb-3">
+            <span class="batch-tag badge-purple inline-block">Data-Driven</span>
+            <span class="text-2xl">📈</span>
+          </div>
+          <h3 class="font-display text-xl font-700 text-white mb-2">Progress Tracker</h3>
+          <p class="text-ink-200 text-sm leading-relaxed mb-6">Visualize your improvement over time with detailed stats on accuracy, time spent, and weak areas — so every session moves you forward.</p>
+          <a href="https://edushastra-free.onrender.com/" class="inline-block bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-all cta-glow">
+            Access Now →
+          </a>
+        </div>
+      </div>
+
+      <!-- 7. Detailed Test Solutions -->
+      <div class="reveal resource-card glass rounded-3xl overflow-hidden hover:border-brand-500/30 md:col-span-2">
+        <div class="h-1 bg-gradient-to-r from-brand-700 to-brand-500"></div>
+        <div class="p-7 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="batch-tag badge-orange inline-block">Every Question</span>
+              <span class="text-2xl">✅</span>
+            </div>
+            <h3 class="font-display text-xl font-700 text-white mb-2">Detailed Test Solutions</h3>
+            <p class="text-ink-200 text-sm leading-relaxed max-w-2xl">Detailed explanations for every question so you actually understand what you got wrong — not just whether you got it right. Go back to previous tests, review your responses, and spot the patterns in your mistakes.</p>
+          </div>
+         <a href="https://edushastra-free.onrender.com/" class="inline-block bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-all cta-glow whitespace-nowrap">
+            Access Now →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     SECTION: CTA BANNER
+══════════════════════════════ -->
+<section class="py-16 px-6 bg-ink-800/20">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal glass-orange rounded-3xl p-10 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+      <div>
+        <p class="font-display font-800 text-white text-2xl md:text-3xl mb-2">Want a structured, guided path instead?</p>
+        <p class="text-ink-200 text-sm max-w-xl">Pair these free resources with one of our ability-based batches — Elite, Elite Plus, or the Apex-25 program — for a personalized roadmap to your target percentile.</p>
+      </div>
+      <a href="https://www.edushastra.com/cat-2026/#batches" class="bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-6 py-3 rounded-full transition-all cta-glow whitespace-nowrap flex-shrink-0">
+        Explore Batches →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     FOOTER (unchanged — site-wide)
+══════════════════════════════ -->
+<footer class="border-t border-white/06 bg-ink-900 pt-16 pb-8 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-12 mb-12">
+      <div class="md:col-span-1 space-y-4">
+        <p class="font-display text-2xl font-800 text-white">Edu<span class="text-brand-500">Shastra</span></p>
+        <p class="text-white text-sm leading-relaxed">Affordable Quality Education for All. For People, Not Profits. Since 2016.</p><br>
+        <p class="font-display text-2xl font-800 text-white text-sm">Connect With Edu<span class="text-brand-500 text-sm">Shastra</span>:</p>
+        <a href="https://www.facebook.com/EduShastra.Philanthropy/" class="text-orange-300 text-sm hover:text-brand-400 transition-colors">ⓕ Facebook</a><br/>
+        <a href="https://www.instagram.com/edushastra/" class="text-orange-300 text-sm hover:text-brand-400 transition-colors"> 📸 Instagram</a><br/>
+        <a href="https://www.linkedin.com/company/edushastra" class="text-orange-300 text-sm hover:text-brand-400 transition-colors">🇮🇳Linkedin</a><br/>
+        <a href="https://www.youtube.com/channel/UCjLd8GlyCosf2jD49kdUGhA" class="text-orange-300 text-sm hover:text-brand-400 transition-colors">▶️Youtube</a>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Courses</p>
+        <ul class="space-y-2 text-orange-300 text-sm">
+          <li><a href="https://www.edushastra.com/cat-2026/" class="hover:text-brand-400 transition-colors">CAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/gmat-prep/" class="hover:text-brand-400 transition-colors">GMAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/gmat-cat-coaching/" class="hover:text-brand-400 transition-colors">GMCAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/common-universities-entrance-test/" class="hover:text-brand-400 transition-colors">CUET Preparation</a></li>
+        </ul>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Links</p>
+        <ul class="space-y-2 text-orange-300 text-sm">
+          <li><a href="https://www.edushastra.com/courses" class="hover:text-brand-400 transition-colors">Courses</a></li>
+          <li><a href="https://www.edushastra.com/why-us" class="hover:text-brand-400 transition-colors">Why Us</a></li>
+          <li><a href="https://www.edushastra.com/faqs/" class="hover:text-brand-400 transition-colors">FAQs</a></li>
+          <li><a href="https://www.edushastra.com/blog/" class="hover:text-brand-400 transition-colors">Blog</a></li>
+        </ul>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Contact</p>
+        <ul class="space-y-2 text-orange-300 text-sm">
+          <li><a href="tel:01147082205" class="hover:text-brand-400 transition-colors">011-47082205</a></li>
+          <li><a href="mailto:contact@edushastra.com" class="hover:text-brand-400 transition-colors">contact@edushastra.com</a></li>
+          <li><a href="https://www.edushastra.com/contact-us/" class="hover:text-brand-400 transition-colors">View All Offices</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/06 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-ink-400 text-xs">
+      <p>© 2026 EduShastra Education Solutions Pvt. Ltd. All rights reserved.</p>
+      <div class="flex gap-4">
+        <a href="https://www.edushastra.com/terms-conditions-and-policies" class="hover:text-brand-400 transition-colors">Terms & Conditions</a>
+        <a href="https://www.edushastra.com/privacy-policy" class="hover:text-brand-400 transition-colors">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════
+     JAVASCRIPT
+══════════════════════════════ -->
+<script>
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.style.background = window.scrollY > 80
+      ? 'rgba(13,13,13,0.97)'
+      : 'rgba(13,13,13,0.8)';
+  });
+
+  // Mobile menu
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('hidden');
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('revealed'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
