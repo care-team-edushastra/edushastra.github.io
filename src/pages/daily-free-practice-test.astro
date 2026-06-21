@@ -1,0 +1,416 @@
+---
+// EduShastra — Daily Practice Page (Astro)
+// Matches CAT 2026 / CUET design: dark bg, orange accent, glassmorphism, Syne + DM Sans
+const TEST_LINK = "https://edushastra-free.onrender.com/"; // placeholder — same link for every test
+
+// 6 static card slots — actual dates are filled in client-side (see script at
+// the bottom) so the page always shows "today" back through "today - 5",
+// without needing a rebuild. data-day-offset tells the script which date
+// belongs in which card.
+const dailyCardSlots = [0, 1, 2, 3, 4, 5];
+---
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Practice Tests 2026 | New Free CAT Test Every Day | EduShastra</title>
+  <meta name="description" content="A new free CAT practice test every day. Access the last 6 days of daily practice tests, attempt any of them, and track your progress over time." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.edushastra.com/daily-practice/" />
+
+  <meta property="og:title" content="Daily Practice Tests | EduShastra" />
+  <meta property="og:description" content="A new free CAT practice test every day. Attempt today's test or catch up on the last 6 days." />
+  <meta property="og:url" content="https://www.edushastra.com/daily-practice/" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+  <script is:inline src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50:  '#fff7ed',
+              100: '#ffedd5',
+              400: '#fb923c',
+              500: '#f97316',
+              600: '#ea6c0a',
+              700: '#c2540a',
+            },
+            ink: {
+              900: '#0d0d0d',
+              800: '#1a1a1a',
+              700: '#2d2d2d',
+              400: '#6b6b6b',
+              200: '#d4d4d4',
+              100: '#f5f5f5',
+            }
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'DM Sans', sans-serif; background: #0d0d0d; color: #f5f5f5; }
+    h1,h2,h3,h4,h5,.font-display { font-family: 'Syne', sans-serif; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.35;
+    }
+
+    .hero-bg {
+      background:
+        radial-gradient(ellipse 70% 60% at 15% 50%, rgba(249,115,22,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 70% at 85% 20%, rgba(249,115,22,0.08) 0%, transparent 55%),
+        #0d0d0d;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      backdrop-filter: blur(12px);
+    }
+
+    .glass-orange {
+      background: rgba(249,115,22,0.06);
+      border: 1px solid rgba(249,115,22,0.2);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-blur {
+      background: rgba(13,13,13,0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .cta-glow:hover { box-shadow: 0 0 32px rgba(249,115,22,0.5); }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .revealed { opacity: 1; transform: translateY(0); }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(249,115,22,0.3), transparent);
+      margin: 0 auto;
+      width: 60%;
+    }
+
+    .test-card { transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease; }
+    .test-card:hover { transform: translateY(-3px); }
+
+    .batch-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .badge-blue { background: rgba(59,130,246,0.12); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
+  </style>
+</head>
+
+<body class="relative overflow-x-hidden">
+
+<!-- ══════════════════════════════
+     NAVBAR
+══════════════════════════════ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-blur">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2">
+      <span class="font-display text-2xl font-800 text-white tracking-tight">Edu<span class="text-brand-500">Shastra</span></span>
+    </a>
+    <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-ink-200">
+      <li><a href="https://www.edushastra.com/courses/" class="hover:text-brand-400 transition-colors">Courses</a></li>
+      <li><a href="https://www.edushastra.com/cat-2026/#batches" class="hover:text-brand-400 transition-colors">Batches</a></li>
+      <li><a href="https://www.edushastra.com/free-sectional-tests/" class="hover:text-brand-400 transition-colors">Sectional Tests</a></li>
+      <li><a href="#practice" class="text-brand-400">Daily Practice</a></li>
+      <li><a href="#faqs" class="hover:text-brand-400 transition-colors">FAQs</a></li>
+    </ul>
+    <div class="flex items-center gap-3">
+      <a href="https://www.edushastra.com/login/" class="hidden md:block text-sm text-ink-200 hover:text-white transition-colors px-4 py-2">Login</a>
+      <a href="#practice" class="cta-glow bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-300">
+        Start Today's Test →
+      </a>
+      <button id="menuBtn" class="md:hidden text-white p-1" aria-label="Menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden px-6 pb-6 pt-2 flex flex-col gap-4 text-sm font-medium text-ink-200">
+    <a href="#practice">Daily Practice</a>
+    <a href="https://www.edushastra.com/free-sectional-tests/">Sectional Tests</a>
+    <a href="https://www.edushastra.com/cat-2026/#batches">Batches</a>
+    <a href="#faqs">FAQs</a>
+    <a href="https://www.edushastra.com/login/">Login</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════
+     HERO
+══════════════════════════════ -->
+<section class="hero-bg relative min-h-[50vh] flex items-center pt-32 pb-12 px-6">
+  <div class="max-w-7xl mx-auto w-full relative z-10">
+    <div class="max-w-3xl">
+      <div class="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/30 rounded-full px-4 py-1.5 text-brand-400 text-xs font-semibold tracking-widest uppercase mb-6">
+        <span class="w-1.5 h-1.5 bg-brand-400 rounded-full animate-pulse"></span>
+        100% Free · A New Test Every Day
+      </div>
+
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-800 leading-[1.05] text-white mb-6">
+        Free Daily<br/>
+        <span class="text-brand-500">Practice Tests</span>
+      </h1>
+
+      <p class="text-lg text-ink-200 max-w-xl leading-relaxed mb-2">
+       Sharpen your skills with Daily Practice Tests.<br>
+       A 40-minute, 20-question daily mini-mock covering VARC, DILR, and QA to track your progress.
+      </p>
+
+      <div class="flex flex-wrap gap-3">
+        <span class="glass rounded-full px-4 py-2 text-sm font-medium text-white">⏱️ 40 Minutes Total</span>
+        <span class="glass rounded-full px-4 py-2 text-sm font-medium text-white">🧩 20 Mixed Questions</span>
+        <span class="glass rounded-full px-4 py-2 text-sm font-medium text-white">📊 Daily Progress Tracking</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     DAILY PRACTICE GRID (auto-populated, last 6 days)
+══════════════════════════════ -->
+<section id="practice" class="py-12 px-6 scroll-mt-28">
+  <div class="max-w-7xl mx-auto">
+    <div id="dailyGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {dailyCardSlots.map(offset => (
+        <div class="reveal test-card glass rounded-3xl overflow-hidden hover:border-blue-400/30">
+          <div class="h-1 bg-gradient-to-r from-blue-500 to-blue-400"></div>
+          <div class="p-6">
+            <span class="batch-tag badge-blue mb-3 inline-block daily-date" data-day-offset={offset}>—</span>
+            <h3 class="font-display text-xl font-700 text-white mb-4">Daily Practice Test</h3>
+            <div class="flex gap-3 text-xs mb-6">
+              <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+                <p class="font-display font-700 text-white">20</p>
+                <p class="text-ink-400 mt-0.5">Questions</p>
+              </div>
+              <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+                <p class="font-display font-700 text-white">40 min</p>
+                <p class="text-ink-400 mt-0.5">Duration</p>
+              </div>
+            </div>
+            <a href={TEST_LINK} class="block text-center bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">
+              Take Test →
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     HOW IT WORKS
+══════════════════════════════ -->
+<section class="py-16 px-6 bg-ink-800/20">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-10 text-center">
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">
+        Why a <span class="text-brand-500">Daily Sprint?</span>
+      </h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5">
+      {[
+        { icon: "🗓️", title: "One Test, Every Day", desc: "A new Daily Practice Test is uploaded each day, built to be finished in one focused sitting — no excuses to skip prep." },
+        { icon: "🔁", title: "Catch Up Anytime", desc: "Missed a day or two? The last 6 days are always here, so you can attempt any of them whenever you get the time." },
+        { icon: "📈", title: "Consistency Compounds", desc: "Short daily reps build the exam stamina and pacing instinct that one long weekly mock can't replicate on its own." },
+      ].map(f => (
+        <div class="reveal glass rounded-2xl p-6">
+          <h4 class="font-display font-700 text-brand-500 text-xl mb-3">{f.icon} {f.title}</h4>
+          <p class="text-white text-sm leading-relaxed">{f.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="reveal glass-orange rounded-3xl p-8 mt-10 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div>
+        <p class="font-display font-700 text-white text-xl mb-1">Want a deeper diagnostic?</p>
+        <p class="text-ink-200 text-sm">Try our full Sectional Tests across VARC, DILR and QA to isolate exactly where you're losing percentile.</p>
+      </div>
+      <a href="https://www.edushastra.com/free-sectional-tests/" class="bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-6 py-3 rounded-full transition-all cta-glow whitespace-nowrap">
+        See Sectional Tests →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     FAQs
+══════════════════════════════ -->
+<section id="faqs" class="py-16 px-6">
+  <div class="max-w-4xl mx-auto">
+
+    <div class="reveal mb-12 text-center">
+      <p class="text-brand-400 text-xs font-semibold tracking-widest uppercase mb-3">Common Questions</p>
+      <h2 class="font-display text-4xl font-800 text-white">Frequently Asked</h2>
+    </div>
+
+    <div class="space-y-3" id="faqList">
+      {[
+        { q: "How often is a new Daily Practice Test added?", a: "A new test is uploaded every day. The page always shows the most recent 6 days, so the list updates automatically as new tests go live." },
+        { q: "Is the Daily Practice Test free?", a: "Yes — every Daily Practice Test is completely free to attempt, with no signup fee." },
+        { q: "What if I miss a day?", a: "No problem — the last 6 days of tests stay available on this page, so you can go back and attempt any of them whenever you're free." },
+        { q: "Do older tests disappear after 6 days?", a: "This page always shows a rolling window of the most recent 6 days. Older tests move out of this view as new ones are added, so it's best to attempt each test while it's still listed here." },
+        { q: "How is this different from the Sectional Tests?", a: "Sectional Tests are 4 fixed, full-length mocks per section (VARC, DILR, QA) you can take anytime. Daily Practice Tests are shorter, change every day, and are meant as a quick daily habit rather than a complete sectional simulation." },
+        { q: "Do I need to register to take a test?", a: "You'll need a free EduShastra account to save your attempts and track your progress over time. Creating one takes under a minute." },
+      ].map((faq, i) => (
+        <div class="reveal glass rounded-2xl overflow-hidden">
+          <button class="faq-btn w-full text-left px-7 py-5 flex items-start justify-between gap-4 group" data-index={i}>
+            <span class="font-display font-700 text-white text-sm leading-relaxed">{faq.q}</span>
+            <span class="faq-icon text-brand-400 flex-shrink-0 mt-0.5 transition-transform duration-300 text-lg">+</span>
+          </button>
+          <div class="faq-body hidden px-7 pb-6">
+            <p class="text-ink-200 text-sm leading-relaxed">{faq.a}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     FOOTER
+══════════════════════════════ -->
+<footer class="border-t border-white/06 bg-ink-900 pt-16 pb-8 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-12 mb-12">
+      <div class="md:col-span-1 space-y-4">
+        <p class="font-display text-2xl font-800 text-white">Edu<span class="text-brand-500">Shastra</span></p>
+        <p class="text-white text-sm leading-relaxed">Affordable Quality Education for All. For People, Not Profits. Since 2016.</p><br>
+        <p class="font-display text-2xl font-800 text-white text-sm">Connect With Edu<span class="text-brand-500 text-sm">Shastra</span>:</p>
+        <a href="https://www.facebook.com/EduShastra.Philanthropy/" class="text-orange-300 text-sm hover:text-brand-400 transition-colors">ⓕ Facebook</a><br/>
+        <a href="https://www.instagram.com/edushastra/" class="text-orange-300 text-sm hover:text-brand-400 transition-colors"> 📸 Instagram</a><br/>
+        <a href="https://www.linkedin.com/company/edushastra" class="text-orange-300 text-sm hover:text-brand-400 transition-colors">🇮🇳Linkedin</a><br/>
+        <a href="https://www.youtube.com/channel/UCjLd8GlyCosf2jD49kdUGhA" class="text-orange-300 text-sm hover:text-brand-400 transition-colors">▶️Youtube</a>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Courses</p>
+        <ul class="space-y-2 text-orange-300 text-sm">
+          <li><a href="https://www.edushastra.com/cat-2026/" class="hover:text-brand-400 transition-colors">CAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/gmat-prep/" class="hover:text-brand-400 transition-colors">GMAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/gmat-cat-coaching/" class="hover:text-brand-400 transition-colors">GMCAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/common-universities-entrance-test/" class="hover:text-brand-400 transition-colors">CUET Preparation</a></li>
+        </ul>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Links</p>
+        <ul class="space-y-2 text-orange-300 text-sm">
+          <li><a href="https://www.edushastra.com/courses" class="hover:text-brand-400 transition-colors">Courses</a></li>
+          <li><a href="https://www.edushastra.com/why-us" class="hover:text-brand-400 transition-colors">Why Us</a></li>
+          <li><a href="https://www.edushastra.com/faqs/" class="hover:text-brand-400 transition-colors">FAQs</a></li>
+          <li><a href="https://www.edushastra.com/blog/" class="hover:text-brand-400 transition-colors">Blog</a></li>
+        </ul>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Contact</p>
+        <ul class="space-y-2 text-orange-300 text-sm">
+          <li><a href="tel:01147082205" class="hover:text-brand-400 transition-colors">011-47082205</a></li>
+          <li><a href="mailto:contact@edushastra.com" class="hover:text-brand-400 transition-colors">contact@edushastra.com</a></li>
+          <li><a href="https://www.edushastra.com/contact-us/" class="hover:text-brand-400 transition-colors">View All Offices</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/06 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-ink-400 text-xs">
+      <p>© 2026 EduShastra Education Solutions Pvt. Ltd. All rights reserved.</p>
+      <div class="flex gap-4">
+        <a href="https://www.edushastra.com/terms-conditions-and-policies" class="hover:text-brand-400 transition-colors">Terms & Conditions</a>
+        <a href="https://www.edushastra.com/privacy-policy" class="hover:text-brand-400 transition-colors">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════
+     JAVASCRIPT
+══════════════════════════════ -->
+<script>
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.style.background = window.scrollY > 80
+      ? 'rgba(13,13,13,0.97)'
+      : 'rgba(13,13,13,0.8)';
+  });
+
+  // Mobile menu
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('hidden');
+  });
+
+  // ── Fill in the last 6 days on the static Daily Practice cards ──
+  // Cards themselves are real markup (see above); this only sets each
+  // card's date label based on its data-day-offset, so today's card
+  // shows today's date, yesterday's card shows yesterday's, etc.
+  function formatDate(d) {
+    return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+  }
+
+  function fillDailyDates() {
+    document.querySelectorAll('.daily-date').forEach(el => {
+      const offset = parseInt(el.getAttribute('data-day-offset'), 10) || 0;
+      const d = new Date();
+      d.setDate(d.getDate() - offset);
+      el.textContent = formatDate(d);
+    });
+  }
+
+  fillDailyDates();
+
+  // Scroll reveal (static sections)
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('revealed'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const body = btn.nextElementSibling;
+      const icon = btn.querySelector('.faq-icon');
+      const isOpen = !body.classList.contains('hidden');
+
+      document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+      document.querySelectorAll('.faq-icon').forEach(ic => { ic.textContent = '+'; ic.style.transform = 'rotate(0deg)'; });
+
+      if (!isOpen) {
+        body.classList.remove('hidden');
+        icon.textContent = '−';
+        icon.style.transform = 'rotate(0deg)';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
