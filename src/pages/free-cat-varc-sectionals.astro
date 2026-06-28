@@ -1,0 +1,523 @@
+---
+// EduShastra — VARC Free Sectional Tests Page (Astro)
+// Blue accent | CAT 2026 design system: dark bg, glassmorphism, Syne + DM Sans
+const TEST_LINKS = [
+  "https://edushastra-free.onrender.com/varc-1",
+  "https://edushastra-free.onrender.com/varc-2",
+  "https://edushastra-free.onrender.com/varc-3",
+  "https://edushastra-free.onrender.com/varc-4",
+];
+---
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free VARC Sectional Tests 2026 | Verbal Ability & Reading Comprehension Mock Tests | EduShastra</title>
+  <meta name="description" content="Practice 4 free CAT VARC sectional mock tests — Reading Comprehension, Para Jumbles, Sentence Completion. Real exam pattern, instant scoring, no signup fee. Start your CAT 2026 prep today." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.edushastra.com/free-sectional-tests/varc/" />
+
+  <meta property="og:title" content="Free VARC Sectional Tests 2026 | EduShastra" />
+  <meta property="og:description" content="4 free VARC mock tests with RC, para jumbles and verbal reasoning. Real CAT pattern, instant results." />
+  <meta property="og:url" content="https://www.edushastra.com/free-sectional-tests/varc/" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+  <script is:inline src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+          colors: {
+            accent: {
+              50:  '#eff6ff',
+              100: '#dbeafe',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+            },
+            brand: {
+              500: '#f97316',
+              600: '#ea6c0a',
+            },
+            ink: {
+              900: '#0d0d0d',
+              800: '#1a1a1a',
+              700: '#2d2d2d',
+              400: '#6b6b6b',
+              200: '#d4d4d4',
+              100: '#f5f5f5',
+            }
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'DM Sans', sans-serif; background: #0d0d0d; color: #f5f5f5; }
+    h1,h2,h3,h4,h5,.font-display { font-family: 'Syne', sans-serif; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.35;
+    }
+
+    .hero-bg {
+      background:
+        radial-gradient(ellipse 70% 60% at 15% 50%, rgba(59,130,246,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 70% at 85% 20%, rgba(59,130,246,0.08) 0%, transparent 55%),
+        #0d0d0d;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      backdrop-filter: blur(12px);
+    }
+
+    .glass-blue {
+      background: rgba(59,130,246,0.06);
+      border: 1px solid rgba(59,130,246,0.2);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-blur {
+      background: rgba(13,13,13,0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .cta-glow:hover { box-shadow: 0 0 32px rgba(59,130,246,0.45); }
+    .cta-orange:hover { box-shadow: 0 0 32px rgba(249,115,22,0.5); }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .revealed { opacity: 1; transform: translateY(0); }
+
+    .batch-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .badge-blue { background: rgba(59,130,246,0.12); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
+    .badge-orange { background: rgba(249,115,22,0.12); color: #fb923c; border: 1px solid rgba(249,115,22,0.3); }
+
+    .test-card { transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease; }
+    .test-card:hover { transform: translateY(-4px); border-color: rgba(59,130,246,0.35) !important; }
+
+    /* topic chip */
+    .topic-chip {
+      font-size: 11px;
+      font-weight: 500;
+      color: #93c5fd;
+      background: rgba(59,130,246,0.08);
+      border: 1px solid rgba(59,130,246,0.2);
+      border-radius: 999px;
+      padding: 3px 10px;
+      white-space: nowrap;
+    }
+
+    .progress-bar {
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    }
+  </style>
+</head>
+
+<body class="relative overflow-x-hidden">
+
+<!-- ══════════════════════════════
+     NAVBAR
+══════════════════════════════ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-blur">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2">
+      <span class="font-display text-2xl font-800 text-white tracking-tight">Edu<span class="text-brand-500">Shastra</span></span>
+    </a>
+    <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-ink-200">
+      <li><a href="https://www.edushastra.com/courses/" class="hover:text-blue-400 transition-colors">Courses</a></li>
+      <li><a href="https://www.edushastra.com/cat-2026/#batches" class="hover:text-blue-400 transition-colors">Batches</a></li>
+      <li><a href="https://www.edushastra.com/free-sectional-tests/" class="hover:text-blue-400 transition-colors">All Free Tests</a></li>
+      <li><a href="https://www.edushastra.com/cat-2026/#faculty" class="hover:text-blue-400 transition-colors">Faculty</a></li>
+      <li><a href="#faqs" class="hover:text-blue-400 transition-colors">FAQs</a></li>
+    </ul>
+    <div class="flex items-center gap-3">
+      <a href="https://www.edushastra.com/login/" class="hidden md:block text-sm text-ink-200 hover:text-white transition-colors px-4 py-2">Login</a>
+      <a href="#tests" class="cta-glow bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-300">
+        Start a Test →
+      </a>
+      <button id="menuBtn" class="md:hidden text-white p-1" aria-label="Menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden px-6 pb-6 pt-2 flex flex-col gap-4 text-sm font-medium text-ink-200">
+    <a href="#tests">All Tests</a>
+    <a href="https://www.edushastra.com/cat-2026/#batches">Batches</a>
+    <a href="https://www.edushastra.com/cat-2026/#faculty">Faculty</a>
+    <a href="#faqs">FAQs</a>
+    <a href="https://www.edushastra.com/login/">Login</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════
+     HERO
+══════════════════════════════ -->
+<section class="hero-bg relative min-h-[75vh] flex items-center pt-32 pb-16 px-6">
+  <div class="max-w-7xl mx-auto w-full relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+    <div>
+      <div class="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 rounded-full px-4 py-1.5 text-blue-400 text-xs font-semibold tracking-widest uppercase mb-6">
+        <span class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>
+        Section I · 100% Free · No Signup Fee
+      </div>
+
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-800 leading-[1.05] text-white mb-6">
+        Free VARC<br/>
+        <span class="text-blue-400">Sectional Tests</span>
+      </h1>
+
+      <p class="text-lg text-ink-200 max-w-xl leading-relaxed mb-8">
+        4 full-length VARC mocks built to the exact CAT 2026 pattern. Sharpen your Reading Comprehension, para jumbles, and verbal reasoning — one section at a time.
+      </p>
+
+      <div class="flex flex-wrap gap-3 mb-10">
+        <span class="glass rounded-full px-4 py-2 text-sm font-medium text-white">⏱️ 40 Minutes</span>
+        <span class="glass rounded-full px-4 py-2 text-sm font-medium text-white">📝 24 Questions (MCQ + TITA)</span>
+        <span class="glass rounded-full px-4 py-2 text-sm font-medium text-white">📊 Instant Score & Analysis</span>
+        <span class="glass rounded-full px-4 py-2 text-sm font-medium text-white">🔁 Unlimited Retakes</span>
+      </div>
+
+      <a href="#tests" class="inline-block cta-glow bg-blue-500 hover:bg-blue-600 text-white font-semibold px-8 py-3.5 rounded-full transition-all duration-300 text-base">
+        Jump to Tests ↓
+      </a>
+    </div>
+
+    <!-- Stats card -->
+    <div class="glass-blue rounded-3xl p-8 space-y-6 hidden lg:block">
+      <p class="font-display font-700 text-white text-lg mb-2">What's tested in VARC?</p>
+      {[
+        { label: "Reading Comprehension", pct: 60, note: "4–5 RC passages, 16 questions" },
+        { label: "Para Jumbles (PJUMBLES)", pct: 15, note: "Sentence re-ordering" },
+        { label: "Para Summary", pct: 12, note: "Best summary choice" },
+        { label: "Odd One Out / Misfit", pct: 13, note: "Sentence that doesn't fit" },
+      ].map(t => (
+        <div>
+          <div class="flex justify-between text-sm mb-1.5">
+            <span class="text-ink-200">{t.label}</span>
+            <span class="text-blue-400 font-semibold">{t.pct}%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style={`width:${t.pct}%`}></div></div>
+          <p class="text-ink-400 text-xs mt-1">{t.note}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     OTHER SECTIONS BREADCRUMB
+══════════════════════════════ -->
+<div class="py-4 px-6 border-b border-white/06 bg-ink-800/30">
+  <div class="max-w-7xl mx-auto flex flex-wrap gap-3 items-center text-sm text-ink-400">
+    <span>Also free:</span>
+    <a href="/free-sectional-tests/dilr/" class="hover:text-purple-400 transition-colors flex items-center gap-1">
+      <span class="w-2 h-2 rounded-full bg-purple-400 inline-block"></span> DILR Tests
+    </a>
+    <span class="text-ink-700">·</span>
+    <a href="/free-sectional-tests/quant/" class="hover:text-brand-400 transition-colors flex items-center gap-1">
+      <span class="w-2 h-2 rounded-full bg-brand-500 inline-block"></span> QA Tests
+    </a>
+    <span class="ml-auto">
+      <a href="/free-sectional-tests/" class="hover:text-white transition-colors">← View all 12 free tests</a>
+    </span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     TEST CARDS
+══════════════════════════════ -->
+<section id="tests" class="py-20 px-6 scroll-mt-24">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="reveal mb-12 text-center">
+      <span class="batch-tag badge-blue mb-3 inline-block">VARC · Section I</span>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white mb-3">4 Free VARC Tests</h2>
+      <p class="text-ink-200 max-w-lg mx-auto text-sm leading-relaxed">Each test mirrors the real CAT VARC section — RC passages at varying difficulty, verbal non-MCQs, and a strict 40-minute timer.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Test 1 -->
+      <div class="reveal test-card glass rounded-3xl overflow-hidden border border-white/08">
+        <div class="h-1 bg-gradient-to-r from-blue-700 to-blue-400"></div>
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="batch-tag badge-blue">VARC</span>
+          </div>
+          <h3 class="font-display text-xl font-700 text-white mb-2">Sectional Test 1</h>
+          <div class="flex gap-3 text-xs mb-6">
+            <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+              <p class="font-display font-700 text-white">24</p>
+              <p class="text-ink-400 mt-0.5">Questions</p>
+            </div>
+            <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+              <p class="font-display font-700 text-white">40 min</p>
+              <p class="text-ink-400 mt-0.5">Duration</p>
+            </div>
+          </div>
+          <a href={TEST_LINKS[0]} class="block text-center bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">
+            Start Test 1 →
+          </a>
+        </div>
+      </div>
+
+      <!-- Test 2 -->
+      <div class="reveal test-card glass rounded-3xl overflow-hidden border border-white/08">
+        <div class="h-1 bg-gradient-to-r from-blue-700 to-blue-400"></div>
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="batch-tag badge-blue">VARC</span>
+          </div>
+          <h3 class="font-display text-xl font-700 text-white mb-2">Sectional Test 2</h3>
+            <div class="flex gap-3 text-xs mb-6">
+            <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+              <p class="font-display font-700 text-white">24</p>
+              <p class="text-ink-400 mt-0.5">Questions</p>
+            </div>
+            <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+              <p class="font-display font-700 text-white">40 min</p>
+              <p class="text-ink-400 mt-0.5">Duration</p>
+            </div>
+          </div>
+          <a href={TEST_LINKS[1]} class="block text-center bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">
+            Start Test 2 →
+          </a>
+        </div>
+      </div>
+
+      <!-- Test 3 -->
+      <div class="reveal test-card glass rounded-3xl overflow-hidden border border-white/08">
+        <div class="h-1 bg-gradient-to-r from-blue-700 to-blue-400"></div>
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="batch-tag badge-blue">VARC</span>
+          </div>
+          <h3 class="font-display text-xl font-700 text-white mb-2">Sectional Test 3</h3>
+          <div class="flex gap-3 text-xs mb-6">
+            <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+              <p class="font-display font-700 text-white">24</p>
+              <p class="text-ink-400 mt-0.5">Questions</p>
+            </div>
+            <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+              <p class="font-display font-700 text-white">40 min</p>
+              <p class="text-ink-400 mt-0.5">Duration</p>
+            </div>
+          </div>
+          <a href={TEST_LINKS[2]} class="block text-center bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">
+            Start Test 3 →
+          </a>
+        </div>
+      </div>
+
+      <!-- Test 4 -->
+      <div class="reveal test-card glass rounded-3xl overflow-hidden border border-white/08">
+        <div class="h-1 bg-gradient-to-r from-blue-700 to-blue-400"></div>
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="batch-tag badge-blue">VARC</span>
+          </div>
+          <h3 class="font-display text-xl font-700 text-white mb-2">Sectional Test 4</h3>
+          <div class="flex gap-3 text-xs mb-6">
+            <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+              <p class="font-display font-700 text-white">24</p>
+              <p class="text-ink-400 mt-0.5">Questions</p>
+            </div>
+            <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+              <p class="font-display font-700 text-white">40 min</p>
+              <p class="text-ink-400 mt-0.5">Duration</p>
+            </div>
+          </div>
+          <a href={TEST_LINKS[3]} class="block text-center bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">
+            Start Test 4 →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     VARC TIPS
+══════════════════════════════ -->
+<section class="py-16 px-6 bg-ink-800/20">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-10 text-center">
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">
+        Crack VARC with <span class="text-blue-400">The Right Approach</span>
+      </h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5">
+      {[
+        { icon: "📖", title: "RC First, Always", desc: "Reading Comprehension is worth 16 of 24 marks. Accuracy here, not speed, is what separates the 95+ percentilers. Practice active reading — understand the author's stance before you look at options." },
+        { icon: "🧩", title: "TITA Questions Are Your Edge", desc: "Non-MCQs (Para Jumbles, Odd One Out) carry no negative marking. A disciplined approach to these 8 questions alone can move you 5–8 percentile points." },
+        { icon: "⏱️", title: "Time Box Each Passage", desc: "Allocate no more than 7 minutes per RC passage. Our tests train you to internalize this instinct — start now, not three weeks before CAT." },
+      ].map(f => (
+        <div class="reveal glass rounded-2xl p-6">
+          <h4 class="font-display font-700 text-blue-400 text-xl mb-3">{f.icon} {f.title}</h4>
+          <p class="text-white text-sm leading-relaxed">{f.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="reveal glass-blue rounded-3xl p-8 mt-10 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div>
+        <p class="font-display font-700 text-white text-xl mb-1">Ready to go beyond free tests?</p>
+        <p class="text-ink-200 text-sm">Our Elite and Apex-25 batches include 200+ VARC questions with live faculty walkthroughs.</p>
+      </div>
+      <a href="https://www.edushastra.com/cat-2026/#batches" class="cta-orange bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-6 py-3 rounded-full transition-all whitespace-nowrap">
+        Explore Batches →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     FAQs
+══════════════════════════════ -->
+<section id="faqs" class="py-16 px-6">
+  <div class="max-w-4xl mx-auto">
+    <div class="reveal mb-12 text-center">
+      <p class="text-blue-400 text-xs font-semibold tracking-widest uppercase mb-3">Common Questions</p>
+      <h2 class="font-display text-4xl font-800 text-white">VARC Test FAQs</h2>
+    </div>
+    <div class="space-y-3" id="faqList">
+      {[
+        { q: "Are these VARC sectional tests free?", a: "Yes — all 4 VARC tests are completely free with no signup fee. Click any 'Start Test' button to begin immediately." },
+        { q: "Do I need to create an account?", a: "A free EduShastra account lets you save your scores and track improvement across attempts. It takes under a minute to create." },
+        { q: "How is the VARC section structured in CAT 2026?", a: "VARC runs for 40 minutes with 24 questions — roughly 16 from Reading Comprehension (MCQ) and 8 verbal non-MCQs (TITA) covering para jumbles, para summary, and odd-one-out. Our tests mirror this split exactly." },
+        { q: "Can I retake these tests?", a: "Yes, unlimited retakes. We recommend retaking after 2–3 weeks of focused study to measure genuine improvement." },
+        { q: "Will I get explanations for wrong answers?", a: "Yes — every question includes a detailed solution and explanation immediately after submission, alongside your accuracy and time-per-question data." },
+        { q: "What should I do after completing all 4 VARC tests?", a: "Use your weakest question type to pick the right batch. Strong at RC but weak at verbal? Our faculty-designed VARC drills in the Elite batch target exactly that gap." },
+      ].map((faq, i) => (
+        <div class="reveal glass rounded-2xl overflow-hidden">
+          <button class="faq-btn w-full text-left px-7 py-5 flex items-start justify-between gap-4" data-index={i}>
+            <span class="font-display font-700 text-white text-sm leading-relaxed">{faq.q}</span>
+            <span class="faq-icon text-blue-400 flex-shrink-0 mt-0.5 transition-transform duration-300 text-lg">+</span>
+          </button>
+          <div class="faq-body hidden px-7 pb-6">
+            <p class="text-ink-200 text-sm leading-relaxed">{faq.a}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     FOOTER
+══════════════════════════════ -->
+<footer class="border-t border-white/06 bg-ink-900 pt-16 pb-8 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-12 mb-12">
+      <div class="md:col-span-1 space-y-4">
+        <p class="font-display text-2xl font-800 text-white">Edu<span class="text-brand-500">Shastra</span></p>
+        <p class="text-white text-sm leading-relaxed">Affordable Quality Education for All. For People, Not Profits. Since 2016.</p><br>
+        <p class="font-display text-2xl font-800 text-white text-sm">Connect With Edu<span class="text-brand-500 text-sm">Shastra</span>:</p>
+        <a href="https://www.facebook.com/EduShastra.Philanthropy/" class="text-orange-300 text-sm hover:text-brand-400 transition-colors">ⓕ Facebook</a><br/>
+        <a href="https://www.instagram.com/edushastra/" class="text-orange-300 text-sm hover:text-brand-400 transition-colors">📸 Instagram</a><br/>
+        <a href="https://www.linkedin.com/company/edushastra" class="text-orange-300 text-sm hover:text-brand-400 transition-colors">🇮🇳 Linkedin</a><br/>
+        <a href="https://www.youtube.com/channel/UCjLd8GlyCosf2jD49kdUGhA" class="text-orange-300 text-sm hover:text-brand-400 transition-colors">▶️ Youtube</a>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Courses</p>
+        <ul class="space-y-2 text-orange-300 text-sm">
+          <li><a href="https://www.edushastra.com/cat-2026/" class="hover:text-brand-400 transition-colors">CAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/gmat-prep/" class="hover:text-brand-400 transition-colors">GMAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/gmat-cat-coaching/" class="hover:text-brand-400 transition-colors">GMCAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/common-universities-entrance-test/" class="hover:text-brand-400 transition-colors">CUET Preparation</a></li>
+        </ul>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Links</p>
+        <ul class="space-y-2 text-orange-300 text-sm">
+          <li><a href="https://www.edushastra.com/courses" class="hover:text-brand-400 transition-colors">Courses</a></li>
+          <li><a href="https://www.edushastra.com/why-us" class="hover:text-brand-400 transition-colors">Why Us</a></li>
+          <li><a href="https://www.edushastra.com/faqs/" class="hover:text-brand-400 transition-colors">FAQs</a></li>
+          <li><a href="https://www.edushastra.com/blog/" class="hover:text-brand-400 transition-colors">Blog</a></li>
+        </ul>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Contact</p>
+        <ul class="space-y-2 text-orange-300 text-sm">
+          <li><a href="tel:01147082205" class="hover:text-brand-400 transition-colors">011-47082205</a></li>
+          <li><a href="mailto:contact@edushastra.com" class="hover:text-brand-400 transition-colors">contact@edushastra.com</a></li>
+          <li><a href="https://www.edushastra.com/contact-us/" class="hover:text-brand-400 transition-colors">View All Offices</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/06 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-ink-400 text-xs">
+      <p>© 2026 EduShastra Education Solutions Pvt. Ltd. All rights reserved.</p>
+      <div class="flex gap-4">
+        <a href="https://www.edushastra.com/terms-conditions-and-policies" class="hover:text-brand-400 transition-colors">Terms & Conditions</a>
+        <a href="https://www.edushastra.com/privacy-policy" class="hover:text-brand-400 transition-colors">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.style.background = window.scrollY > 80 ? 'rgba(13,13,13,0.97)' : 'rgba(13,13,13,0.8)';
+  });
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('hidden');
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('revealed'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const body = btn.nextElementSibling;
+      const icon = btn.querySelector('.faq-icon');
+      const isOpen = !body.classList.contains('hidden');
+      document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+      document.querySelectorAll('.faq-icon').forEach(ic => { ic.textContent = '+'; });
+      if (!isOpen) { body.classList.remove('hidden'); icon.textContent = '−'; }
+    });
+  });
+</script>
+
+</body>
+</html>
