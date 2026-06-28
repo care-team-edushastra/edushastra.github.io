@@ -1,0 +1,520 @@
+---
+// EduShastra — QA Free Sectional Tests Page (Astro)
+// Orange accent | CAT 2026 design system: dark bg, glassmorphism, Syne + DM Sans
+const TEST_LINKS = [
+  "https://edushastra-free.onrender.com/qa-1",
+  "https://edushastra-free.onrender.com/qa-2",
+  "https://edushastra-free.onrender.com/qa-3",
+  "https://edushastra-free.onrender.com/qa-4",
+];
+---
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free QA Sectional Tests 2026 | Quantitative Ability Mock Tests | EduShastra</title>
+  <meta name="description" content="Practice 4 free CAT Quantitative Ability sectional mock tests — Arithmetic, Algebra, Geometry, Modern Math. Real exam pattern, instant scoring, no signup fee. Start your CAT 2026 prep today." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.edushastra.com/free-sectional-tests/quant/" />
+
+  <meta property="og:title" content="Free QA Sectional Tests 2026 | EduShastra" />
+  <meta property="og:description" content="4 free Quantitative Ability mock tests with Arithmetic, Algebra, Geometry and Modern Math. Real CAT pattern, instant results." />
+  <meta property="og:url" content="https://www.edushastra.com/free-sectional-tests/quant/" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+  <script is:inline src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50:  '#fff7ed',
+              100: '#ffedd5',
+              400: '#fb923c',
+              500: '#f97316',
+              600: '#ea6c0a',
+              700: '#c2540a',
+            },
+            ink: {
+              900: '#0d0d0d',
+              800: '#1a1a1a',
+              700: '#2d2d2d',
+              400: '#6b6b6b',
+              200: '#d4d4d4',
+              100: '#f5f5f5',
+            }
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'DM Sans', sans-serif; background: #0d0d0d; color: #f5f5f5; }
+    h1,h2,h3,h4,h5,.font-display { font-family: 'Syne', sans-serif; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.35;
+    }
+
+    .hero-bg {
+      background:
+        radial-gradient(ellipse 70% 60% at 15% 50%, rgba(249,115,22,0.17) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 70% at 85% 20%, rgba(249,115,22,0.08) 0%, transparent 55%),
+        #0d0d0d;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      backdrop-filter: blur(12px);
+    }
+
+    .glass-orange {
+      background: rgba(249,115,22,0.06);
+      border: 1px solid rgba(249,115,22,0.2);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-blur {
+      background: rgba(13,13,13,0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .cta-glow:hover { box-shadow: 0 0 32px rgba(249,115,22,0.5); }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .revealed { opacity: 1; transform: translateY(0); }
+
+    .batch-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .badge-orange { background: rgba(249,115,22,0.12); color: #fb923c; border: 1px solid rgba(249,115,22,0.3); }
+
+    .test-card { transition: transform 0.25s ease, border-color 0.25s ease; }
+    .test-card:hover { transform: translateY(-4px); border-color: rgba(249,115,22,0.35) !important; }
+
+    .topic-chip {
+      font-size: 11px;
+      font-weight: 500;
+      color: #fb923c;
+      background: rgba(249,115,22,0.08);
+      border: 1px solid rgba(249,115,22,0.2);
+      border-radius: 999px;
+      padding: 3px 10px;
+      white-space: nowrap;
+    }
+
+    .progress-bar {
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #c2540a, #fb923c);
+    }
+
+    .diff-hard { font-size: 10px; font-weight: 600; color: #fca5a5; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); border-radius: 999px; padding: 2px 8px; }
+    .diff-med  { font-size: 10px; font-weight: 600; color: #fcd34d; background: rgba(234,179,8,0.1);  border: 1px solid rgba(234,179,8,0.2);  border-radius: 999px; padding: 2px 8px; }
+    .diff-easy { font-size: 10px; font-weight: 600; color: #86efac; background: rgba(34,197,94,0.1);  border: 1px solid rgba(34,197,94,0.2);  border-radius: 999px; padding: 2px 8px; }
+  </style>
+</head>
+
+<body class="relative overflow-x-hidden">
+
+<!-- ══════════════════════════════
+     NAVBAR
+══════════════════════════════ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-blur">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2">
+      <span class="font-display text-2xl font-800 text-white tracking-tight">Edu<span class="text-brand-500">Shastra</span></span>
+    </a>
+    <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-ink-200">
+      <li><a href="https://www.edushastra.com/courses/" class="hover:text-brand-400 transition-colors">Courses</a></li>
+      <li><a href="https://www.edushastra.com/cat-2026/#batches" class="hover:text-brand-400 transition-colors">Batches</a></li>
+      <li><a href="https://www.edushastra.com/free-sectional-tests/" class="hover:text-brand-400 transition-colors">All Free Tests</a></li>
+      <li><a href="https://www.edushastra.com/cat-2026/#faculty" class="hover:text-brand-400 transition-colors">Faculty</a></li>
+      <li><a href="#faqs" class="hover:text-brand-400 transition-colors">FAQs</a></li>
+    </ul>
+    <div class="flex items-center gap-3">
+      <a href="https://www.edushastra.com/login/" class="hidden md:block text-sm text-ink-200 hover:text-white transition-colors px-4 py-2">Login</a>
+      <a href="#tests" class="cta-glow bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-300">
+        Start a Test →
+      </a>
+      <button id="menuBtn" class="md:hidden text-white p-1" aria-label="Menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden px-6 pb-6 pt-2 flex flex-col gap-4 text-sm font-medium text-ink-200">
+    <a href="#tests">All Tests</a>
+    <a href="https://www.edushastra.com/cat-2026/#batches">Batches</a>
+    <a href="https://www.edushastra.com/cat-2026/#faculty">Faculty</a>
+    <a href="#faqs">FAQs</a>
+    <a href="https://www.edushastra.com/login/">Login</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════
+     HERO
+══════════════════════════════ -->
+<section class="hero-bg relative min-h-[75vh] flex items-center pt-32 pb-16 px-6">
+  <div class="max-w-7xl mx-auto w-full relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+    <div>
+      <div class="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/30 rounded-full px-4 py-1.5 text-brand-400 text-xs font-semibold tracking-widest uppercase mb-6">
+        <span class="w-1.5 h-1.5 bg-brand-400 rounded-full animate-pulse"></span>
+        Section III · 100% Free · No Signup Fee
+      </div>
+
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-800 leading-[1.05] text-white mb-6">
+        Free QA<br/>
+        <span class="text-brand-500">Sectional Tests</span>
+      </h1>
+
+      <p class="text-lg text-ink-200 max-w-xl leading-relaxed mb-8">
+        4 full-length Quantitative Ability mocks built to the exact CAT 2026 pattern. Arithmetic, Algebra, Geometry and Modern Math — all four pillars tested under real exam conditions.
+      </p>
+
+      <div class="flex flex-wrap gap-3 mb-10">
+        <span class="glass rounded-full px-4 py-2 text-sm font-medium text-white">⏱️ 40 Minutes</span>
+        <span class="glass rounded-full px-4 py-2 text-sm font-medium text-white">📝 22 Questions (MCQ + TITA)</span>
+        <span class="glass rounded-full px-4 py-2 text-sm font-medium text-white">📊 Instant Score & Analysis</span>
+        <span class="glass rounded-full px-4 py-2 text-sm font-medium text-white">🔁 Unlimited Retakes</span>
+      </div>
+
+      <a href="#tests" class="inline-block cta-glow bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-3.5 rounded-full transition-all duration-300 text-base">
+        Jump to Tests ↓
+      </a>
+    </div>
+
+    <!-- Topic breakdown card -->
+    <div class="glass-orange rounded-3xl p-8 space-y-5 hidden lg:block">
+      <p class="font-display font-700 text-white text-lg mb-2">Topic weightage in QA</p>
+      {[
+        { label: "Arithmetic", pct: 40, note: "Percentages, profit/loss, time-speed, mixtures" },
+        { label: "Algebra", pct: 25, note: "Quadratics, functions, inequalities, progressions" },
+        { label: "Geometry & Mensuration", pct: 20, note: "Triangles, circles, co-ordinate geometry" },
+        { label: "Modern Math", pct: 15, note: "P&C, probability, set theory, number systems" },
+      ].map(t => (
+        <div>
+          <div class="flex justify-between text-sm mb-1.5">
+            <span class="text-ink-200">{t.label}</span>
+            <span class="text-brand-400 font-semibold">{t.pct}%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style={`width:${t.pct}%`}></div></div>
+          <p class="text-ink-400 text-xs mt-1">{t.note}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     OTHER SECTIONS BREADCRUMB
+══════════════════════════════ -->
+<div class="py-4 px-6 border-b border-white/06 bg-ink-800/30">
+  <div class="max-w-7xl mx-auto flex flex-wrap gap-3 items-center text-sm text-ink-400">
+    <span>Also free:</span>
+    <a href="/free-sectional-tests/varc/" class="hover:text-blue-400 transition-colors flex items-center gap-1">
+      <span class="w-2 h-2 rounded-full bg-blue-400 inline-block"></span> VARC Tests
+    </a>
+    <span class="text-ink-700">·</span>
+    <a href="/free-sectional-tests/dilr/" class="hover:text-purple-400 transition-colors flex items-center gap-1">
+      <span class="w-2 h-2 rounded-full bg-purple-400 inline-block"></span> DILR Tests
+    </a>
+    <span class="ml-auto">
+      <a href="/free-sectional-tests/" class="hover:text-white transition-colors">← View all 12 free tests</a>
+    </span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     TEST CARDS
+══════════════════════════════ -->
+<section id="tests" class="py-20 px-6 scroll-mt-24">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="reveal mb-12 text-center">
+      <span class="batch-tag badge-orange mb-3 inline-block">QA · Section III</span>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white mb-3">4 Free QA Tests</h2>
+      <p class="text-ink-200 max-w-lg mx-auto text-sm leading-relaxed">Each test blends MCQs (with −1 penalty) and TITA questions across all four QA topic pillars, mirroring real CAT 2026 difficulty.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Test 1 -->
+      <div class="reveal test-card glass rounded-3xl overflow-hidden border border-white/08">
+        <div class="h-1 bg-gradient-to-r from-brand-700 to-brand-400"></div>
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="batch-tag badge-orange">QA</span>
+          </div>
+          <h3 class="font-display text-xl font-700 text-white mb-2">Sectional Test 1</h3>
+          <div class="flex gap-3 text-xs mb-6">
+            <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+              <p class="font-display font-700 text-white">22</p>
+              <p class="text-ink-400 mt-0.5">Questions</p>
+            </div>
+            <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+              <p class="font-display font-700 text-white">40 min</p>
+              <p class="text-ink-400 mt-0.5">Duration</p>
+            </div>
+          </div>
+          <a href={TEST_LINKS[0]} class="block text-center bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">
+            Start Test 1 →
+          </a>
+        </div>
+      </div>
+
+      <!-- Test 2 -->
+      <div class="reveal test-card glass rounded-3xl overflow-hidden border border-white/08">
+        <div class="h-1 bg-gradient-to-r from-brand-700 to-brand-400"></div>
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="batch-tag badge-orange">QA</span>
+          </div>
+          <h3 class="font-display text-xl font-700 text-white mb-2">Sectional Test 2</h3>
+          <div class="flex gap-3 text-xs mb-6">
+            <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+              <p class="font-display font-700 text-white">22</p>
+              <p class="text-ink-400 mt-0.5">Questions</p>
+            </div>
+            <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+              <p class="font-display font-700 text-white">40 min</p>
+              <p class="text-ink-400 mt-0.5">Duration</p>
+            </div>
+          </div>
+          <a href={TEST_LINKS[1]} class="block text-center bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">
+            Start Test 2 →
+          </a>
+        </div>
+      </div>
+
+      <!-- Test 3 -->
+      <div class="reveal test-card glass rounded-3xl overflow-hidden border border-white/08">
+        <div class="h-1 bg-gradient-to-r from-brand-700 to-brand-400"></div>
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="batch-tag badge-orange">QA</span>
+          </div>
+          <h3 class="font-display text-xl font-700 text-white mb-2">Sectional Test 3</h3>
+          <div class="flex gap-3 text-xs mb-6">
+            <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+              <p class="font-display font-700 text-white">22</p>
+              <p class="text-ink-400 mt-0.5">Questions</p>
+            </div>
+            <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+              <p class="font-display font-700 text-white">40 min</p>
+              <p class="text-ink-400 mt-0.5">Duration</p>
+            </div>
+          </div>
+          <a href={TEST_LINKS[2]} class="block text-center bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">
+            Start Test 3 →
+          </a>
+        </div>
+      </div>
+
+      <!-- Test 4 -->
+      <div class="reveal test-card glass rounded-3xl overflow-hidden border border-white/08">
+        <div class="h-1 bg-gradient-to-r from-brand-700 to-brand-400"></div>
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="batch-tag badge-orange">QA</span>
+          </div>
+          <h3 class="font-display text-xl font-700 text-white mb-2">Sectional Test 4</h3>
+          <div class="flex gap-3 text-xs mb-6">
+            <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+              <p class="font-display font-700 text-white">22</p>
+              <p class="text-ink-400 mt-0.5">Questions</p>
+            </div>
+            <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+              <p class="font-display font-700 text-white">40 min</p>
+              <p class="text-ink-400 mt-0.5">Duration</p>
+            </div>
+          </div>
+          <a href={TEST_LINKS[3]} class="block text-center bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">
+            Start Test 4 →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     QA TIPS
+══════════════════════════════ -->
+<section class="py-16 px-6 bg-ink-800/20">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-10 text-center">
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">
+        Score 99%ile in QA with <span class="text-brand-500">These Principles</span>
+      </h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5">
+      {[
+        { icon: "🎯", title: "Accuracy Over Speed", desc: "CAT QA's −1 penalty punishes guessing. Most toppers attempt 14–16 questions with near-perfect accuracy rather than rushing all 22. Our tests help you calibrate your personal attempt-accuracy sweet spot." },
+        { icon: "📐", title: "Master Arithmetic First", desc: "40% of QA is Arithmetic — percentages, profit and loss, averages, mixtures, time-speed-distance. This is where the most marks are available and where disciplined practice pays off fastest." },
+        { icon: "⚡", title: "TITA is Your Safety Net", desc: "8 of 22 QA questions are TITA (no negative marking). Build a strategy to solve these confidently — they're your guaranteed scoring opportunities and can be the difference between 85th and 95th %ile." },
+      ].map(f => (
+        <div class="reveal glass rounded-2xl p-6">
+          <h4 class="font-display font-700 text-brand-500 text-xl mb-3">{f.icon} {f.title}</h4>
+          <p class="text-white text-sm leading-relaxed">{f.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="reveal glass-orange rounded-3xl p-8 mt-10 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div>
+        <p class="font-display font-700 text-white text-xl mb-1">Want a structured QA curriculum?</p>
+        <p class="text-ink-200 text-sm">Our batches cover every QA topic with concept videos, 500+ practice problems and live doubt-clearing sessions.</p>
+      </div>
+      <a href="https://www.edushastra.com/cat-2026/#batches" class="cta-glow bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-6 py-3 rounded-full transition-all whitespace-nowrap">
+        Explore Batches →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     FAQs
+══════════════════════════════ -->
+<section id="faqs" class="py-16 px-6">
+  <div class="max-w-4xl mx-auto">
+    <div class="reveal mb-12 text-center">
+      <p class="text-brand-400 text-xs font-semibold tracking-widest uppercase mb-3">Common Questions</p>
+      <h2 class="font-display text-4xl font-800 text-white">QA Test FAQs</h2>
+    </div>
+    <div class="space-y-3">
+      {[
+        { q: "Are these QA sectional tests free?", a: "Yes — all 4 QA tests are completely free with no signup fee. Click any 'Start Test' button to begin immediately." },
+        { q: "How many questions and what is the marking scheme?", a: "Each test has 22 questions — approximately 14 MCQs (with −1 negative marking) and 8 TITA questions (no negative marking). Correct MCQ answers get +3 marks, same as the real CAT." },
+        { q: "What QA topics are covered across the 4 tests?", a: "Together the 4 tests cover Arithmetic (percentages, profit/loss, time-speed, averages, mixtures), Algebra (quadratics, functions, inequalities, progressions), Geometry (triangles, circles, co-ordinate geometry), and Modern Math (P&C, probability, number systems, set theory)." },
+        { q: "Are the questions of actual CAT difficulty?", a: "Yes. Tests 1 and 2 are at moderate-to-medium CAT difficulty (targeting 80th–90th %ile aspirants), while Tests 3 and 4 ramp up to 95th–99th %ile difficulty." },
+        { q: "Can I retake tests?", a: "Yes, unlimited retakes. We recommend retaking a test after targeted topic revision to see a measurable score jump." },
+        { q: "Will I receive detailed solutions?", a: "Yes — every question comes with a step-by-step solution, alternative approaches, and time benchmarks immediately after you submit the test." },
+      ].map((faq, i) => (
+        <div class="reveal glass rounded-2xl overflow-hidden">
+          <button class="faq-btn w-full text-left px-7 py-5 flex items-start justify-between gap-4" data-index={i}>
+            <span class="font-display font-700 text-white text-sm leading-relaxed">{faq.q}</span>
+            <span class="faq-icon text-brand-400 flex-shrink-0 mt-0.5 text-lg">+</span>
+          </button>
+          <div class="faq-body hidden px-7 pb-6">
+            <p class="text-ink-200 text-sm leading-relaxed">{faq.a}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     FOOTER
+══════════════════════════════ -->
+<footer class="border-t border-white/06 bg-ink-900 pt-16 pb-8 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-12 mb-12">
+      <div class="md:col-span-1 space-y-4">
+        <p class="font-display text-2xl font-800 text-white">Edu<span class="text-brand-500">Shastra</span></p>
+        <p class="text-white text-sm leading-relaxed">Affordable Quality Education for All. For People, Not Profits. Since 2016.</p><br>
+        <p class="font-display text-2xl font-800 text-white text-sm">Connect With Edu<span class="text-brand-500 text-sm">Shastra</span>:</p>
+        <a href="https://www.facebook.com/EduShastra.Philanthropy/" class="text-orange-300 text-sm hover:text-brand-400 transition-colors">ⓕ Facebook</a><br/>
+        <a href="https://www.instagram.com/edushastra/" class="text-orange-300 text-sm hover:text-brand-400 transition-colors">📸 Instagram</a><br/>
+        <a href="https://www.linkedin.com/company/edushastra" class="text-orange-300 text-sm hover:text-brand-400 transition-colors">🇮🇳 Linkedin</a><br/>
+        <a href="https://www.youtube.com/channel/UCjLd8GlyCosf2jD49kdUGhA" class="text-orange-300 text-sm hover:text-brand-400 transition-colors">▶️ Youtube</a>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Courses</p>
+        <ul class="space-y-2 text-orange-300 text-sm">
+          <li><a href="https://www.edushastra.com/cat-2026/" class="hover:text-brand-400 transition-colors">CAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/gmat-prep/" class="hover:text-brand-400 transition-colors">GMAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/gmat-cat-coaching/" class="hover:text-brand-400 transition-colors">GMCAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/common-universities-entrance-test/" class="hover:text-brand-400 transition-colors">CUET Preparation</a></li>
+        </ul>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Links</p>
+        <ul class="space-y-2 text-orange-300 text-sm">
+          <li><a href="https://www.edushastra.com/courses" class="hover:text-brand-400 transition-colors">Courses</a></li>
+          <li><a href="https://www.edushastra.com/why-us" class="hover:text-brand-400 transition-colors">Why Us</a></li>
+          <li><a href="https://www.edushastra.com/faqs/" class="hover:text-brand-400 transition-colors">FAQs</a></li>
+          <li><a href="https://www.edushastra.com/blog/" class="hover:text-brand-400 transition-colors">Blog</a></li>
+        </ul>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Contact</p>
+        <ul class="space-y-2 text-orange-300 text-sm">
+          <li><a href="tel:01147082205" class="hover:text-brand-400 transition-colors">011-47082205</a></li>
+          <li><a href="mailto:contact@edushastra.com" class="hover:text-brand-400 transition-colors">contact@edushastra.com</a></li>
+          <li><a href="https://www.edushastra.com/contact-us/" class="hover:text-brand-400 transition-colors">View All Offices</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/06 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-ink-400 text-xs">
+      <p>© 2026 EduShastra Education Solutions Pvt. Ltd. All rights reserved.</p>
+      <div class="flex gap-4">
+        <a href="https://www.edushastra.com/terms-conditions-and-policies" class="hover:text-brand-400 transition-colors">Terms & Conditions</a>
+        <a href="https://www.edushastra.com/privacy-policy" class="hover:text-brand-400 transition-colors">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.style.background = window.scrollY > 80 ? 'rgba(13,13,13,0.97)' : 'rgba(13,13,13,0.8)';
+  });
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('hidden');
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('revealed'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const body = btn.nextElementSibling;
+      const icon = btn.querySelector('.faq-icon');
+      const isOpen = !body.classList.contains('hidden');
+      document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+      document.querySelectorAll('.faq-icon').forEach(ic => { ic.textContent = '+'; });
+      if (!isOpen) { body.classList.remove('hidden'); icon.textContent = '−'; }
+    });
+  });
+</script>
+
+</body>
+</html>
