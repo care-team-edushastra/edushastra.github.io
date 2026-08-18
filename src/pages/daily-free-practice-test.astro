@@ -1,12 +1,13 @@
 ---
 // EduShastra — Daily Practice Page (Astro)
 // Matches CAT 2026 / CUET design: dark bg, orange accent, glassmorphism, Syne + DM Sans
-const TEST_LINK = "https://edushastra-free.onrender.com/"; // placeholder — same link for every test
+const TEST_LINK = "https://edushastra-free.onrender.com/"; // placeholder — same link for every CAT test
+const GMAT_TEST_LINK = "https://edushastra-free.onrender.com/"; // GMAT LINK: replace with real GMAT daily test URL — same link for every GMAT test
 
 // 6 static card slots — actual dates are filled in client-side (see script at
 // the bottom) so the page always shows "today" back through "today - 5",
 // without needing a rebuild. data-day-offset tells the script which date
-// belongs in which card.
+// belongs in which card. Used for BOTH the CAT and GMAT grids.
 const dailyCardSlots = [0, 1, 2, 3, 4, 5];
 ---
 <!DOCTYPE html>
@@ -14,14 +15,14 @@ const dailyCardSlots = [0, 1, 2, 3, 4, 5];
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Free CAT 2026 Daily Mock & Free Practice Tests | EduShastra</title>
+  <title>Free CAT 2026 & GMAT  Daily Mock & Free Practice Tests | EduShastra</title>
 <link rel="icon" href="https://www.edushastra.com/wp-content/uploads/2024/09/eduShastra-logo_only-100x100.png" sizes="32x32"><link rel="icon" href="https://www.edushastra.com/wp-content/uploads/2024/09/eduShastra-logo_only-300x300.png" sizes="192x192">
-  <meta name="description" content="Boost your prep with a Free CAT 2026 Daily Mock. Practice a new 40-minute free CAT daily test every day. Track your scores and build consistency for CAT!" />
+  <meta name="description" content="Boost your prep with a Free CAT 2026 & GMAT Daily Mock. Practice a new 40-minute free CAT/GMAT daily test every day. Track your scores and build consistency for CAT & GMAT!" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.edushastra.com/daily-practice/" />
 
-  <meta property="og:title" content="Free CAT 2026 Daily Mock & Free Practice Tests | EduShastra" />
-  <meta property="og:description" content="Boost your prep with a Free CAT 2026 Daily Mock. Practice a new 40-minute free CAT daily test every day. Track your scores and build consistency for CAT!" />
+  <meta property="og:title" content="Free CAT 2026 & GMAT Daily Mock & Free Practice Tests | EduShastra" />
+  <meta property="og:description" content="Boost your prep with a Free CAT 2026 & GMAT Daily Mock. Practice a new 40-minute free CAT/GMAT daily test every day. Track your scores and build consistency for CAT & GMAT!" />
   <meta property="og:url" content="https://www.edushastra.com/daily-practice/" />
   <meta property="og:type" content="website" />
 
@@ -62,6 +63,27 @@ const dailyCardSlots = [0, 1, 2, 3, 4, 5];
   </script>
 
   <style>
+    /* ── Page-wide accent theme ──
+       Everything that should switch between CAT (orange) and GMAT (teal)
+       reads from these variables instead of the fixed Tailwind "brand-*"
+       colors. Toggled by setting data-theme="cat" | "gmat" on <body>. */
+    :root {
+      --accent-rgb: 249,115,22;
+      --accent-100: #ffedd5;
+      --accent-400: #fb923c;
+      --accent-500: #f97316;
+      --accent-600: #ea6c0a;
+      --accent-700: #c2540a;
+    }
+    body[data-theme="gmat"] {
+      --accent-rgb: 20,184,166;
+      --accent-100: #ccfbf1;
+      --accent-400: #5eead4;
+      --accent-500: #14b8a6;
+      --accent-600: #0d9488;
+      --accent-700: #0f766e;
+    }
+
     body { font-family: 'DM Sans', sans-serif; background: #0d0d0d; color: #f5f5f5; }
     h1,h2,h3,h4,h5,.font-display { font-family: 'Syne', sans-serif; }
 
@@ -74,9 +96,10 @@ const dailyCardSlots = [0, 1, 2, 3, 4, 5];
 
     .hero-bg {
       background:
-        radial-gradient(ellipse 70% 60% at 15% 50%, rgba(249,115,22,0.15) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 70% at 85% 20%, rgba(249,115,22,0.08) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 60% at 15% 50%, rgba(var(--accent-rgb),0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 70% at 85% 20%, rgba(var(--accent-rgb),0.08) 0%, transparent 55%),
         #0d0d0d;
+      transition: background 0.4s ease;
     }
 
     .glass {
@@ -86,9 +109,10 @@ const dailyCardSlots = [0, 1, 2, 3, 4, 5];
     }
 
     .glass-orange {
-      background: rgba(249,115,22,0.06);
-      border: 1px solid rgba(249,115,22,0.2);
+      background: rgba(var(--accent-rgb), 0.06);
+      border: 1px solid rgba(var(--accent-rgb), 0.2);
       backdrop-filter: blur(12px);
+      transition: background 0.3s ease, border-color 0.3s ease;
     }
 
     .nav-blur {
@@ -97,19 +121,37 @@ const dailyCardSlots = [0, 1, 2, 3, 4, 5];
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
-    .cta-glow:hover { box-shadow: 0 0 32px rgba(249,115,22,0.5); }
+    .cta-glow:hover { box-shadow: 0 0 32px rgba(var(--accent-rgb),0.5); }
+    .cta-glow-teal:hover { box-shadow: 0 0 32px rgba(20,184,166,0.5); }
+
+    /* ── Reusable page-wide accent utilities (theme-aware) ── */
+    .accent-text { color: var(--accent-500); transition: color 0.3s ease; }
+    .accent-text-soft { color: var(--accent-400); transition: color 0.3s ease; }
+    .accent-bg { background-color: var(--accent-500); transition: background-color 0.3s ease; }
+    .accent-bg:hover { background-color: var(--accent-600); }
+    .accent-badge {
+      background-color: rgba(var(--accent-rgb), 0.1);
+      border: 1px solid rgba(var(--accent-rgb), 0.3);
+      color: var(--accent-400);
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+    .accent-dot { background-color: var(--accent-400); transition: background-color 0.3s ease; }
+    .accent-link { color: var(--accent-400); transition: color 0.25s ease; }
+    .accent-link:hover { color: var(--accent-500); }
+    .nav-link { transition: color 0.25s ease; }
+    .nav-link:hover, .nav-link.is-active { color: var(--accent-400); }
 
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .revealed { opacity: 1; transform: translateY(0); }
 
     .section-divider {
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(249,115,22,0.3), transparent);
+      background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb),0.3), transparent);
       margin: 0 auto;
       width: 60%;
     }
 
-    .test-card { transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease; }
+    .test-card { transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, opacity 0.35s ease; }
     .test-card:hover { transform: translateY(-3px); }
 
     .batch-tag {
@@ -122,10 +164,49 @@ const dailyCardSlots = [0, 1, 2, 3, 4, 5];
     }
 
     .badge-blue { background: rgba(59,130,246,0.12); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
+    .badge-teal { background: rgba(20,184,166,0.12); color: #5eead4; border: 1px solid rgba(20,184,166,0.3); }
+
+    /* ── Tabs ── */
+    .suite-tab-btn {
+      transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    }
+    .suite-tab-btn[aria-selected="false"] {
+      background: transparent;
+      color: #d4d4d4;
+      border-color: rgba(255,255,255,0.15);
+    }
+    .suite-tab-btn[data-tab="cat"][aria-selected="true"] {
+      background: #f97316;
+      color: #fff;
+      border-color: #f97316;
+    }
+    .suite-tab-btn[data-tab="gmat"][aria-selected="true"] {
+      background: #14b8a6;
+      color: #fff;
+      border-color: #14b8a6;
+    }
+    .suite-tab-btn[data-tab="cat"][aria-selected="false"]:hover {
+      border-color: rgba(249,115,22,0.5);
+      color: #fff;
+    }
+    .suite-tab-btn[data-tab="gmat"][aria-selected="false"]:hover {
+      border-color: rgba(20,184,166,0.5);
+      color: #fff;
+    }
+
+    /* ── Panel + card refresh transition on tab switch ── */
+    .suite-panel[hidden] { display: none; }
+    .suite-panel { transition: opacity 0.22s ease; }
+    .suite-panel.panel-fading { opacity: 0; }
+    .test-card.card-refresh-init {
+      opacity: 0 !important;
+      transform: translateY(14px) scale(0.98) !important;
+      transition: opacity 0.35s ease, transform 0.35s ease !important;
+    }
   </style>
 </head>
 
-<body class="relative overflow-x-hidden">
+<body class="relative overflow-x-hidden" data-theme="cat">
 
 <!-- ══════════════════════════════
      NAVBAR
@@ -133,18 +214,18 @@ const dailyCardSlots = [0, 1, 2, 3, 4, 5];
 <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-blur">
   <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
     <a href="/" class="flex items-center gap-2">
-      <span class="font-display text-2xl font-800 text-white tracking-tight">Edu<span class="text-brand-500">Shastra</span></span>
+      <span class="font-display text-2xl font-800 text-white tracking-tight">Edu<span class="accent-text">Shastra</span></span>
     </a>
     <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-ink-200">
-      <li><a href="https://www.edushastra.com/courses/" class="hover:text-brand-400 transition-colors">Courses</a></li>
-      <li><a href="https://www.edushastra.com/cat-2026/#batches" class="hover:text-brand-400 transition-colors">Batches</a></li>
-      <li><a href="https://www.edushastra.com/free-sectional-tests/" class="hover:text-brand-400 transition-colors">Sectional Tests</a></li>
-      <li><a href="#practice" class="text-brand-400">Daily Practice</a></li>
-      <li><a href="#faqs" class="hover:text-brand-400 transition-colors">FAQs</a></li>
+      <li><a href="https://www.edushastra.com/courses/" class="nav-link transition-colors">Courses</a></li>
+      <li><a href="https://www.edushastra.com/cat-2026/#batches" class="nav-link transition-colors">Batches</a></li>
+      <li><a href="https://www.edushastra.com/free-sectional-tests/" class="nav-link transition-colors">Sectional Tests</a></li>
+      <li><a href="#practice" class="nav-link is-active">Daily Practice</a></li>
+      <li><a href="#faqs" class="nav-link transition-colors">FAQs</a></li>
     </ul>
     <div class="flex items-center gap-3">
       <a href="https://www.edushastra.com/login/" class="hidden md:block text-sm text-ink-200 hover:text-white transition-colors px-4 py-2">Login</a>
-      <a href="#practice" class="cta-glow bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-300">
+      <a href="#practice" class="cta-glow accent-bg text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-300">
         Start Today's Test →
       </a>
       <button id="menuBtn" class="md:hidden text-white p-1" aria-label="Menu">
@@ -169,19 +250,19 @@ const dailyCardSlots = [0, 1, 2, 3, 4, 5];
 <section class="hero-bg relative min-h-[50vh] flex items-center pt-32 pb-12 px-6">
   <div class="max-w-7xl mx-auto w-full relative z-10">
     <div class="max-w-3xl">
-      <div class="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/30 rounded-full px-4 py-1.5 text-brand-400 text-xs font-semibold tracking-widest uppercase mb-6">
-        <span class="w-1.5 h-1.5 bg-brand-400 rounded-full animate-pulse"></span>
+      <div class="accent-badge inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold tracking-widest uppercase mb-6">
+        <span class="accent-dot w-1.5 h-1.5 rounded-full animate-pulse"></span>
         100% Free · A New Test Every Day
       </div>
 
       <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-800 leading-[1.05] text-white mb-6">
         Free Daily<br/>
-        <span class="text-brand-500">Practice Tests</span>
+        <span class="accent-text">Practice Tests</span>
       </h1>
 
       <p class="text-lg text-ink-200 max-w-xl leading-relaxed mb-2">
        Sharpen your skills with Daily Practice Tests.<br>
-       A 40-minute, 20-question daily mini-mock covering VARC, DILR, and QA to track your progress.
+       A short daily mini-mock to track your progress — for CAT or GMAT.
       </p>
 
       <div class="flex flex-wrap gap-3">
@@ -194,34 +275,100 @@ const dailyCardSlots = [0, 1, 2, 3, 4, 5];
 </section>
 
 <!-- ══════════════════════════════
+     SECTION: EXAM TABS (CAT / GMAT) — centered
+══════════════════════════════ -->
+<section class="px-6 pt-10">
+  <div class="max-w-7xl mx-auto flex justify-center">
+    <div class="reveal inline-flex gap-2 p-1.5 rounded-full glass" role="tablist" aria-label="Choose your exam">
+      <button
+        type="button"
+        id="tab-btn-cat"
+        class="suite-tab-btn rounded-full px-6 py-2.5 text-sm font-semibold border"
+        role="tab"
+        aria-selected="true"
+        aria-controls="tab-panel-cat"
+        data-tab="cat"
+      >
+        CAT
+      </button>
+      <button
+        type="button"
+        id="tab-btn-gmat"
+        class="suite-tab-btn rounded-full px-6 py-2.5 text-sm font-semibold border"
+        role="tab"
+        aria-selected="false"
+        aria-controls="tab-panel-gmat"
+        data-tab="gmat"
+      >
+        GMAT
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
      DAILY PRACTICE GRID (auto-populated, last 6 days)
 ══════════════════════════════ -->
 <section id="practice" class="py-12 px-6 scroll-mt-28">
   <div class="max-w-7xl mx-auto">
-    <div id="dailyGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-      {dailyCardSlots.map(offset => (
-        <div class="reveal test-card glass rounded-3xl overflow-hidden hover:border-blue-400/30">
-          <div class="h-1 bg-gradient-to-r from-blue-500 to-blue-400"></div>
-          <div class="p-6">
-            <span class="batch-tag badge-blue mb-3 inline-block daily-date" data-day-offset={offset}>—</span>
-            <h3 class="font-display text-xl font-700 text-white mb-4">Daily Practice Test</h3>
-            <div class="flex gap-3 text-xs mb-6">
-              <div class="glass rounded-lg px-3 py-2 text-center flex-1">
-                <p class="font-display font-700 text-white">20</p>
-                <p class="text-ink-400 mt-0.5">Questions</p>
+
+    <!-- CAT PANEL (blue/orange accent) -->
+    <div id="tab-panel-cat" class="suite-panel" role="tabpanel" aria-labelledby="tab-btn-cat" data-panel="cat">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {dailyCardSlots.map(offset => (
+          <div class="reveal test-card glass rounded-3xl overflow-hidden hover:border-blue-400/30">
+            <div class="h-1 bg-gradient-to-r from-blue-500 to-blue-400"></div>
+            <div class="p-6">
+              <span class="batch-tag badge-blue mb-3 inline-block daily-date" data-day-offset={offset}>—</span>
+              <h3 class="font-display text-xl font-700 text-white mb-4">Daily Practice Test</h3>
+              <div class="flex gap-3 text-xs mb-6">
+                <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+                  <p class="font-display font-700 text-white">20</p>
+                  <p class="text-ink-400 mt-0.5">Questions</p>
+                </div>
+                <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+                  <p class="font-display font-700 text-white">40 min</p>
+                  <p class="text-ink-400 mt-0.5">Duration</p>
+                </div>
               </div>
-              <div class="glass rounded-lg px-3 py-2 text-center flex-1">
-                <p class="font-display font-700 text-white">40 min</p>
-                <p class="text-ink-400 mt-0.5">Duration</p>
-              </div>
+              <a href={TEST_LINK} class="block text-center bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">
+                Take Test →
+              </a>
             </div>
-            <a href={TEST_LINK} class="block text-center bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">
-              Take Test →
-            </a>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
+
+    <!-- GMAT PANEL (teal/cyan accent) -->
+    <div id="tab-panel-gmat" class="suite-panel" role="tabpanel" aria-labelledby="tab-btn-gmat" data-panel="gmat" hidden>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {dailyCardSlots.map(offset => (
+          <div class="reveal test-card glass rounded-3xl overflow-hidden hover:border-teal-400/30">
+            <div class="h-1 bg-gradient-to-r from-teal-600 to-teal-400"></div>
+            <div class="p-6">
+              <span class="batch-tag badge-teal mb-3 inline-block daily-date" data-day-offset={offset}>—</span>
+              <h3 class="font-display text-xl font-700 text-white mb-4">Daily Practice Test</h3>
+              <div class="flex gap-3 text-xs mb-6">
+                <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+                  <p class="font-display font-700 text-white">20</p>
+                  <p class="text-ink-400 mt-0.5">Questions</p>
+                </div>
+                <div class="glass rounded-lg px-3 py-2 text-center flex-1">
+                  <p class="font-display font-700 text-white">40 min</p>
+                  <p class="text-ink-400 mt-0.5">Duration</p>
+                </div>
+              </div>
+              <!-- GMAT LINK: replace GMAT_TEST_LINK above with real GMAT daily test URL -->
+              <a href={GMAT_TEST_LINK} class="block text-center bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold px-4 py-2.5 rounded-full transition-all cta-glow-teal">
+                Take Test →
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -232,7 +379,7 @@ const dailyCardSlots = [0, 1, 2, 3, 4, 5];
   <div class="max-w-7xl mx-auto">
     <div class="reveal mb-10 text-center">
       <h2 class="font-display text-4xl md:text-5xl font-800 text-white">
-        Why a <span class="text-brand-500">Daily Sprint?</span>
+        Why a <span class="accent-text">Daily Sprint?</span>
       </h2>
     </div>
     <div class="grid md:grid-cols-3 gap-5">
@@ -242,7 +389,7 @@ const dailyCardSlots = [0, 1, 2, 3, 4, 5];
         { icon: "📈", title: "Consistency Compounds", desc: "Short daily reps build the exam stamina and pacing instinct that one long weekly mock can't replicate on its own." },
       ].map(f => (
         <div class="reveal glass rounded-2xl p-6">
-          <h4 class="font-display font-700 text-brand-500 text-xl mb-3">{f.icon} {f.title}</h4>
+          <h4 class="accent-text font-display font-700 text-xl mb-3">{f.icon} {f.title}</h4>
           <p class="text-white text-sm leading-relaxed">{f.desc}</p>
         </div>
       ))}
@@ -253,7 +400,7 @@ const dailyCardSlots = [0, 1, 2, 3, 4, 5];
         <p class="font-display font-700 text-white text-xl mb-1">Want a deeper diagnostic?</p>
         <p class="text-ink-200 text-sm">Try our full Sectional Tests across VARC, DILR and QA to isolate exactly where you're losing percentile.</p>
       </div>
-      <a href="https://www.edushastra.com/free-sectional-tests/" class="bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-6 py-3 rounded-full transition-all cta-glow whitespace-nowrap">
+      <a href="https://www.edushastra.com/free-sectional-tests/" class="accent-bg cta-glow text-white text-sm font-semibold px-6 py-3 rounded-full transition-all whitespace-nowrap">
         See Sectional Tests →
       </a>
     </div>
@@ -267,7 +414,7 @@ const dailyCardSlots = [0, 1, 2, 3, 4, 5];
   <div class="max-w-4xl mx-auto">
 
     <div class="reveal mb-12 text-center">
-      <p class="text-brand-400 text-xs font-semibold tracking-widest uppercase mb-3">Common Questions</p>
+      <p class="accent-text-soft text-xs font-semibold tracking-widest uppercase mb-3">Common Questions</p>
       <h2 class="font-display text-4xl font-800 text-white">Frequently Asked</h2>
     </div>
 
@@ -279,11 +426,12 @@ const dailyCardSlots = [0, 1, 2, 3, 4, 5];
         { q: "Do older tests disappear after 6 days?", a: "This page always shows a rolling window of the most recent 6 days. Older tests move out of this view as new ones are added, so it's best to attempt each test while it's still listed here." },
         { q: "How is this different from the Sectional Tests?", a: "Sectional Tests are 4 fixed, full-length mocks per section (VARC, DILR, QA) you can take anytime. Daily Practice Tests are shorter, change every day, and are meant as a quick daily habit rather than a complete sectional simulation." },
         { q: "Do I need to register to take a test?", a: "You'll need a free EduShastra account to save your attempts and track your progress over time. Creating one takes under a minute." },
+        { q: "Is there a Daily Practice Test for GMAT too?", a: "Yes — use the CAT / GMAT toggle above the test grid to switch between the two. Each has its own rolling 6-day set of tests." },
       ].map((faq, i) => (
         <div class="reveal glass rounded-2xl overflow-hidden">
           <button class="faq-btn w-full text-left px-7 py-5 flex items-start justify-between gap-4 group" data-index={i}>
             <span class="font-display font-700 text-white text-sm leading-relaxed">{faq.q}</span>
-            <span class="faq-icon text-brand-400 flex-shrink-0 mt-0.5 transition-transform duration-300 text-lg">+</span>
+            <span class="faq-icon accent-text-soft flex-shrink-0 mt-0.5 transition-transform duration-300 text-lg">+</span>
           </button>
           <div class="faq-body hidden px-7 pb-6">
             <p class="text-ink-200 text-sm leading-relaxed">{faq.a}</p>
@@ -302,46 +450,46 @@ const dailyCardSlots = [0, 1, 2, 3, 4, 5];
   <div class="max-w-7xl mx-auto">
     <div class="grid md:grid-cols-4 gap-12 mb-12">
       <div class="md:col-span-1 space-y-4">
-        <p class="font-display text-2xl font-800 text-white">Edu<span class="text-brand-500">Shastra</span></p>
+        <p class="font-display text-2xl font-800 text-white">Edu<span class="accent-text">Shastra</span></p>
         <p class="text-white text-sm leading-relaxed">Affordable Quality Education for All. For People, Not Profits. Since 2016.</p><br>
-        <p class="font-display text-2xl font-800 text-white text-sm">Connect With Edu<span class="text-brand-500 text-sm">Shastra</span>:</p>
-        <a href="https://www.facebook.com/EduShastra.Philanthropy/" class="text-orange-300 text-sm hover:text-brand-400 transition-colors">ⓕ Facebook</a><br/>
-        <a href="https://www.instagram.com/edushastra/" class="text-orange-300 text-sm hover:text-brand-400 transition-colors"> 📸 Instagram</a><br/>
-        <a href="https://www.linkedin.com/company/edushastra" class="text-orange-300 text-sm hover:text-brand-400 transition-colors">🇮🇳Linkedin</a><br/>
-        <a href="https://www.youtube.com/channel/UCjLd8GlyCosf2jD49kdUGhA" class="text-orange-300 text-sm hover:text-brand-400 transition-colors">▶️Youtube</a>
+        <p class="font-display text-2xl font-800 text-white text-sm">Connect With Edu<span class="accent-text text-sm">Shastra</span>:</p>
+        <a href="https://www.facebook.com/EduShastra.Philanthropy/" class="accent-link text-sm">ⓕ Facebook</a><br/>
+        <a href="https://www.instagram.com/edushastra/" class="accent-link text-sm"> 📸 Instagram</a><br/>
+        <a href="https://www.linkedin.com/company/edushastra" class="accent-link text-sm">🇮🇳Linkedin</a><br/>
+        <a href="https://www.youtube.com/channel/UCjLd8GlyCosf2jD49kdUGhA" class="accent-link text-sm">▶️Youtube</a>
       </div>
       <div class="space-y-4">
         <p class="font-semibold text-white text-sm">Courses</p>
-        <ul class="space-y-2 text-orange-300 text-sm">
-          <li><a href="https://www.edushastra.com/cat-2026/" class="hover:text-brand-400 transition-colors">CAT Preparation</a></li>
-          <li><a href="https://www.edushastra.com/gmat-prep/" class="hover:text-brand-400 transition-colors">GMAT Preparation</a></li>
-          <li><a href="https://www.edushastra.com/gmat-cat-coaching/" class="hover:text-brand-400 transition-colors">GMCAT Preparation</a></li>
-          <li><a href="https://www.edushastra.com/common-universities-entrance-test/" class="hover:text-brand-400 transition-colors">CUET Preparation</a></li>
+        <ul class="space-y-2 text-sm">
+          <li><a href="https://www.edushastra.com/cat-2026/" class="accent-link">CAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/gmat-prep/" class="accent-link">GMAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/gmat-cat-coaching/" class="accent-link">GMCAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/common-universities-entrance-test/" class="accent-link">CUET Preparation</a></li>
         </ul>
       </div>
       <div class="space-y-4">
         <p class="font-semibold text-white text-sm">Links</p>
-        <ul class="space-y-2 text-orange-300 text-sm">
-          <li><a href="https://www.edushastra.com/courses" class="hover:text-brand-400 transition-colors">Courses</a></li>
-          <li><a href="https://www.edushastra.com/why-us" class="hover:text-brand-400 transition-colors">Why Us</a></li>
-          <li><a href="https://www.edushastra.com/faqs/" class="hover:text-brand-400 transition-colors">FAQs</a></li>
-          <li><a href="https://www.edushastra.com/blog/" class="hover:text-brand-400 transition-colors">Blog</a></li>
+        <ul class="space-y-2 text-sm">
+          <li><a href="https://www.edushastra.com/courses" class="accent-link">Courses</a></li>
+          <li><a href="https://www.edushastra.com/why-us" class="accent-link">Why Us</a></li>
+          <li><a href="https://www.edushastra.com/faqs/" class="accent-link">FAQs</a></li>
+          <li><a href="https://www.edushastra.com/blog/" class="accent-link">Blog</a></li>
         </ul>
       </div>
       <div class="space-y-4">
         <p class="font-semibold text-white text-sm">Contact</p>
-        <ul class="space-y-2 text-orange-300 text-sm">
-          <li><a href="tel:01147082205" class="hover:text-brand-400 transition-colors">011-47082205</a></li>
-          <li><a href="mailto:contact@edushastra.com" class="hover:text-brand-400 transition-colors">contact@edushastra.com</a></li>
-          <li><a href="https://www.edushastra.com/contact-us/" class="hover:text-brand-400 transition-colors">View All Offices</a></li>
+        <ul class="space-y-2 text-sm">
+          <li><a href="tel:01147082205" class="accent-link">011-47082205</a></li>
+          <li><a href="mailto:contact@edushastra.com" class="accent-link">contact@edushastra.com</a></li>
+          <li><a href="https://www.edushastra.com/contact-us/" class="accent-link">View All Offices</a></li>
         </ul>
       </div>
     </div>
     <div class="border-t border-white/06 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-ink-400 text-xs">
       <p>© 2026 EduShastra Education Solutions Pvt. Ltd. All rights reserved.</p>
       <div class="flex gap-4">
-        <a href="https://www.edushastra.com/terms-conditions-and-policies" class="hover:text-brand-400 transition-colors">Terms & Conditions</a>
-        <a href="https://www.edushastra.com/privacy-policy" class="hover:text-brand-400 transition-colors">Privacy Policy</a>
+        <a href="https://www.edushastra.com/terms-conditions-and-policies" class="hover:text-white transition-colors">Terms & Conditions</a>
+        <a href="https://www.edushastra.com/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</a>
       </div>
     </div>
   </div>
@@ -368,6 +516,7 @@ const dailyCardSlots = [0, 1, 2, 3, 4, 5];
   // Cards themselves are real markup (see above); this only sets each
   // card's date label based on its data-day-offset, so today's card
   // shows today's date, yesterday's card shows yesterday's, etc.
+  // Runs for BOTH the CAT and GMAT grids (hidden panels included).
   function formatDate(d) {
     return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
   }
@@ -393,6 +542,62 @@ const dailyCardSlots = [0, 1, 2, 3, 4, 5];
     });
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── CAT / GMAT tab switcher with a small "refresh" transition ──
+  // Also flips the whole page's accent theme (orange ↔ teal) via
+  // document.body.dataset.theme, which every .accent-* / var(--accent-*)
+  // rule above reads from.
+  const tabButtons = document.querySelectorAll('.suite-tab-btn');
+  const tabPanels = document.querySelectorAll('.suite-panel');
+  let isSwitching = false;
+
+  function showPanel(panel) {
+    panel.hidden = false;
+    panel.classList.remove('panel-fading');
+
+    // Prime every card as "just off-screen", force a reflow, then let them
+    // settle back into place one after another — reads as the grid refreshing.
+    const cards = panel.querySelectorAll('.test-card');
+    cards.forEach((c) => c.classList.add('card-refresh-init'));
+    void panel.offsetWidth; // force reflow so the init state actually renders
+    cards.forEach((c, i) => {
+      setTimeout(() => c.classList.remove('card-refresh-init'), 40 + i * 45);
+    });
+  }
+
+  function activateTab(tabName) {
+    if (isSwitching) return;
+    const currentPanel = document.querySelector('.suite-panel:not([hidden])');
+    const nextPanel = document.querySelector(`.suite-panel[data-panel="${tabName}"]`);
+    if (!nextPanel || nextPanel === currentPanel) return;
+
+    isSwitching = true;
+    tabButtons.forEach((btn) => {
+      btn.setAttribute('aria-selected', btn.dataset.tab === tabName ? 'true' : 'false');
+    });
+
+    // Flip the page-wide accent theme immediately so everything outside
+    // the grid (nav, hero, headings, buttons, footer, FAQ) transitions
+    // in sync with the panel swap below.
+    document.body.dataset.theme = tabName;
+
+    if (currentPanel) {
+      currentPanel.classList.add('panel-fading');
+      setTimeout(() => {
+        currentPanel.hidden = true;
+        currentPanel.classList.remove('panel-fading');
+        showPanel(nextPanel);
+        isSwitching = false;
+      }, 200);
+    } else {
+      showPanel(nextPanel);
+      isSwitching = false;
+    }
+  }
+
+  tabButtons.forEach((btn) => {
+    btn.addEventListener('click', () => activateTab(btn.dataset.tab));
+  });
 
   // FAQ accordion
   document.querySelectorAll('.faq-btn').forEach(btn => {
