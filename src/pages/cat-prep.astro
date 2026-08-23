@@ -880,6 +880,64 @@
 </section>
 
 <!-- ══════════════════════════════
+     CAT 2027 Fees
+══════════════════════════════ -->
+<section class="py-6 px-6 relative overflow-hidden bg-ink-800/20">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-brand-500/06 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto relative z-10">
+
+    <div class="reveal text-center mb-14">
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">
+        CAT 2027 Elite Plus Batches
+      </h2>
+
+    </div>
+
+    <!-- Apex pricing -->
+    <div class="reveal mb-6">
+      <h3 class="font-display text-2xl font-800 text-white">CAT 2027 Elite Plus Batches</h3>
+    <p class="text-ink-200 text-base">Batch size of 25–30 studets. Audio, Video, Writing, and Chat Interaction</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 mb-10">
+      {[
+        { name: "Live Online Batch", mode: "Live Online",          badge: "badge-online",  price: "₹28,999",  orig: "₹48,332", link: "/elite-eliteplus/" },
+        { name: "Classroom Batch", mode: "Classroom (Offline)",  badge: "badge-offline", price: "₹42,999", orig: "₹71,665", link: "/elite-eliteplus/" },
+        { name: "Hybrid Batch", mode: "Hybrid",               badge: "badge-hybrid",  price: "₹44,999", orig: "₹74,999", link: "/elite-eliteplus/" },
+      ].map(c => (
+        <div class="glass rounded-3xl overflow-hidden">
+          <div class="h-1 bg-gradient-to-r from-brand-700 to-brand-500"></div>
+          <div class="p-7">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <span class={`batch-tag ${c.badge} mb-2 inline-block`}>{c.mode}</span>
+                <h4 class="font-display text-lg font-700 text-white">CAT 2027 {c.name}</h4>
+              </div>
+              <div class="text-right">
+                <p class="font-display text-2xl font-800 text-brand-400">{c.price}</p>
+                <p class="text-ink-400 text-xs line-through">{c.orig}</p>
+              </div>
+            </div>
+            <ul class="space-y-2 text-sm text-ink-200 mb-6">
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> 500+ Hours Course Cycle</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Personalized Learning Experience</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Batch Size: 25–30 Students</li>
+          <li class="flex gap-2"><span class="text-brand-400">✓</span> Validity till April 2028</li>
+            </ul>
+            <div class="flex gap-2">
+              <a href={`https://www.edushastra.com${c.link}`} class="flex-1 text-center border border-brand-500/40 text-brand-400 text-xs font-semibold px-4 py-2.5 rounded-full hover:bg-brand-500/10 transition-all">Explore</a>
+              <a href="https://www.edushastra.com/cat-2027-payment-portal" class="flex-1 text-center bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-4 py-2.5 rounded-full transition-all cta-glow">Enroll Now</a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════
      SECTION: APEX-25 SPOTLIGHT
 ══════════════════════════════ -->
 <section class="py-6 px-6 relative overflow-hidden bg-ink-800/20">
