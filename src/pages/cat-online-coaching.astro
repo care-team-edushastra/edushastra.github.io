@@ -179,9 +179,18 @@ const pageLd = { "@context": "https://schema.org", "@type": "WebPage", name: TIT
     <div class="flex items-center gap-3">
       <a href="https://edushastra-free.onrender.com/" class="hidden md:block text-sm text-ink-200 hover:text-white px-4 py-2">Login</a>
       <a href="#batches" class="cta-glow btn text-sm font-semibold px-5 py-2.5 rounded-full">Pick a Batch</a>
+      <button id="menu-btn" type="button" class="md:hidden w-10 h-10 flex items-center justify-center rounded-full glass text-white" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </div>
   </div>
-</nav>
+  <div id="mobile-menu" class="hidden md:hidden border-t border-white/10 px-6 pb-5">
+    <ul class="flex flex-col text-base font-medium text-ink-200">
+      <li><a href="https://www.edushastra.com/courses/" class="mobile-link block py-3 border-b border-white/5 hover:text-brand-400">Courses</a></li>
+      <li><a href="https://www.edushastra.com/about-us/" class="mobile-link block py-3 border-b border-white/5 hover:text-brand-400">About Us</a></li>
+      <li><a href="#batches" class="mobile-link block py-3 border-b border-white/5 hover:text-brand-400">Batches</a></li>
+      <li><a href="#faculty" class="mobile-link block py-3 border-b border-white/5
 
 <!-- HERO -->
 <header class="hero-bg relative min-h-screen flex items-center pt-24 pb-8 px-6">
@@ -535,6 +544,21 @@ const pageLd = { "@context": "https://schema.org", "@type": "WebPage", name: TIT
     document.querySelectorAll('.faq-btn').forEach(b => { b.setAttribute('aria-expanded','false'); b.querySelector('.faq-icon').textContent = '+'; });
     if (!open) { body.classList.remove('hidden'); btn.setAttribute('aria-expanded','true'); btn.querySelector('.faq-icon').textContent = '−'; }
   }));
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+  function setMenu(open) {
+    mobileMenu.classList.toggle('hidden', !open);
+    iconOpen.classList.toggle('hidden', open);
+    iconClose.classList.toggle('hidden', !open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  menuBtn.addEventListener('click', () => setMenu(mobileMenu.classList.contains('hidden')));
+  document.querySelectorAll('.mobile-link').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+  window.matchMedia('(min-width: 768px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
 </script>
 </body>
 </html>
