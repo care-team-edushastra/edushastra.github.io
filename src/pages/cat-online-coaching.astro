@@ -1,0 +1,544 @@
+---
+// ════════════════════════════════════════════════════════════
+//  EduShastra — CAT Online Coaching (Astro)
+//  Slug: /cat-online-coaching/
+//  Focus keyword: "cat online coaching"
+// ════════════════════════════════════════════════════════════
+const U = "https://www.edushastra.com";
+const PAGE_URL = `${U}/cat-online-coaching/`;
+const TITLE = "CAT Online Coaching | Adaptive 5-Level Prep | Edushastra";
+const DESCRIPTION = "Best CAT Online coaching by 100%iler faculty. Boost your prep with IQ-based mapping, real-time audio/video interaction, and 24/7 doubt support.";
+const OG_IMAGE = `${U}/wp-content/uploads/2026/03/Apex-final-e1774841680687.webp`;
+
+// The CAT 2027 pages this page feeds. Keep these slugs in ONE place.
+const P = {
+  online: "/cat2027-online-coaching/",       // NOTE: new slug (no hyphen between "cat" and "2027")
+  main: "/cat-2027-coaching/",
+  delhi: "/cat-2027-coaching-delhi/",
+  gurugram: "/cat-2027-coaching-gurugram/",
+};
+
+// ── Batch table: every row links to a CAT 2027 page ──
+const batches = [
+  { name: "Weekday Live Online Batch", mode: "Live online", slot: "Weekdays", href: P.online, cta: "CAT 2027 online batch details" },
+  { name: "Weekend Live Online Batch", mode: "Live online", slot: "Weekends", href: P.online, cta: "CAT 2027 online batch details" },
+  { name: "Apex-25 Live Online Batch (admission by test)", mode: "Live online", slot: "Weekday / weekend", href: P.online, cta: "See Apex-25 on the CAT 2027 page" },
+];
+
+// ── Batch comparison: Elite vs Elite Plus vs Apex-25 (live online). Fees stay on the CAT 2027 page. ──
+const APEX_LINK = "/faqs-99ile-apex-30-batch-course-details/";
+const formats = [
+  { tag: "Larger live batch", title: "Elite Live Online", sub: "Live classes with recordings in a larger cohort. A solid way to get structured, live teaching for the full CAT syllabus.",
+    feats: ["500+ hours course cycle", "Live classes and recordings", "150-200 students per batch"],
+    href: `${P.online}#batches-elite`, cta: "See Elite Live Online" },
+  { tag: "Most popular", title: "Elite Plus Live Online", sub: "A small live batch where you can speak, write and chat in class, so your doubts and progress get far more individual attention.",
+    feats: ["Audio, video, writing and chat interaction", "25-30 students per batch", "Weekday and weekend slots"],
+    href: P.online, cta: "See Elite Plus Live Online" },
+  { tag: "Top percentile", title: "Apex-25 Live Online", sub: "The most personalised batch, capped at 25 students and built for aspirants aiming at the 99+ percentile.",
+    feats: ["Highly personalised teaching", "24x7 doubt solving", "Lifetime validity"],
+    href: APEX_LINK, cta: "Apply for Apex-25" },
+];
+
+// ── CAT Course Structure (as on the CAT live online page) ──
+const phases = [
+  ["Introductory or Mapping Phase","One-on-One Stage","This phase is employed at the beginning and usually takes 2-4 sessions. In this phase, CAT Instructors try to analyze every student in the batch by their interaction with them. This step takes 10% of total course time."],
+  ["Foundation Phase","Batch Stage","It covers basics of all sections of CAT. This phase is around 20-50% of the whole course."],
+  ["Testing Phase","One-on-One Stage","This phase involves Computer Adaptive Tests, Computer Based Tests, and Paper Based Tests. Every course comes with a commitment of \u201cMinimum Tests\u201d i.e. a minimum number of tests which a student has to attempt to complete the course."],
+  ["Control Phase","One-on-One Stage","This last Phase is to look into any gaps in test preparation."],
+];
+
+const compare = [
+  ["Format", "Live classes + recordings", "Live: audio, video, writing and chat interaction", "Live, highly personalised"],
+  ["Batch size", "150-200 students", "25-30 students", "25 students"],
+  ["Doubt solving", "Weekly doubt sessions and forum", "In-class interaction plus weekly doubt sessions", "24x7 doubt solving"],
+  ["Validity", "Till April 2028", "Till April 2028", "Lifetime"],
+  ["Admission", "Open enrolment", "Open enrolment", "By Entrance Mapping Test and academic record review"],
+];
+
+// ── Added content (reworded from the CAT live online page; no fees here) ──
+const doubtSupport = [
+  ["Round-the-clock forum", "Post a question at any hour and experts answer it on a discussion forum."],
+  ["Interactive live classes", "Audio, video, writing and chat controls are open to students, so you can ask during the lesson."],
+  ["Weekly doubt sessions", "Each subject teacher runs a live doubt session every week."],
+  ["Community groups", "Social-media groups let you put queries to experts between classes."],
+  ["A panel of teachers", "Every batch has a panel of 7-9 teachers reachable by call or email."],
+  ["Student support team", "A dedicated team at support@edushastra.com handles everything else."],
+];
+const promise = [["6", "+60"], ["7", "+70"], ["8", "+80"], ["9", "+90"], ["10", "+99"]];
+const counselling = [
+  "Profile evaluation based on IQ and EQ", "Free SNAP, XAT, IIFT and NMAT course", "Soft skills and personal interview preparation",
+  "B-school selection based on your profile", "Profile mapping with target schools", "Editing of SOPs, recommendation letters, essays and resumes",
+  "Alumni assistance and mentoring", "Rigorous interview preparation", "Education loan and scholarship counselling",
+];
+const toppers = ["PE9V4W-jlyw", "68NRsAA5o0U", "JtV_nm0zRhQ", "hE7_LGsRO70"];
+
+const faculty = [
+  { img: "2023/08/M_L_Parashar.webp", name: "Mr. M L Parashar", cred: "Rtd. Director, Dept. of Science & Tech., Govt. of India", role: "Rtd. Deputy Secretary (Govt. of India) · IIM-A, IIT-K" },
+  { img: "2025/09/Vipul-Parashar-EduShastra.webp", name: "Mr. Vipul Parashar", cred: "99.99%ile in CAT 2024, 99.98%ile in CAT 2023, GMAT 780", role: "12+ years mentoring CAT and GMAT aspirants" },
+  { img: "2025/02/ayush1.webp", name: "Mr. Ayush Matcha", cred: "99.78%ile in CAT 2022 · IIM Class of 2023-25", role: "4+ years of teaching experience" },
+  { img: "2026/01/vibha-e1767786486545.webp", name: "Ms. Vibha Malhotra", cred: "100th percentile in CAT Quant · GMAT Focus 745", role: "16+ years in Quantitative Aptitude coaching" },
+  { img: "2024/12/teachers007.webp", name: "Mr. Pawan Shahi", cred: "99.92%ile in CAT 2024 · GMAT Focus 765", role: "NIT graduate and CAT topper turned mentor" },
+  { img: "2023/08/Deepak_Jain.webp", name: "Mr. Deepak Jain", cred: "IIT & IIM alumnus · 100th percentile in CAT · GMAT 790", role: "Retired IAS officer, UT administration" },
+  { img: "2023/08/kushalbhardwaj.webp", name: "Dr. Kushal Bhardwaj", cred: "Ph.D. (DU) · 99.99%ile CAT · GMAT 780", role: "16+ years in senior IT and retail leadership" },
+  { img: "2023/08/ankur-agarwal.webp", name: "Mr. Ankur Agarwal", cred: "16+ years teaching in test prep", role: "Former Deputy Director, LPU" },
+];
+
+const cities = [
+  ["Delhi NCR", P.delhi], ["Gurugram", P.gurugram], ["Noida", "/cat-2026-noida/"], ["Hyderabad", "/cat-preparation-in-hyderabad/"],
+  ["Bengaluru", "/cat2026-preparation-in-bengaluru/"], ["Mumbai", "/cat2026-preparation-in-mumbai/"], ["Chennai", "/cat2026-preparation-in-chennai/"], ["Kolkata", "/cat2026-preparation-in-kolkata/"],
+];
+
+// FAQs are written for the broad "CAT online coaching" intent. Fees and plan
+// questions are deliberately left to the CAT 2027 online page.
+const faqs = [
+  ["What is CAT online coaching?", "It is CAT preparation delivered over the internet: live classes on video, recordings, online tests and a doubt-solving channel. At EduShastra the syllabus, the faculty and the four-phase course are the same as in our classroom batches."],
+  ["Is online CAT coaching as good as classroom coaching?", "The content is the same, so the difference is mostly about how you learn best. Live online classes keep the fixed timetable and real-time doubts of a classroom, without the commute. If you want a physical centre, the Delhi and Gurugram pages cover that."],
+  ["How is live online different from watching free videos?", "A free video cannot see where you are stuck. In a live class the teacher answers your question in the same session, and your batch is matched to your level through the Entrance Mapping Test."],
+  ["Do I need to prepare for the Mapping Test?", "No. It is an IQ-based test, not a knowledge test. It only decides which of the five percentile groups you start in, and you can move up as your scores improve."],
+  ["Can I start with a free class?", "Yes. The free live hybrid course lets you attend live classes with recordings and in-class doubt solving, so you can judge the teaching before you pay for anything."],
+  ["Will I get mock tests in an online course?", "Yes. The testing phase includes sectional tests, full-length mocks and computer-adaptive tests, each with performance analysis."],
+  ["What do I need to attend classes?", "A laptop or smartphone and a steady internet connection. Classes run on a standard video platform with audio, video and chat."],
+  ["What happens in the first week of an online batch?", "You begin with a diagnostic week. Instructors look at your strengths in logic and quant, and the Entrance Mapping Test places you in one of five percentile-based batch series."],
+  ["How do I get doubts solved between live classes?", "Use the 24x7 discussion forum, the weekly live doubt session for each subject, the community groups, or write to your batch's panel of teachers. The student support team covers anything else."],
+  ["Is online coaching covered by the money-back promise?", "EduShastra backs its courses with a money-back promise, and each batch series has its own percentile target, from +60 for the 6-Series to +99 for the 10-Series. Read the full terms on the Money-Back Promise page before you enrol."],
+  ["Do you help with B-school admissions after CAT?", "Yes. Admission counselling is part of the courses and includes profile evaluation, interview preparation, SOP and resume editing, and loan and scholarship guidance."],
+  ["Where can I see fees and the full plan comparison?", "Prices and the side-by-side comparison of Elite, Elite Plus and Apex-25 are kept up to date on the CAT 2027 online coaching page, so you always see the current numbers in one place."],
+];
+
+const faqLd = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) };
+const crumbLd = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+  { "@type": "ListItem", position: 1, name: "Home", item: U },
+  { "@type": "ListItem", position: 2, name: "CAT Coaching", item: `${U}/cat-prep/` },
+  { "@type": "ListItem", position: 3, name: "CAT Online Coaching", item: PAGE_URL }] };
+const pageLd = { "@context": "https://schema.org", "@type": "WebPage", name: TITLE, url: PAGE_URL, description: DESCRIPTION,
+  isPartOf: { "@type": "WebSite", name: "EduShastra", url: `${U}/` },
+  about: { "@type": "Thing", name: "CAT online coaching" } };
+---
+<!DOCTYPE html>
+<html lang="en-IN" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{TITLE}</title>
+<meta name="description" content={DESCRIPTION} />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="canonical" href={PAGE_URL} />
+<link rel="icon" href="https://www.edushastra.com/wp-content/uploads/2024/09/eduShastra-logo_only-100x100.png" sizes="32x32">
+<meta property="og:title" content={TITLE} />
+<meta property="og:description" content={DESCRIPTION} />
+<meta property="og:url" content={PAGE_URL} />
+<meta property="og:type" content="website" />
+<meta property="og:image" content={OG_IMAGE} />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<script type="application/ld+json" set:html={JSON.stringify(pageLd)}></script>
+<script type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>
+<script type="application/ld+json" set:html={JSON.stringify(crumbLd)}></script>
+<script is:inline src="https://cdn.tailwindcss.com"></script>
+<script is:inline>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { display:['Syne','sans-serif'], body:['DM Sans','sans-serif'] },
+    colors: {
+      brand: { 50:'#f7ecd5', 100:'#f0dcae', 400:'#e3ab2b', 500:'#e3ab2b', 600:'#e3ab2b', 700:'#e3ab2b' },
+      ink: { 900:'#0c1016', 800:'#12161f', 700:'#151a24', 400:'#6b7284', 200:'#a6adbb', 100:'#eef0f4' },
+    }
+  }}}
+</script>
+<style>
+  body { font-family:'DM Sans',sans-serif; background:#0c1016; color:#eef0f4; }
+  h1,h2,h3,h4,h5,.font-display { font-family:'Syne',sans-serif; }
+  :focus-visible { outline:3px solid #e3ab2b; outline-offset:3px; border-radius:6px; }
+  .hero-bg { background: radial-gradient(ellipse 70% 60% at 15% 50%, rgba(227,171,43,.15) 0%, transparent 60%), radial-gradient(ellipse 50% 70% at 85% 20%, rgba(227,171,43,.08) 0%, transparent 55%), #0c1016; }
+  .glass { background:#151a24; border:1px solid rgba(255,255,255,.09); }
+  .glass-gold { background:rgba(227,171,43,.06); border:1px solid rgba(227,171,43,.2); }
+  .nav-blur { background:rgba(12,16,22,.85); backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,.06); }
+  .btn { background:#e3ab2b; color:#0c1016; transition:filter .2s ease, box-shadow .2s ease; }
+  .btn:hover { filter:brightness(1.1); }
+  .cta-glow:hover { box-shadow:0 0 32px rgba(227,171,43,.5); }
+  .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+  .revealed { opacity:1; transform:translateY(0); }
+  .tag { font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:3px 10px; border-radius:999px; display:inline-block; }
+  .chip-on { background:rgba(227,171,43,.12); color:#e3ab2b; border:1px solid rgba(227,171,43,.25); }
+  .badge-online { background:rgba(73,199,184,.15); color:#49c7b8; border:1px solid rgba(73,199,184,.3); }
+  .badge-hybrid { background:rgba(150,130,255,.15); color:#a898ff; border:1px solid rgba(150,130,255,.3); }
+  .lift { transition:transform .3s ease, border-color .3s ease; } .lift:hover { transform:translateY(-4px); border-color:rgba(227,171,43,.5); }
+  .table-row:nth-child(even) { background:rgba(255,255,255,.02); }
+  .table-row:hover { background:rgba(227,171,43,.06); }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity:1; transform:none; transition:none; } }
+</style>
+</head>
+<body class="relative overflow-x-hidden">
+
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-blur" aria-label="Main">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="font-display text-2xl font-800 text-white tracking-tight">Edu<span class="text-brand-500">Shastra</span></a>
+    <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-ink-200">
+      <li><a href="https://www.edushastra.com/courses/" class="hover:text-brand-400">Courses</a></li>
+      <li><a href="https://www.edushastra.com/about-us/" class="hover:text-brand-400">About Us</a></li>
+      <li><a href="#batches" class="hover:text-brand-400">Batches</a></li>
+      <li><a href="#faculty" class="hover:text-brand-400">Faculty</a></li>
+      <li><a href="#faqs" class="hover:text-brand-400">FAQs</a></li>
+    </ul>
+    <div class="flex items-center gap-3">
+      <a href="https://edushastra-free.onrender.com/" class="hidden md:block text-sm text-ink-200 hover:text-white px-4 py-2">Login</a>
+      <a href="#batches" class="cta-glow btn text-sm font-semibold px-5 py-2.5 rounded-full">Pick a Batch</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero-bg relative min-h-screen flex items-center pt-24 pb-8 px-6">
+  <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-14 items-center relative z-10">
+    <div class="space-y-6">
+      <nav aria-label="Breadcrumb" class="text-xs text-ink-200"><a href="https://www.edushastra.com/" class="hover:text-brand-400">Home</a> <span class="mx-1">/</span> CAT Online Coaching</nav>
+      <div class="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/30 rounded-full px-4 py-1.5 text-brand-400 text-xs font-semibold tracking-widest uppercase">
+        <span class="w-1.5 h-1.5 bg-brand-400 rounded-full animate-pulse"></span>Live Online Classes · Batches open
+      </div>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-800 leading-[1.05] text-white">CAT Online <span class="text-brand-500">Coaching</span></h1>
+      <p class="font-display text-2xl md:text-3xl font-700 leading-snug text-white">Live Classes by <span class="text-brand-500">CAT 100%ilers</span></p>
+      <p class="text-ink-200 text-base leading-relaxed max-w-xl">Join a batch matched to your level through a short IQ-based mapping test, learn in interactive live classes, and keep every recording for revision. Choose live, self-paced or try a free live class first.</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="https://www.edushastra.com/our-faculty-2/" class="glass rounded-full px-4 py-2 text-base font-medium text-white">📊 100%iler faculty</a>
+        <a href="https://www.edushastra.com/adaptive-course-path-personalized-learning/" class="glass rounded-full px-4 py-2 text-base font-medium text-white">🧠 5-level percentile batches</a>
+        <a href="https://www.edushastra.com/money-back-promise/" class="glass rounded-full px-4 py-2 text-base font-medium text-white">🎯 +99%ile or fee refund promise</a>
+      </div>
+      <div class="flex flex-wrap gap-3 pt-2">
+        <a href="#batches" class="btn cta-glow text-sm font-semibold px-7 py-3.5 rounded-full">See online batches →</a>
+        <a href={`${U}${P.online}`} class="glass hover:bg-white/10 text-white text-sm font-semibold px-7 py-3.5 rounded-full">CAT 2027 online coaching →</a>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="rounded-3xl overflow-hidden border border-white/10">
+        <img src={OG_IMAGE} alt="Live online CAT class by EduShastra faculty" width="800" height="600" class="w-full object-cover rounded-3xl" fetchpriority="high" />
+      </div>
+      <div class="glass-gold rounded-2xl p-5 flex items-center gap-5 mt-6">
+        <div class="w-12 h-12 bg-brand-500/20 rounded-xl flex items-center justify-center text-2xl">📅</div>
+        <div>
+          <p class="font-display font-700 text-white text-base">Next Batch Starts 13 October</p>
+          <p class="text-ink-200 text-xs mt-1">Weekday &amp; weekend options · Seats filling fast</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- INTRO -->
+<section class="py-5 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-4 text-center">
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">CAT Online <span class="text-brand-500">Coaching</span></h2>
+    </div>
+    <div class="reveal space-y-5 text-ink-200 text-base leading-relaxed">
+      <p>Cracking the CAT isn’t about studying endless hours—it’s about studying smart. Instead of boring, pre-recorded videos, our online coaching gives you high-energy live classes where you can interact and learn in real time.</p>
+      <p>We don't just teach the syllabus; we teach you the art of test-taking. With personalized mentorship, adaptive study plans, and 24/7 doubt resolution, we help you turn your weak areas into scoring strengths. Whether you are a college student or a working professional, our flexible ecosystem ensures you stay ahead of the curve.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BATCHES → CAT 2027 PAGES -->
+<section id="batches" class="py-5 px-6 bg-ink-800/20">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-5 text-center">
+      <p class="text-brand-400 text-xs font-semibold tracking-widest uppercase mb-3">Upcoming Batches</p>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">Online &amp; Hybrid Batches</h2>
+      <p class="text-ink-200 max-w-2xl mx-auto mt-4">Each batch below opens its CAT 2027 page, where you will find the current fees, schedule and enrolment steps.</p>
+    </div>
+    <div class="reveal glass rounded-3xl overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <caption class="sr-only">Online and hybrid CAT batches with start dates and links to the CAT 2027 pages</caption>
+          <thead>
+            <tr class="border-b border-white/10 bg-white/5">
+              {["Batch", "Mode", "Slot", "Batch Start", "Details"].map(h => <th scope="col" class="text-left px-6 py-4 font-semibold text-ink-200 font-display">{h}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {batches.map(b => (
+              <tr class="table-row border-b border-white/5">
+                <td class="px-6 py-4 text-white font-medium">{b.name}</td>
+                <td class="px-6 py-4"><span class={`tag ${b.mode === "Hybrid" ? "badge-hybrid" : "badge-online"}`}>{b.mode}</span></td>
+                <td class="px-6 py-4 text-ink-200">{b.slot}</td>
+                <td class="px-6 py-4 text-ink-200">13 October</td>
+                <td class="px-6 py-4"><a href={`${U}${b.href}`} class="text-brand-400 hover:text-brand-100 font-semibold">{b.cta} →</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATS -->
+<section id="formats" class="py-5 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-5 text-center">
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white"> <span class="text-brand-500">CAT Live Online Courses</span></h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      {formats.map(c => (
+        <div class="reveal lift glass rounded-3xl overflow-hidden flex flex-col">
+          <div class="h-1 bg-gradient-to-r from-brand-500 to-brand-400"></div>
+          <div class="p-5 flex flex-col flex-1">
+            <span class="tag chip-on mb-3 self-start">{c.tag}</span>
+            <h3 class="font-display text-2xl font-800 text-white">{c.title}</h3>
+            <p class="text-ink-200 text-sm mt-2 mb-5 leading-relaxed">{c.sub}</p>
+            <ul class="space-y-2 text-sm text-ink-200 mb-4">{c.feats.map(f => <li class="flex gap-2"><span class="text-brand-400">✓</span> {f}</li>)}</ul>
+            <a href={`${U}${c.href}`} class="btn cta-glow mt-auto text-center text-sm font-semibold px-6 py-3 rounded-full">{c.cta} →</a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="reveal glass rounded-3xl overflow-hidden mt-5">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm min-w-[640px]">
+          <caption class="sr-only">Elite Live Online, Elite Plus Live Online and Apex-25 Live Online compared</caption>
+          <thead>
+            <tr class="border-b border-white/10 bg-white/5">
+              <th scope="col" class="text-left px-6 py-4 font-display text-ink-200"> </th>
+              <th scope="col" class="text-left px-6 py-4 font-display text-white">Elite Live Online</th>
+              <th scope="col" class="text-left px-6 py-4 font-display text-white">Elite Plus Live Online</th>
+              <th scope="col" class="text-left px-6 py-4 font-display text-white">Apex-25 Live Online</th>
+            </tr>
+          </thead>
+          <tbody>
+            {compare.map(([k, a, b, c]) => (
+              <tr class="table-row border-b border-white/5">
+                <th scope="row" class="text-left px-6 py-4 text-brand-400 font-semibold">{k}</th>
+                <td class="px-6 py-4 text-ink-200">{a}</td>
+                <td class="px-6 py-4 text-ink-200">{b}</td>
+                <td class="px-6 py-4 text-ink-200">{c}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="text-center mt-4 text-ink-200 text-sm">See <a href={`${U}${P.online}`} class="text-brand-400 hover:text-brand-100 font-semibold">CAT 2027 online coaching fees and plans</a>.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="py-2 px-6 bg-ink-800/20">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-2 text-center">
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">CAT <span class="text-brand-500">Course Structure</span></h2>
+      <p class="text-ink-200 text-base max-w-6xl mx-auto mt-4">All the CAT courses whether regular or customized are unique in their structure.</p>
+      <p class="text-white text-base max-w-6xl mx-auto mt-3 font-semibold">All Phases of the course are designed to be as personalized as a “One-on-One” Instruction.</p>
+      <p class="text-ink-200 text-base mt-3 font-semibold">All Courses are divided into four phases:</p>
+    </div>
+    <ol class="space-y-2 mb-7 max-w-6xl mx-auto">
+      {phases.map(([t, stage, d], i) => (
+        <li class="reveal glass rounded-2xl p-2 md:p-2 flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+          <div class="flex items-center gap-2 md:w-80 shrink-0">
+            <span class="font-display text-4xl font-800 text-brand-500">0{i + 1}</span>
+            <div>
+              <h3 class="font-display font-700 text-white text-lg leading-snug">{t}</h3>
+              <p class="text-brand-400 text-sm font-semibold">({stage})</p>
+            </div>
+          </div>
+          <p class="text-ink-200 text-sm md:text-base leading-relaxed">{d}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<!-- ADMISSION SOP -->
+<section class="py-5 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-4 text-center">
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">Admission <span class="text-brand-500">Standard Operating Procedure</span></h2>
+    </div>
+    <div class="reveal glass rounded-3xl p-8 space-y-5 text-base leading-relaxed">
+      <p class="text-ink-200"><strong class="font-display font-700 text-white">Your Personalized Start: The Diagnostic Week</strong> Every student learns differently. To ensure you get the most out of your prep, you will start in an Introductory Diagnostic Phase. Over one week, we work with you to map your current strengths in Logic and Quant. You are matched into one of 5 Percentile-Specific Batches, ensuring high-efficiency learning with other students. This method eliminates the fear of falling behind and maximizes class interaction.</p>
+      <p class="text-white font-semibold">Our Mapping system also helps us in making “Homogeneous Batches”. Similarly mapped students are grouped into the same batches.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DOUBT SUPPORT -->
+<section class="py-5 px-6 bg-ink-800/20">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-5 text-center">
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">Doubt Support <span class="text-brand-500">Around the Clock</span></h2>
+      <p class="text-ink-200 max-w-2xl mx-auto mt-4">Studying online should never mean studying alone. Six channels keep your questions from piling up.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {doubtSupport.map(([t, d], i) => (
+        <div class="reveal glass-gold rounded-2xl p-6 flex gap-4">
+          <span class="font-display text-2xl font-800 text-brand-500 shrink-0">{i + 1}.</span>
+          <div>
+            <h3 class="font-display font-700 text-white text-lg mb-1">{t}</h3>
+            <p class="text-ink-200 text-sm leading-relaxed">{d}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+<!-- MONEY BACK -->
+<section class="py-5 px-6 bg-ink-800/20">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal mb-5 text-center">
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">A Promise Matched to <span class="text-brand-500">Your Batch</span></h2>
+      <p class="text-ink-200 max-w-2xl mx-auto mt-4">Every batch series carries its own percentile target. If you complete the course requirements and miss it, the money-back promise applies.</p>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
+      {promise.map(([series, p]) => (
+        <div class="reveal glass rounded-2xl p-5 text-center">
+          <p class="text-ink-200 text-xs font-semibold tracking-widest uppercase">{series}-Series</p>
+          <p class="font-display text-3xl font-800 text-brand-500 mt-2">{p}</p>
+          <p class="text-ink-200 text-xs mt-1">percentile promise</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- COUNSELLING -->
+<section class="py-5 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="reveal mb-5 text-center">
+      <p class="text-brand-400 text-xs font-semibold tracking-widest uppercase mb-3">Beyond CAT</p>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">Free Admission Counselling <span class="text-brand-500">Included</span></h2>
+      <p class="text-ink-200 max-w-2xl mx-auto mt-4">Support continues until your admission is final, not just until the CAT result.</p>
+    </div>
+    <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {counselling.map(c => (
+        <li class="reveal glass rounded-2xl px-5 py-4 flex gap-3 text-ink-200 text-sm leading-relaxed"><span class="text-brand-400">✓</span>{c}</li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<!-- TOPPERS + FREE LIVE CLASSES -->
+<section class="py-5 px-6 bg-ink-800/20">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-5 text-center">
+      <p class="text-brand-400 text-xs font-semibold tracking-widest uppercase mb-3">Results</p>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">CAT Toppers on <span class="text-brand-500">Their Preparation</span></h2>
+            <a href="https://www.youtube.com/c/EduShastra?sub_confirmation=1" target="_blank" rel="noopener" class="btn cta-glow inline-block text-sm font-semibold px-8 py-3.5 rounded-full">See free live classes →</a>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {toppers.map((id, i) => (
+        <a href={`https://www.youtube.com/watch?v=${id}`} target="_blank" rel="noopener" class="reveal lift glass rounded-2xl overflow-hidden block" aria-label={`Watch CAT topper video ${i + 1} on YouTube`}>
+          <img src={`https://img.youtube.com/vi/${id}/hqdefault.jpg`} alt={`CAT topper interview ${i + 1}`} width="480" height="360" class="w-full aspect-video object-cover" loading="lazy" />
+          <p class="px-4 py-3 text-brand-400 text-right text-sm font-semibold">▶ Watch topper story</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- FACULTY -->
+<section id="faculty" class="py-5 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-5 text-center">
+      <p class="text-brand-400 text-xs font-semibold tracking-widest uppercase mb-3">Who Teaches You</p>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">Faculty Verified by<br/><span class="text-brand-500">Third-Party Audit</span></h2>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {faculty.map(f => (
+        <div class="reveal glass rounded-3xl overflow-hidden group hover:border-brand-500/30 transition-all duration-300 hover:-translate-y-1">
+          <div class="aspect-square bg-ink-800 overflow-hidden">
+            <img src={`${U}/wp-content/uploads/${f.img}`} alt={`${f.name}, CAT faculty at EduShastra`} width="400" height="400" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          </div>
+          <div class="p-5">
+            <p class="font-display font-700 text-white text-xl">{f.name}</p>
+            <p class="text-brand-400 text-base font-semibold mt-0.5 mb-1.5">{f.cred}</p>
+            <p class="text-white text-base leading-relaxed">{f.role}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="text-center mt-5">
+      <a href="https://www.edushastra.com/our-faculty-2" class="glass hover:bg-white/10 text-ink-200 hover:text-white text-sm font-semibold px-8 py-3.5 rounded-full inline-block">Meet All Faculty →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQs -->
+<section id="faqs" class="py-5 px-6 bg-ink-800/20">
+  <div class="max-w-4xl mx-auto">
+    <div class="reveal mb-5 text-center">
+      <p class="text-brand-400 text-xs font-semibold tracking-widest uppercase mb-3">Common questions</p>
+      <h2 class="font-display text-4xl font-800 text-white">CAT Online Coaching FAQs</h2>
+    </div>
+    <div class="space-y-3">
+      {faqs.map(([q, a]) => (
+        <div class="reveal glass rounded-2xl overflow-hidden">
+          <button class="faq-btn w-full text-left px-7 py-5 flex items-start justify-between gap-4" aria-expanded="false">
+            <span class="font-display font-700 text-white text-sm leading-relaxed">{q}</span>
+            <span class="faq-icon text-brand-400 text-lg flex-shrink-0" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-body hidden px-7 pb-6"><p class="text-ink-200 text-sm leading-relaxed">{a}</p></div>
+        </div>
+      ))}
+    </div>
+    <p class="text-center mt-4 text-ink-200 text-sm">Looking for prices? See <a href={`${U}${P.online}`} class="text-brand-400 hover:text-brand-100 font-semibold">CAT 2027 online coaching fees and plans</a>.</p>
+  </div>
+</section>
+
+<!-- FIND YOUR CENTRE -->
+<section class="py-5 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-5 text-center">
+      <p class="text-brand-400 text-xs font-semibold tracking-widest uppercase mb-3">Find Your Centre</p>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white">Available Across India</h2>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {cities.map(([c,href]) => (
+        <a href={`${U}${href}`} class="reveal lift glass rounded-2xl px-6 py-5 flex items-center justify-between">
+          <span class="font-display font-700 text-white">{c} CAT Centre</span><span class="text-brand-400">→</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="border-t border-white/10 bg-ink-900 pt-8 pb-5 px-6">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-8 text-sm">
+    <div class="space-y-2">
+      <p class="font-display text-2xl font-800 text-white">Edu<span class="text-brand-500">Shastra</span></p>
+      <p class="text-ink-200 max-w-xs">Affordable Quality Education for All. For People, Not Profits. Since 2016.</p>
+    </div>
+    <ul class="space-y-2 text-brand-400">
+      <li><a href={`${U}${P.main}`} class="hover:text-white">CAT Preparation</a></li>
+      <li><a href={`${U}${P.online}`} class="hover:text-white">CAT 2027 Online Coaching</a></li>
+      <li><a href="https://www.edushastra.com/gmat-online-coaching-live/" class="hover:text-white">GMAT Coaching</a></li>
+      <li><a href="https://www.edushastra.com/faqs/" class="hover:text-white">FAQs</a></li>
+      <li><a href="https://www.edushastra.com/blog/" class="hover:text-white">Blog</a></li>
+    </ul>
+    <ul class="space-y-2 text-brand-400">
+      <li><a href="tel:01147082205" class="hover:text-white">011-47082205</a></li>
+      <li><a href="mailto:contact@edushastra.com" class="hover:text-white">contact@edushastra.com</a></li>
+      <li><a href="https://www.edushastra.com/contact-us/" class="hover:text-white">View all offices</a></li>
+    </ul>
+  </div>
+  <div class="max-w-7xl mx-auto border-t border-white/10 mt-4 pt-6 flex flex-col md:flex-row justify-between gap-3 text-ink-400 text-xs">
+    <p>© 2026 EduShastra Education Solutions Pvt. Ltd. All rights reserved.</p>
+    <p class="flex gap-4"><a href="https://www.edushastra.com/terms-conditions-and-policies" class="hover:text-white">Terms &amp; Conditions</a><a href="https://www.edushastra.com/privacy-policy" class="hover:text-white">Privacy Policy</a></p>
+  </div>
+</footer>
+
+<script is:inline>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('revealed'), i * 60); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  document.querySelectorAll('.faq-btn').forEach(btn => btn.addEventListener('click', () => {
+    const body = btn.nextElementSibling, open = !body.classList.contains('hidden');
+    document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+    document.querySelectorAll('.faq-btn').forEach(b => { b.setAttribute('aria-expanded','false'); b.querySelector('.faq-icon').textContent = '+'; });
+    if (!open) { body.classList.remove('hidden'); btn.setAttribute('aria-expanded','true'); btn.querySelector('.faq-icon').textContent = '−'; }
+  }));
+</script>
+</body>
+</html>
