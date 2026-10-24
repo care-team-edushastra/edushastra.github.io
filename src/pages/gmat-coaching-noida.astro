@@ -1,0 +1,459 @@
+---
+const U = "https://www.edushastra.com";
+const PAGE = `${U}/gmat-prep-noida/`;
+
+const noidaAddr = "Aurobindo Bhavan, C-56/36, Sector-62, Noida";
+const noidaCentre = { name: "Sector 62", zone: "Noida, Uttar Pradesh", addr: noidaAddr, batches: ["Weekday","Weekend"] };
+const upcoming = [
+  ["GMAT Weekday, " + noidaAddr, "27 October", "27 October", "27 October"],
+  ["GMAT Weekend, " + noidaAddr, "27 October", "27 October", "27 October"],
+];
+
+const focusCards = [
+  ["About the GMAT Focus Edition","Did you know? Across","GMAT and GRE test takers around the world...","/about-gmat-focus-edition"],
+  ["+720 Apex Batches","Admission through Entrance Test","GMAT +720 or Refund Guarantee","/gmat-720-apex-batches"],
+  ["GMAT Classroom Batches","Personalized Learning Experience","Average Batch Size of 30 Students","/gmat-focus-prep"],
+  ["GMAT Live Online Course","Audio, Video & Chat Interaction","Live In-class Doubt Solving","/gmat-online-coaching-live"],
+  ["Faculty Details","100%ilers as Faculty","Highly Educated & Expert Faculty","/our-faculty-2"],
+  ["Results & Toppers Videos","+90% Success Rate in GMAT","Highest Selection to ISB/Ivy League","/results-and-topper-videos/"],
+  ["Unlimited Course Validity","Lifetime Course Validity","Repeated Course Cycles","/ability-based-model"],
+  ["5-Steps %ile Based Batches","4-Phases GMAT/CAT Course Model","5-Levels Percentile-Based Batches","/adaptive-course-path-personalized-learning"],
+  ["Money-Back Promise","CAT +99%ile or Refund Guarantee","GMCAT +99%ile/+720 or Refund","/faqs-money-back-promise/"],
+];
+const courseTypes = [
+  { tag: "Offline", title: "GMAT Classroom & Hybrid Batches", feats: ["Weekday or weekend, morning or evening", "Classroom and hybrid modes", "Apex-25: 25 students, admission by test", "Lifetime validity on Apex-25"], href: "/gmat-focus-prep/", cta: "Explore GMAT batches" },
+  { tag: "Online", title: "GMAT Online Coaching", feats: ["Live classes with audio, video and chat", "Live in-class doubt solving", "24x7 doubt solving on self-paced courses", "Free live hybrid course to try first"], href: "/gmat-online-coaching-live/", cta: "Explore online coaching" },
+];
+const delhiCentres = [["Janakpuri","628, 3rd Floor, B-1 Block, Janakpuri, Delhi-110058"],["Hauz Khas","C/o Instituto Hispania, 3rd Floor, 14, Kaushalya Park, Hauz Khas, New Delhi-110016"],["GTB Nagar","89, Second Floor, Opp. GTB Metro Station Gate-1, Delhi University, Delhi-09"],["Pitam Pura","KLJ Tower, Netaji Subash Place, Wazirpur, Delhi-110034"],["Saket","Red Roses Public School, D-Block, Saket, New Delhi-110017"],["Connaught Place","Express Tower, 34/66, Block E, Connaught Place, New Delhi-110001"]];
+const cities = [["Delhi NCR","/gmat-coaching-delhi/"],["Gurugram","/gmat-preparation-in-gurugram/"],["Noida","/gmat-coaching-noida/"],["Hyderabad","/gmat-preparation-in-hyderabad/"],["Bengaluru","/gmat-preparation-in-bengaluru/"],["Mumbai","/gmat-preparation-in-mumbai/"],["Chennai","/gmat-preparation-in-chennai/"],["Kolkata","/gmat-preparation-in-kolkata/"]];
+const phases = [
+  ["Introductory or Mapping Phase","One-on-One Stage","This phase comes first and usually takes 2-4 sessions. GMAT instructors analyse every student in the batch through interaction and the Mapping Test. This step takes about 10% of total course time."],
+  ["Foundation Phase","Batch Stage","Covers the basics of all three GMAT Focus sections: Quantitative, Verbal and Data Insights. This phase is around 20-50% of the whole course."],
+  ["Testing Phase","One-on-One Stage","Full-length Computer-Adaptive GMAT Focus mocks and sectional tests. Every course carries a “Minimum Tests” commitment, the minimum number of tests a student must attempt to complete the course."],
+  ["Control Phase","One-on-One Stage","The last phase looks into any remaining gaps in test preparation before your exam date."],
+];
+const apexFacets = [
+  ["Admission through Entrance Mapping Test:","Admission in the +720 Apex-25 batch is by entrance test. Seats are limited, so selection is based on academic and test performance. The Mapping Test is an IQ-based test that places students into five percentile-based groups.","The Entrance Mapping Test measures aptitude, not learned knowledge, so no preparation is necessary."],
+  ["5-Levels Percentile-Based Batches:","Students are placed in one of five batch Series, from 6-Series to 10-Series, based on their Mapping Test performance."],
+  ["Adaptive Learning Pedagogy:","Lower Series focus on building fundamentals. As the Series rises, the focus shifts to applying concepts in complex scenarios and rigorous GMAT-level practice."],
+  ["Weekly Evaluation Tests for Batch Upgradation:","Take the Weekly Evaluation Test and move to a higher-level batch based on your performance."],
+  ["Fee Refund Promise:","Apex-25 comes with a +720 or fee refund promise. Read the full terms on the Money-Back Promise page before you enroll."],
+  ["Batch Size:","Apex-25 batches average 25 students, whereas Elite batches average 150 students."],
+  ["Class Options:","Classroom, live online and hybrid modes, with audio, video, writing and chat controls."],
+  ["Course Validity:","Apex-25 batches come with lifetime validity, so you can retake the course as many times as you want at no extra fee."],
+];
+const applySteps = [
+  ["Apply Now:","To secure your spot, click Apply Now below."],
+  ["Application Fees:","The fee to apply for the +720 Apex-25 batch is ₹29."],
+  ["Post Fee Payment Procedure:","After payment, share your name, email ID, contact number and course details with contact@edushastra.com."],
+  ["Entrance Mapping Test:","After payment confirmation, a Mapping Test is sent to the student."],
+  ["Enrollment Invite:","Selection depends on Mapping Test performance and a review of academic records. Selected students receive a batch enrollment invite by email."],
+];
+const faqs = [
+  ["Where can I take GMAT coaching if I live in Noida?","EduShastra runs weekday and weekend GMAT batches at Aurobindo Bhavan, C-56/36, Sector-62, Noida. You can also study live online from home. Call 011-47082205 for batch details."],
+  ["Should I choose classroom coaching or GMAT online from Noida?","Online saves commute time and follows the same four-phase course. Choose classroom if you prefer studying in person. Pick what fits your routine."],
+  ["Can I pick weekday or weekend GMAT classes?","Yes. Batches run on weekdays and weekends, in the morning or evening, depending on the centre. Ask for current options."],
+  ["Do I need to prepare for the Mapping Test?","No. It's an IQ-based test, not a knowledge test. It only decides which of the five Series you start in."],
+  ["How long should I prepare for the GMAT Focus Edition?","The course cycle is 250+ hours. Working professionals commonly plan around 3-5 months of weekend or evening classes, depending on starting level and Series."],
+  ["How does the +720 fee refund promise work?","The promise applies to eligible batches. Read the full terms on the Money-Back Promise page before you enroll."],
+  ["Is there a free way to start?","Yes. The free live hybrid course gives you live classes, recordings and live in-class doubt solving."],
+];
+const faculty = [
+  ["2023/08/M_L_Parashar.webp","Mr. M L Parashar","Rtd. Director, Dept. of Science & Tech., Govt. of India","Rtd. Deputy Secretary, Govt. of India, IIM-A, IIT-K"],
+  ["2025/09/Vipul-Parashar-EduShastra.webp","Mr. Vipul Parashar","12+ yrs Teaching Exp in Education Industry","DU, NIFT, INSEAD, Harvard Business School"],
+  ["2025/02/ayush1.webp","Mr. Ayush Matcha","CAT'22 99.78%, CAT Topper, IIM 2023-25","4+ yrs Teaching Exp in Education Industry"],
+  ["2026/01/vibha-e1767786486545.webp","Ms. Vibha Malhotra","CAT QA 100 %iler, GMAT FE 745 Scorer","16+ yrs Teaching Exp in Education Industry"],
+  ["2024/12/teachers007.webp","Mr. Pawan Shahi","CAT 2024 99.92%iler, GMAT FE 765 Scorer","NIT Alumnus. CAT Topper."],
+  ["2023/08/Deepak_Jain.webp","Mr. Deepak Jain","IIT/IIM Alumnus, CAT 100 %iler & GMAT 790 Scorer","Rtd. Indian Administrative Service Officer - UT"],
+  ["2023/08/kushalbhardwaj.webp","Dr. Kushal Bhardwaj","Ph.D. (DU), CAT 99.99 %iler & GMAT 780 Scorer","16+ yrs Exp at Leadership Level in IT & Retail"],
+  ["2023/08/ankur-agarwal.webp","Mr. Ankur Agarwal","16+ yrs Teaching Exp in Education Industry","Former Deputy Director-LPU, Multiple Top Scores"],
+];
+const faqLd = { "@context":"https://schema.org","@type":"FAQPage","mainEntity": faqs.map(([q,a]) => ({"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}})) };
+const crumbLd = { "@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Home","item":U},
+  {"@type":"ListItem","position":2,"name":"GMAT Coaching","item":`${U}/gmat-focus-prep/`},
+  {"@type":"ListItem","position":3,"name":"GMAT Coaching in Noida","item":PAGE}] };
+---
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GMAT Coaching in Noida | Online &amp; Classroom, +720 or Refund | EduShastra</title>
+<meta name="description" content="GMAT coaching in Noida (Sector 62): weekday and weekend GMAT Focus batches plus live online classes led by 100%ilers, with a Mapping Test, five ability-based Series and a +720 or fee refund promise." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href={PAGE} />
+<link rel="icon" href="https://www.edushastra.com/wp-content/uploads/2024/09/eduShastra-logo_only-100x100.png" sizes="32x32">
+<meta property="og:title" content="GMAT Coaching in Noida | EduShastra" />
+<meta property="og:description" content="Live online and classroom GMAT Focus batches for Noida students, led by 100%ilers." />
+<meta property="og:url" content={PAGE} />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://www.edushastra.com/wp-content/uploads/2026/03/Apex-final-e1774841680687.webp" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<script type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>
+<script type="application/ld+json" set:html={JSON.stringify(crumbLd)}></script>
+<script is:inline src="https://cdn.tailwindcss.com"></script>
+<script is:inline>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { display:['Syne','sans-serif'], body:['DM Sans','sans-serif'] },
+    colors: {
+      paper:'#FBF8F3', line:'#E6DFD3',
+      navy:{ 900:'#0B1730', 800:'#0F1F3D', 700:'#1B2F57', 600:'#34476B', 400:'#6B7A99', 100:'#E9EDF5' },
+      accent:{ 400:'#F7B733', 500:'#F2A413', 600:'#D98B00', 700:'#9A5B00' },
+    }
+  }}}
+</script>
+<style>
+  :root { --paper:#FBF8F3; --navy:#0F1F3D; --accent:#F2A413; }
+  body { font-family:'DM Sans',sans-serif; background:var(--paper); color:var(--navy); }
+  h1,h2,h3,h4,h5,.font-display { font-family:'Syne',sans-serif; }
+  :focus-visible { outline:3px solid #D98B00; outline-offset:3px; border-radius:6px; }
+  .hero-bg { background: radial-gradient(ellipse 70% 60% at 15% 50%, rgba(242,164,19,.12) 0%, transparent 60%), radial-gradient(ellipse 50% 70% at 85% 20%, rgba(15,31,61,.06) 0%, transparent 55%), var(--paper); }
+  .glass { background:rgba(255,255,255,.65); border:1.5px solid rgba(15,31,61,.22); backdrop-filter:blur(12px); box-shadow:0 2px 8px rgba(15,31,61,.06); }
+  .glass-orange { background:rgba(242,164,19,.10); border:1.5px solid rgba(242,164,19,.6); backdrop-filter:blur(12px); }
+  .glass-dark { background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.28); backdrop-filter:blur(12px); }
+  .nav-blur { background:rgba(251,248,243,.8); backdrop-filter:blur(20px); border-bottom:1.5px solid rgba(15,31,61,.15); }
+  .btn { background:var(--accent); color:var(--navy); font-weight:700; transition:background .2s ease, box-shadow .2s ease; }
+  .btn:hover { background:#F7B733; }
+  .cta-glow:hover { box-shadow:0 0 32px rgba(242,164,19,.5); }
+  .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+  .revealed { opacity:1; transform:translateY(0); }
+  .batch-tag { font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:3px 10px; border-radius:999px; display:inline-block; }
+  .tier-card { transition:transform .3s ease, border-color .3s ease; } .tier-card:hover { transform:translateY(-4px); border-color:rgba(242,164,19,.7); }
+  .badge-online { background:#E6EEFB; color:#1E4FA3; border:1px solid #C5D6F2; }
+  .badge-offline { background:#E5F4EA; color:#1F6B3A; border:1px solid #BFE2CB; }
+  .badge-hybrid { background:#EFE8FA; color:#5B3C99; border:1px solid #D8CBF0; }
+  .chip-on { background:rgba(242,164,19,.14); color:#9A5B00; border:1px solid rgba(242,164,19,.5); }
+  .chip-off { background:rgba(15,31,61,.05); color:#6B7A99; border:1px solid rgba(15,31,61,.18); }
+  .table-row:nth-child(even) { background:rgba(15,31,61,.025); }
+  .table-row:hover { background:rgba(242,164,19,.10); }
+</style>
+</head>
+<body class="relative overflow-x-hidden">
+
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-blur">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="font-display text-2xl font-800 text-navy-800 tracking-tight">Edu<span class="text-accent-600">Shastra</span></a>
+    <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-navy-600">
+      <li><a href="#paths" class="hover:text-accent-700">Courses</a></li>
+      <li><a href="#batches" class="hover:text-accent-700">Batches</a></li>
+      <li><a href="#faculty" class="hover:text-accent-700">Faculty</a></li>
+      <li><a href="#centres" class="hover:text-accent-700">Centres</a></li>
+      <li><a href="#faqs" class="hover:text-accent-700">FAQs</a></li>
+    </ul>
+    <div class="flex items-center gap-3">
+      <a href="https://edushastra-free.onrender.com/" class="hidden md:block text-sm text-navy-600 hover:text-navy-900 px-4 py-2">Login</a>
+      <a href="#paths" class="btn cta-glow text-sm px-5 py-2.5 rounded-full transition-all">Enroll Now →</a>
+      <button id="menuBtn" class="md:hidden text-navy-800 p-1" aria-label="Open menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden px-6 pb-6 pt-2 flex flex-col gap-4 text-sm font-medium text-navy-600">
+    <a href="#paths">Courses</a><a href="#batches">Batches</a><a href="#faculty">Faculty</a><a href="#centres">Centres</a><a href="#faqs">FAQs</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-bg relative min-h-screen flex items-center pt-24 pb-5 px-6">
+  <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-16 items-center relative z-10">
+    <div class="space-y-6">
+      <nav aria-label="Breadcrumb" class="text-xs text-navy-600"><a href="https://www.edushastra.com/" class="hover:text-accent-700">Home</a> <span class="mx-1">/</span> GMAT Coaching Noida</nav>
+      <div class="inline-flex items-center gap-2 bg-accent-500/10 border border-accent-500/40 rounded-full px-4 py-1.5 text-accent-700 text-xs font-semibold tracking-widest uppercase">
+        <span class="w-1.5 h-1.5 bg-accent-500 rounded-full animate-pulse"></span>GMAT Coaching Noida · Online &amp; Classroom
+      </div>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-800 leading-[1.05] text-navy-800">GMAT Coaching <span class="text-accent-600">in Noida</span></h1>
+      <a href="https://www.edushastra.com/adaptive-course-path-personalized-learning/">
+        <h2 class="font-display text-[35px] md:text-[42px] lg:text-[48px] font-800 leading-[1.05] text-navy-800"><span class="text-accent-600">5-Levels Percentile</span><br/>Based Batches</h2>
+      </a>
+      <div class="flex flex-wrap gap-3">
+        <a href="https://www.edushastra.com/our-faculty-2/" class="glass rounded-full px-4 py-2 text-[17px] font-medium text-navy-800">📊 GMAT 100%ilers as Faculty</a>
+        <a href="https://www.edushastra.com/ability-based-model/" class="glass rounded-full px-4 py-2 text-[17px] font-medium text-navy-800">✅ Ability Based Model - Lifetime Validity</a>
+        <a href="https://www.edushastra.com/money-back-promise/" class="glass rounded-full px-4 py-2 text-[17px] font-medium text-navy-800">🎯 +720 or Fee Refund Promise</a>
+      </div>
+      <p class="text-navy-600 text-base leading-relaxed max-w-xl">Study at our Sector 62 centre in Noida. A Mapping Test places you in one of five ability-based Series, so you get a custom pace and a panel of dedicated teachers, not a one-size lecture.</p>
+    </div>
+    <div class="relative">
+      <div class="relative rounded-3xl overflow-hidden border border-navy-800/10 shadow-lg shadow-navy-800/10">
+        <img src="https://www.edushastra.com/wp-content/uploads/2026/03/Apex-final-e1774841680687.webp" alt="EduShastra GMAT coaching for Noida students, Apex-25 batch" class="w-full object-cover rounded-3xl" />
+      </div>
+      <div class="glass-orange rounded-2xl p-5 flex items-center gap-5 mt-6">
+        <div class="w-12 h-12 bg-accent-500/20 rounded-xl flex items-center justify-center text-2xl">📞</div>
+        <div>
+          <p class="font-display font-700 text-navy-800 text-base">Next Batch Starts 27 October</p>
+          <p class="text-navy-600 text-xs mt-1">Weekday &amp; Weekend at Sector 62, Noida · <a href="tel:01147082205" class="underline">011-47082205</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GMAT FOCUS EDITION CARDS -->
+<section id="focus-edition" class="py-8 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-8 text-center">
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-navy-800">The GMAT <span class="text-accent-600">Focus Edition</span></h2>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {focusCards.map(([title,l1,l2,href]) => (
+        <a href={`${U}${href}`} class="reveal tier-card glass rounded-2xl p-6 block">
+          <h3 class="font-display font-700 text-navy-800 text-lg mb-2">{title}</h3>
+          <p class="text-navy-600 text-sm leading-relaxed">{l1}<br/>{l2}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- HYBRID LEARNING -->
+<section id="hybrid" class="py-8 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal glass-orange rounded-3xl p-8 md:p-10 text-center">
+      <p class="text-accent-700 text-xs font-semibold tracking-widest uppercase mb-3">For Working Professionals</p>
+      <h2 class="font-display text-3xl md:text-4xl font-800 text-navy-800 mb-5">Hybrid Learning <span class="text-accent-600">in Noida</span></h2>
+      <p class="text-navy-800 text-base leading-relaxed">Elevate your career with EduShastra Noida’s Hybrid Learning Model, specifically engineered for the working professional. Our Noida center offers a seamless blend of weekend offline sessions and interactive online modules, ensuring your CAT preparation fits into a demanding corporate schedule. By utilizing our Ability-Based Mastery system, we eliminate time-bound constraints, allowing you to progress through percentile-based batches at your own pace. Benefit from high-impact mentorship that respects your professional commitments while guaranteeing the academic rigor needed for a 99+ percentile.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BATCHES -->
+<section id="batches" class="py-8 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-12 text-center">
+      <p class="text-accent-700 text-xs font-semibold tracking-widest uppercase mb-3">Upcoming Batches</p>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-navy-800">GMAT Weekday &amp; Weekend Batches in Noida</h2>
+    </div>
+    {upcoming.length ? (
+    <div class="reveal glass rounded-3xl overflow-hidden"><div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead><tr class="border-b border-navy-800/10 bg-navy-800/[0.03]">
+          {["Batch @ Centre","Reg. Deadline","Mapping Start","Batch Start","Status"].map(h => <th class="text-left px-6 py-4 font-600 text-navy-600 font-display">{h}</th>)}
+        </tr></thead>
+        <tbody>
+          {upcoming.map(([name,reg,map,start]) => (
+            <tr class="table-row border-b border-navy-800/5">
+              <td class="px-6 py-4 text-navy-800 font-medium">{name}</td>
+              <td class="px-6 py-4 text-navy-600">{reg}</td><td class="px-6 py-4 text-navy-600">{map}</td><td class="px-6 py-4 text-navy-600">{start}</td>
+              <td class="px-6 py-4"><span class="batch-tag badge-offline">Open</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div></div>
+    ) : (
+    <div class="reveal glass-orange rounded-3xl p-8 text-center max-w-3xl mx-auto">
+      <p class="text-navy-800 text-base leading-relaxed">Batch dates for Noida are shared on request. Call <a href="tel:01147082205" class="font-semibold underline">011-47082205</a> or write to <a href="mailto:contact@edushastra.com" class="font-semibold underline">contact@edushastra.com</a> for the next weekday or weekend start.</p>
+    </div>
+    )}
+  </div>
+</section>
+
+<!-- COURSE STRUCTURE -->
+<section class="py-8 px-6 bg-navy-100/50">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-10 text-center">
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-navy-800">GMAT <span class="text-accent-600">Course Structure</span></h2>
+      <p class="text-navy-600 text-base max-w-3xl mx-auto mt-4">Every GMAT course, regular or customised, is built the same way.</p>
+      <p class="text-navy-800 text-base max-w-3xl mx-auto mt-3 font-semibold">All phases are designed to feel as personalised as one-on-one instruction.</p>
+      <p class="text-navy-600 text-base mt-3 font-semibold">Every course is divided into four phases:</p>
+    </div>
+    <ol class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+      {phases.map(([t,stage,d],i) => (
+        <li class="reveal glass rounded-2xl p-5">
+          <span class="font-display text-4xl font-800 text-accent-600">0{i+1}</span>
+          <h3 class="font-display font-700 text-navy-800 text-lg mt-3">{t}</h3>
+          <p class="text-accent-700 text-sm font-semibold mb-3">({stage})</p>
+          <p class="text-navy-600 text-sm leading-relaxed">{d}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<!-- APEX-25 -->
+<section id="apex" class="py-10 px-6 bg-navy-800 text-white">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-10 text-center">
+      <span class="inline-block bg-accent-500 text-navy-900 text-xs font-bold tracking-widest uppercase px-5 py-2 rounded-full mb-5">⚡ Most Exclusive GMAT Program</span>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white"><span class="text-accent-400">+720</span> Apex-25 Batch</h2>
+      <p class="text-navy-100 text-base leading-relaxed mt-4 max-w-3xl mx-auto">A small class of 25 students for individual attention and deeper engagement. Students are selected on merit through an admission test. <strong class="text-white">You have to apply for a seat.</strong></p>
+    </div>
+    <h3 class="reveal font-display font-700 text-accent-400 text-2xl mb-5">Main Facets of the +720 Apex-25 Batch:</h3>
+    <ol class="space-y-3 mb-12">
+      {apexFacets.map(([lead,text,note],i) => (
+        <li class="reveal glass-dark rounded-2xl p-5 flex gap-5">
+          <span class="font-display text-2xl font-800 text-accent-400 shrink-0">{i+1}.</span>
+          <div>
+            <p class="text-navy-100 text-base leading-relaxed"><strong class="font-display font-700 text-white">{lead}</strong> {text}</p>
+            {note && <p class="text-navy-100 text-base leading-relaxed mt-3">{note}</p>}
+          </div>
+        </li>
+      ))}
+    </ol>
+    <h3 class="reveal font-display font-700 text-accent-400 text-2xl mb-5">How to Apply for the +720 Apex-25 Batch:</h3>
+    <ol class="space-y-3">
+      {applySteps.map(([lead,text],i) => (
+        <li class="reveal glass-orange rounded-2xl p-5 flex gap-5">
+          <span class="font-display text-2xl font-800 text-accent-400 shrink-0">{i+1}.</span>
+          <p class="text-navy-100 text-base leading-relaxed"><strong class="font-display font-700 text-white">{lead}</strong> {text}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="text-center mt-8">
+      <a href="https://www.edushastra.com/gmat-courses-payment-portal" class="btn cta-glow inline-block text-sm px-8 py-3.5 rounded-full transition-all">Apply Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- FACULTY -->
+<section id="faculty" class="py-8 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-12 text-center">
+      <p class="text-accent-700 text-xs font-semibold tracking-widest uppercase mb-3">Who Teaches You</p>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-navy-800">Faculty Verified by<br/><span class="text-accent-600">Third-Party Audit</span></h2>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {faculty.map(([img,name,cred,role]) => (
+        <div class="reveal tier-card glass rounded-3xl overflow-hidden group">
+          <div class="aspect-[4/4] bg-navy-100 overflow-hidden">
+            <img src={`${U}/wp-content/uploads/${img}`} alt={`${name} - GMAT coaching faculty at EduShastra`} class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          </div>
+          <div class="p-5">
+            <p class="font-display font-700 text-navy-800 text-[20px]">{name}</p>
+            <p class="text-accent-700 text-[18px] font-semibold mt-0.5 mb-1.5">{cred}</p>
+            <p class="text-navy-600 text-[18px] leading-relaxed">{role}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="text-center mt-10">
+      <a href="https://www.edushastra.com/our-faculty-2" class="inline-block border-[1.5px] border-navy-800 text-navy-800 hover:bg-navy-800 hover:text-white text-sm font-semibold px-8 py-3.5 rounded-full transition-all">Meet All Faculty →</a>
+    </div>
+  </div>
+</section>
+
+<!-- AVAILABLE COURSES -->
+<section id="paths" class="py-8 px-6 bg-navy-100/50">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal mb-12 text-center"><h2 class="font-display text-4xl md:text-5xl font-800 text-navy-800">AVAILABLE COURSES</h2></div>
+    <div class="grid md:grid-cols-2 gap-6">
+      {courseTypes.map(c => (
+        <div class="reveal tier-card glass rounded-3xl overflow-hidden flex flex-col">
+          <div class="h-1 bg-gradient-to-r from-accent-700 to-accent-500"></div>
+          <div class="p-6 flex flex-col flex-1">
+            <span class="batch-tag chip-on mb-3 self-start">{c.tag}</span>
+            <h3 class="font-display text-2xl font-800 text-navy-800 mb-5">{c.title}</h3>
+            <ul class="space-y-2 text-sm text-navy-600 mb-8">{c.feats.map(f => <li class="flex gap-2"><span class="text-accent-600">✓</span> {f}</li>)}</ul>
+            <a href={`${U}${c.href}`} class="btn cta-glow mt-auto text-center text-sm px-6 py-3 rounded-full transition-all">{c.cta} →</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- CENTRES -->
+<section id="centres" class="py-8 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-12 text-center">
+      <p class="text-accent-700 text-xs font-semibold tracking-widest uppercase mb-3">Study in person</p>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-navy-800">GMAT Centre in Noida</h2>
+      <p class="text-navy-600 max-w-2xl mx-auto mt-4">Study at our Sector 62 centre in Noida, or join any of our six Delhi centres. Call 011-47082205 with any questions.</p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="reveal tier-card glass-orange rounded-3xl p-6">
+        <p class="text-accent-700 text-xs font-semibold tracking-widest uppercase">{noidaCentre.zone}</p>
+        <h3 class="font-display text-2xl font-700 text-navy-800 mt-1 mb-3">{noidaCentre.name}</h3>
+        <p class="text-navy-600 text-sm leading-relaxed mb-5">{noidaCentre.addr}</p>
+        <div class="flex flex-wrap gap-2">{noidaCentre.batches.map(b => <span class="batch-tag chip-on">{b}</span>)}</div>
+      </div>
+      {delhiCentres.map(([name,addr]) => (
+        <div class="reveal tier-card glass rounded-3xl p-6">
+          <p class="text-accent-700 text-xs font-semibold tracking-widest uppercase">Delhi</p>
+          <h3 class="font-display text-2xl font-700 text-navy-800 mt-1 mb-3">{name}</h3>
+          <p class="text-navy-600 text-sm leading-relaxed">{addr}</p>
+        </div>
+      ))}
+    </div>
+    <p class="text-center mt-8"><a href="https://www.edushastra.com/contact-us/" class="text-accent-700 hover:text-navy-800 font-semibold text-sm">All EduShastra offices →</a></p>
+  </div>
+</section>
+
+<!-- OTHER CITIES -->
+<section class="py-8 px-6 bg-navy-100/50">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-10 text-center">
+      <p class="text-accent-700 text-xs font-semibold tracking-widest uppercase mb-3">Find Your Centre</p>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-navy-800">Available Across India</h2>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {cities.map(([c,href]) => (
+        <a href={`${U}${href}`} class="reveal tier-card glass rounded-2xl px-6 py-5 flex items-center justify-between">
+          <span class="font-display font-700 text-navy-800">{c} GMAT Centre</span><span class="text-accent-600">→</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- FAQs -->
+<section id="faqs" class="py-8 px-6">
+  <div class="max-w-4xl mx-auto">
+    <div class="reveal mb-10 text-center">
+      <p class="text-accent-700 text-xs font-semibold tracking-widest uppercase mb-3">Common questions</p>
+      <h2 class="font-display text-4xl font-800 text-navy-800">Before you join</h2>
+    </div>
+    <div class="space-y-3">
+      {faqs.map(([q,a]) => (
+        <div class="reveal glass rounded-2xl overflow-hidden">
+          <button class="faq-btn w-full text-left px-7 py-5 flex items-start justify-between gap-4" aria-expanded="false">
+            <span class="font-display font-700 text-navy-800 text-sm leading-relaxed">{q}</span>
+            <span class="faq-icon text-accent-700 text-lg flex-shrink-0">+</span>
+          </button>
+          <div class="faq-body hidden px-7 pb-6"><p class="text-navy-600 text-sm leading-relaxed">{a}</p></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<footer class="border-t border-navy-800/10 bg-navy-900 pt-6 pb-4 px-6 text-white">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-8 text-sm">
+    <div class="space-y-2">
+      <p class="font-display text-2xl font-800 text-white">Edu<span class="text-accent-400">Shastra</span></p>
+      <p class="text-navy-100 max-w-xs">Affordable Quality Education for All. For People, Not Profits. Since 2016.</p>
+    </div>
+    <ul class="space-y-2 text-accent-400">
+      <li><a href="https://www.edushastra.com/gmat-focus-prep/" class="hover:text-white">GMAT Coaching</a></li>
+      <li><a href="https://www.edushastra.com/gmat-online-coaching-live/" class="hover:text-white">GMAT Online Coaching</a></li>
+      <li><a href="https://www.edushastra.com/gmat-coaching-delhi/" class="hover:text-white">GMAT Coaching Delhi</a></li>
+      <li><a href="https://www.edushastra.com/blog/" class="hover:text-white">Blog</a></li>
+    </ul>
+    <ul class="space-y-2 text-accent-400">
+      <li><a href="tel:01147082205" class="hover:text-white">011-47082205</a></li>
+      <li><a href="mailto:contact@edushastra.com" class="hover:text-white">contact@edushastra.com</a></li>
+      <li><a href="https://www.edushastra.com/contact-us/" class="hover:text-white">View all offices</a></li>
+    </ul>
+  </div>
+  <div class="max-w-7xl mx-auto border-t border-white/10 mt-8 pt-6 flex flex-col md:flex-row justify-between gap-3 text-navy-400 text-xs">
+    <p>© 2026 EduShastra Education Solutions Pvt. Ltd. All rights reserved.</p>
+    <p class="flex gap-4"><a href="https://www.edushastra.com/terms-conditions-and-policies" class="hover:text-white">Terms &amp; Conditions</a><a href="https://www.edushastra.com/privacy-policy" class="hover:text-white">Privacy Policy</a></p>
+  </div>
+</footer>
+
+<script is:inline>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('revealed'), i * 60); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  document.getElementById('menuBtn').addEventListener('click', () => document.getElementById('mobileMenu').classList.toggle('hidden'));
+  document.querySelectorAll('.faq-btn').forEach(btn => btn.addEventListener('click', () => {
+    const body = btn.nextElementSibling, open = !body.classList.contains('hidden');
+    document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+    document.querySelectorAll('.faq-btn').forEach(b => { b.setAttribute('aria-expanded','false'); b.querySelector('.faq-icon').textContent = '+'; });
+    if (!open) { body.classList.remove('hidden'); btn.setAttribute('aria-expanded','true'); btn.querySelector('.faq-icon').textContent = '−'; }
+  }));
+</script>
+</body>
+</html>
