@@ -1,0 +1,546 @@
+---
+const U = "https://www.edushastra.com";
+const PAGE = `${U}/gmat-online-coaching/`;
+const interact = [
+  ["🎙️","Audio Interaction","Unmute anytime to ask a doubt or answer a question. Faculty respond live, like a physical classroom discussion."],
+  ["📹","Video Interaction","Turn your camera on to stay visible and accountable, and see your teacher's expressions and board work clearly."],
+  ["✍️","Writing Interaction","Solve problems on a shared digital whiteboard so faculty can spot mistakes as you make them."],
+  ["💬","Chat Interaction","Drop quick questions or answers in live chat without interrupting the class flow. Every message gets addressed."],
+];
+const stories = [
+  ["GMAT Toppers",["PRIHE2jnOrU","DRVo1r2Y4u4","Oox4aJVOHDE","7rO99uo3Og8"],"GMAT coaching live online topper story"],
+  ["CAT Toppers",["sOzNln6QK7c","3zhfgyCW6VA","JgeR-90qgDg","YsOgM1qPZks"],"MBA online coaching topper story"],
+  ["GMCAT Toppers",["gBOw4auB_zI","3golzQGiZtY","3_MvXZ3ydeY","FqC1bf-X9lA"],"MBA online coaching topper story"],
+];
+const faculty = [
+  ["2023/08/M_L_Parashar.webp","Mr. M L Parashar","Rtd. Director, Dept. of Science & Tech., Govt. of India","Rtd. Deputy Secretary, Govt. of India, IIM-A, IIT-K"],
+  ["2025/09/Vipul-Parashar-EduShastra.webp","Mr. Vipul Parashar","12+ yrs Teaching Exp in Education Industry","DU, NIFT, INSEAD, Harvard Business School"],
+  ["2025/02/ayush1.webp","Mr. Ayush Matcha","CAT'22 99.78%, CAT Topper, IIM 2023-25","4+ yrs Teaching Exp in Education Industry"],
+  ["2026/01/vibha-e1767786486545.webp","Ms. Vibha Malhotra","CAT QA 100 %iler, GMAT FE 745 Scorer","16+ yrs Teaching Exp in Education Industry"],
+  ["2024/12/teachers007.webp","Mr. Pawan Shahi","CAT 2024 99.92%iler, GMAT FE 765 Scorer","NIT Alumnus. CAT Topper."],
+  ["2023/08/Deepak_Jain.webp","Mr. Deepak Jain","IIT/IIM Alumnus, CAT 100 %iler & GMAT 790 Scorer","Rtd. Indian Administrative Service Officer - UT"],
+  ["2023/08/kushalbhardwaj.webp","Dr. Kushal Bhardwaj","Ph.D. (DU), CAT 99.99 %iler & GMAT 780 Scorer","16+ yrs Exp at Leadership Level in IT & Retail"],
+  ["2023/08/ankur-agarwal.webp","Mr. Ankur Agarwal","16+ yrs Teaching Exp in Education Industry","Former Deputy Director-LPU, Multiple Top Scores"],
+];
+const b = { Online:"badge-online", Classroom:"badge-offline", Hybrid:"badge-hybrid" };
+const elite = [
+  ["Hybrid","Free Live Hybrid Course","Free","₹15,999",true,"/faq-cat-live-online-free-course/","/faq-cat-live-online-free-course/","Enroll Free",["250+ Hours Course Cycle","Audio, Video & Chat Interaction","Live In-class Doubt Solving","Personalized Learning Experience"]],
+  ["Online","Self-Paced Personalized","₹16,999","₹28,332",false,"/gmat-courses-payment-portal/","/faqs-gmat-self-paced-personalized-course/","Enroll Now",["250+ Hours Course Cycle","Personalized Learning Experience","24×7 Doubt Solving","Valid for Six Months"]],
+  ["Online","Elite Plus Test Series","₹2,999","₹4,999",false,"/gmat-courses-payment-portal/","/faqs-elite-plus-gmat-test-series/","Enroll Now",["100+ FL Mocks & Sectional Tests","Computer-Adaptive Tests","AI-Based Performance Analytics","Valid for Six Months"]],
+  ["Online","Elite Live Online Course","₹18,999","₹31,665",false,"/gmat-courses-payment-portal/","/elite-eliteplus","Enroll Now",["250+ Hours Course Cycle","Audio, Video & Chat Interaction","Batch Size: 150–200 Students","Valid for Six Months"]],
+];
+const elitePlus = [
+  ["Online","Elite Plus Live Online","₹28,999","₹48,332",true,["250+ Hours Course Cycle","Audio, Video & Chat Interaction","Average Batch Size of 30 Students","Valid for Six Months"]],
+  ["Classroom","Elite Plus Classroom","₹42,999","₹71,665",false,["250+ Hours Course Cycle","Personalized Learning Experience","Average Batch Size of 30 Students","Valid for Six Months"]],
+  ["Hybrid","Elite Plus Hybrid Course","₹44,999","₹74,999",true,["250+ Hours Course Cycle","Personalized Learning Experience","Average Batch Size of 30 Students","Valid for Six Months"]],
+];
+const apex = [["Online","Live Online","₹39,999","₹66,665"],["Classroom","Classroom (Offline)","₹49,999","₹83,332"],["Hybrid","Hybrid","₹51,999","₹86,665"]];
+const steps = [
+  ["Apply Now:","To secure your spot, click Apply Now in the Program Fees section."],
+  ["Application Fees:","The fee to apply for the +720 Apex-25 batch is ₹29."],
+  ["Post Fee Payment Procedure:","After payment, share your name, email ID, contact number and course details with contact@edushastra.com."],
+  ["Entrance Mapping Test:","After payment confirmation, a Mapping Test is sent to the student."],
+  ["Enrollment Invite:","Selection depends on Mapping Test performance and a review of academic records. Selected students receive a batch enrollment invite by email."],
+];
+const exam = [
+  ["Quantitative Reasoning","21 questions","Arithmetic and algebra. No geometry.","badge-online"],
+  ["Verbal Reasoning","23 questions","Reading comprehension and critical reasoning. No sentence correction.","badge-hybrid"],
+  ["Data Insights","20 questions","Multi-source reasoning, table analysis and graphics. Calculator allowed.","badge-offline"],
+];
+const batches = ["GMAT Focus Weekday Batch","GMAT Focus Weekend Batch"];
+const media = [
+  ["Ani News","ani-news.webp","26 New Centers by 2026: EduShastra Doubles National Footprint","https://www.aninews.in/news/business/edushastra-announces-strategic-national-expansion-26-new-coco-centers-to-launch-by-2026-following-record-breaking-2025-results20260406184910/"],
+  ["Tribune India","tribune.webp","3 Lakh+ YouTube Subscribers: Outpacing India's Legacy Test-Prep Giants","https://www.tribuneindia.com/news/business/edushastra-announces-strategic-national-expansion-26-new-coco-centers-to-launch-by-2026-following-record-breaking-2025-results/"],
+  ["Dailyhunt","dailyhunt.webp","IIM & IBS Alumni Leading: Meet the Highest-Rated Mentors in Indian Test Preparation","https://m.dailyhunt.in/news/india/english/ani+english-epaper-anieng/edushastra+announces+strategic+national+expansion+26+new+coco+centers+to+launch+by+2026+following+recordbreaking+2025+results-newsid-n707450317?"],
+  ["Lokmat Times","Lokmat-1.webp","IQ-Mapped Batching: Only 5-Level Percentile Segregation System in India","https://www.lokmattimes.com/business/edushastra-announces-strategic-national-expansion-26-new-coco-centers-to-launch-by-2026-following-record-breaking-2025-results/"],
+  ["Business Journal","Business-Journal.webp","Scientific Progression: Performance Benchmarks Replace Traditional Batching Methods","https://businessjournal.agency/edushastra-announces-strategic-national-expansion-26-new-coco-centers-to-launch-by-2026-following-record-breaking-2025-results/"],
+  ["Maharashtra Samachar","Maharashtra.webp","Apex-25 Elite Batches: Hyper-Personalized Mentorship for Top Percentile Achievers.","https://www.maharashtrasamachar.com/news/edushastra-announces-strategic-national-expansion-26-new-coco-centers-to-launch-by-2026-following-record-breaking-2025-results20260406184907/"],
+  ["Big News Network","Big-news-Network-e1775799817666.webp","Scientific Progression: Performance Benchmarks Replace Traditional Batching Methods","https://www.bignewsnetwork.com/news/278967341/edushastra-announces-strategic-national-expansion-26-new-coco-centers-to-launch-by-2026-following-record-breaking-2025-results#google_vignette"],
+  ["Delhi Live News","Delhi-News.webp","Apex-25: Where Elite Meets Exclusive – Limited to 25 Toppers Only","https://www.lokmattimes.com/business/edushastra-announces-strategic-national-expansion-26-new-coco-centers-to-launch-by-2026-following-record-breaking-2025-results/"],
+  ["Indian Economic Observer","Indian-economic.webp","EduShastra Announces Landmark Expansion: 26 New Centers to Double National Footprint by 2026","https://www.indianeconomicobserver.com/news/edushastra-announces-strategic-national-expansion-26-new-coco-centers-to-launch-by-2026-following-record-breaking-2025-results20260406184907/"],
+  ["World News Network","world-news-network.webp","Competitive Learning Environments: How Homogeneous Batching Accelerates Progress","https://www.maharashtrasamachar.com/news/edushastra-announces-strategic-national-expansion-26-new-coco-centers-to-launch-by-2026-following-record-breaking-2025-results20260406184907/"],
+];
+const faqs = [
+  ["Is this really live, or just pre-recorded videos I watch on my own?","Fully live. A faculty member teaches in real time on every scheduled session, takes questions as they come up, and adjusts pace to the batch. Sessions are recorded afterward only for your revision. Nothing is pre-shot."],
+  ["How does doubt-solving work if I'm not in a physical classroom?","You can ask during the live session itself via audio, video, or chat, or raise it in our 24×7 doubt-solving channel outside class hours. Either way, a teacher, not a bot, responds."],
+  ["How are online batches placed into IQ-based Series?","The same Entrance Mapping Test used for offline batches applies online. It's IQ-based, not knowledge-based, and places you into one of five Series so your online batchmates are at a similar ability level."],
+  ["What happens if I miss a live class?","Every live session is recorded and added to your portal the same day, so you can catch up before the next weekly evaluation test without falling behind the batch's pace."],
+  ["Do online students get the same weekly evaluation tests as offline batches?","Yes. Sectional and full-length Computer-Adaptive, Computer-Based, or Paper-Based tests run weekly for every batch, live or offline, and feed directly into course-path adjustments."],
+  ["What internet speed or setup do I need for live sessions?","A stable broadband or 4G connection (minimum ~2 Mbps) and any laptop, tablet, or phone with a browser. No special software installation is required to join a session."],
+  ["Can I switch from the online batch to a classroom or hybrid batch later?","Yes, subject to seat availability in the target batch. Since course structure and Series placement carry over, switching modes doesn't reset your progress."],
+];
+// JSON-LD is generated from the same data as the page, so prices can never drift out of sync.
+const price = (p) => Number(String(p).replace(/[^\d]/g, "")) || 0;
+const mode = { Online:"online", Classroom:"onsite", Hybrid:"blended" };
+const inst = (name, p, m, url, hours) => ({ "@type":"CourseInstance", name, courseMode: mode[m], ...(hours ? { courseWorkload: hours } : {}),
+  offers: { "@type":"Offer", name, price: price(p), priceCurrency:"INR", url: `${U}${url}`, availability:"https://schema.org/InStock" } });
+const instances = [
+  ...elite.map(([m,name,p,,,enroll]) => inst(name,p,m,enroll, name.includes("Test Series") ? null : "PT250H")),
+  ...elitePlus.map(([m,name,p]) => inst(name,p,m,"/gmat-courses-payment-portal/","PT250H")),
+  ...apex.map(([m,label,p]) => inst(`Apex-25 ${label}`,p,m,"/gmat-courses-payment-portal/","PT500H")),
+];
+const courseLd = { "@context":"https://schema.org","@type":"Course","@id":`${PAGE}#course`,"name":"GMAT Online Coaching","url":PAGE,
+  "description":"Live online GMAT Focus coaching with 100%ile faculty, IQ-based percentile batching across five Series, weekly adaptive evaluation tests and a +720 or fee refund promise.",
+  "provider":{"@type":"Organization","name":"EduShastra","url":U}, "hasCourseInstance": instances };
+const faqLd = { "@context":"https://schema.org","@type":"FAQPage","mainEntity": faqs.map(([q,a]) => ({"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}})) };
+const crumbLd = { "@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Home","item":U},
+  {"@type":"ListItem","position":2,"name":"GMAT Coaching","item":`${U}/gmat-focus-prep/`},
+  {"@type":"ListItem","position":3,"name":"GMAT Online Coaching","item":PAGE}] };
+---
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GMAT Online Coaching | Live Classes, +720 or Refund | EduShastra</title>
+<meta name="description" content="GMAT online coaching with live classes by 100%ilers. Five ability-based Series, weekly adaptive tests, small batches and a +720 or fee refund promise. Try the free live course." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href={PAGE} />
+<link rel="icon" href="https://www.edushastra.com/wp-content/uploads/2024/09/eduShastra-logo_only-100x100.png" sizes="32x32">
+<link rel="icon" href="https://www.edushastra.com/wp-content/uploads/2024/09/eduShastra-logo_only-300x300.png" sizes="192x192">
+<meta property="og:title" content="GMAT Online Coaching | Live Classes, +720 or Refund | EduShastra" />
+<meta property="og:description" content="Live GMAT online coaching by 100%ilers with five ability-based Series and a +720 or fee refund promise." />
+<meta property="og:url" content={PAGE} />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://www.edushastra.com/wp-content/uploads/2026/03/Apex-final-e1774841680687.webp" />
+<meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="GMAT online coaching live classes at EduShastra" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<script type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>
+<script type="application/ld+json" set:html={JSON.stringify(courseLd)}></script>
+<script type="application/ld+json" set:html={JSON.stringify(crumbLd)}></script>
+<script is:inline src="https://cdn.tailwindcss.com"></script>
+<script is:inline>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { display:['Syne','sans-serif'], body:['DM Sans','sans-serif'] },
+    colors: {
+      paper:'#FBF8F3', line:'#E6DFD3',
+      navy:{ 900:'#0B1730', 800:'#0F1F3D', 700:'#1B2F57', 600:'#34476B', 400:'#6B7A99', 100:'#E9EDF5' },
+      accent:{ 400:'#F7B733', 500:'#F2A413', 600:'#D98B00', 700:'#9A5B00' },
+    }
+  }}}
+</script>
+<style>
+  :root { --paper:#FBF8F3; --navy:#0F1F3D; --accent:#F2A413; }
+  body { font-family:'DM Sans',sans-serif; background:var(--paper); color:var(--navy); }
+  h1,h2,h3,h4,h5,.font-display { font-family:'Syne',sans-serif; }
+  :focus-visible { outline:3px solid #D98B00; outline-offset:3px; border-radius:6px; }
+  .hero-bg { background: radial-gradient(ellipse 70% 60% at 15% 50%, rgba(242,164,19,.12) 0%, transparent 60%), radial-gradient(ellipse 50% 70% at 85% 20%, rgba(15,31,61,.06) 0%, transparent 55%), var(--paper); }
+  .glass { background:rgba(255,255,255,.65); border:1.5px solid rgba(15,31,61,.22); backdrop-filter:blur(12px); box-shadow:0 2px 8px rgba(15,31,61,.06); }
+  .glass-orange { background:rgba(242,164,19,.10); border:1.5px solid rgba(242,164,19,.6); backdrop-filter:blur(12px); }
+  .glass-dark { background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.28); backdrop-filter:blur(12px); }
+  .nav-blur { background:rgba(251,248,243,.8); backdrop-filter:blur(20px); border-bottom:1.5px solid rgba(15,31,61,.15); }
+  .btn { background:var(--accent); color:var(--navy); font-weight:700; transition:background .2s ease, box-shadow .2s ease; }
+  .btn:hover { background:#F7B733; }
+  .cta-glow:hover { box-shadow:0 0 32px rgba(242,164,19,.5); }
+  .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+  .revealed { opacity:1; transform:translateY(0); }
+  .batch-tag { font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:3px 10px; border-radius:999px; display:inline-block; }
+  .tier-card { transition:transform .3s ease, border-color .3s ease; } .tier-card:hover { transform:translateY(-4px); border-color:rgba(242,164,19,.7); }
+  .badge-online { background:#E6EEFB; color:#1E4FA3; border:1px solid #C5D6F2; }
+  .badge-offline { background:#E5F4EA; color:#1F6B3A; border:1px solid #BFE2CB; }
+  .badge-hybrid { background:#EFE8FA; color:#5B3C99; border:1px solid #D8CBF0; }
+  .chip-on { background:rgba(242,164,19,.14); color:#9A5B00; border:1px solid rgba(242,164,19,.5); }
+  .chip-off { background:rgba(15,31,61,.05); color:#6B7A99; border:1px solid rgba(15,31,61,.18); }
+  .table-row:nth-child(even) { background:rgba(15,31,61,.025); }
+  .table-row:hover { background:rgba(242,164,19,.10); }
+
+  .btn-ghost { border:1.5px solid var(--navy); color:var(--navy); transition:background .2s ease,color .2s ease; }
+  .btn-ghost:hover { background:var(--navy); color:#fff; }
+  .btn-ghost-dark { border:1.5px solid rgba(255,255,255,.5); color:#fff; transition:background .2s ease; }
+  .btn-ghost-dark:hover { background:rgba(255,255,255,.12); }
+  .media-scroller { overflow:hidden; mask-image:linear-gradient(to right,transparent 0%,black 8%,black 92%,transparent 100%); -webkit-mask-image:linear-gradient(to right,transparent 0%,black 8%,black 92%,transparent 100%); }
+  .media-track { display:flex; gap:1.5rem; width:max-content; animation:marquee 40s linear infinite; }
+  @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+  .media-track:hover { animation-play-state:paused; }
+  .media-card { flex:0 0 280px; transition:transform .3s ease; } .media-card:hover { transform:translateY(-4px); }
+  .yt-play { position:absolute; inset:0; margin:auto; width:56px; height:56px; border-radius:999px; background:rgba(242,164,19,.95); color:#0F1F3D; display:flex; align-items:center; justify-content:center; font-size:20px; }
+  @media (prefers-reduced-motion: reduce) { .media-track { animation:none; overflow-x:auto; } .reveal { opacity:1; transform:none; transition:none; } }
+</style>
+</head>
+<body class="relative overflow-x-hidden">
+
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-blur">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="font-display text-2xl font-800 text-navy-800 tracking-tight">Edu<span class="text-accent-600">Shastra</span></a>
+    <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-navy-600">
+      <li><a href="#why" class="hover:text-accent-700">Why Us</a></li>
+      <li><a href="#batches" class="hover:text-accent-700">Fees</a></li>
+      <li><a href="#schedule" class="hover:text-accent-700">Schedule</a></li>
+      <li><a href="#faculty" class="hover:text-accent-700">Faculty</a></li>
+      <li><a href="#faqs" class="hover:text-accent-700">FAQs</a></li>
+    </ul>
+    <div class="flex items-center gap-3">
+      <a href="https://www.edushastra.com/login/" class="hidden md:block text-sm text-navy-600 hover:text-navy-900 px-4 py-2">Login</a>
+      <a href="#batches" class="btn cta-glow text-sm px-5 py-2.5 rounded-full transition-all">Enroll Now →</a>
+      <button id="menuBtn" class="md:hidden text-navy-800 p-1" aria-label="Open menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden px-6 pb-6 pt-2 flex flex-col gap-4 text-sm font-medium text-navy-600">
+    <a href="#why">Why Us</a><a href="#batches">Fees</a><a href="#schedule">Schedule</a><a href="#faculty">Faculty</a><a href="#faqs">FAQs</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-bg relative min-h-screen flex items-center pt-24 pb-10 px-6">
+  <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-16 items-center relative z-10">
+    <div class="space-y-6">
+      <nav aria-label="Breadcrumb" class="text-xs text-navy-600"><a href="https://www.edushastra.com/" class="hover:text-accent-700">Home</a> <span class="mx-1">/</span> GMAT Online Coaching</nav>
+      <div class="inline-flex items-center gap-2 bg-accent-500/10 border border-accent-500/40 rounded-full px-4 py-1.5 text-accent-700 text-xs font-semibold tracking-widest uppercase">
+        <span class="w-1.5 h-1.5 bg-accent-500 rounded-full animate-pulse"></span>GMAT Online Coaching · Live Classes · Batches Open
+      </div>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-800 leading-[1.05] text-navy-800">GMAT Online Coaching</h1>
+      <a href="https://www.edushastra.com/adaptive-course-path-personalized-learning/">
+        <h2 class="font-display text-[35px] md:text-[42px] lg:text-[48px] font-800 leading-[1.05] text-navy-800"><span class="text-accent-600">5-Levels Percentile</span><br/>Based Batches</h2>
+      </a>
+      <p class="text-navy-600 text-base leading-relaxed max-w-xl">Live GMAT Focus classes where you talk, write and chat with your faculty in real time. A Mapping Test places you with online peers at your level, so the pace fits you.</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="https://www.edushastra.com/faq-cat-live-online-free-course/" class="btn cta-glow text-sm px-7 py-3.5 rounded-full transition-all">Try the free live course →</a>
+        <a href="#batches" class="btn-ghost text-sm font-semibold px-7 py-3.5 rounded-full">View batches &amp; fees</a>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="https://www.edushastra.com/our-faculty-2/" class="glass rounded-full px-4 py-2 text-[17px] font-medium text-navy-800">📊 GMAT 100%ilers as Faculty</a>
+        <a href="https://www.edushastra.com/ability-based-model/" class="glass rounded-full px-4 py-2 text-[17px] font-medium text-navy-800">✅ Ability Based Model - Lifetime Validity</a>
+        <a href="https://www.edushastra.com/money-back-promise/" class="glass rounded-full px-4 py-2 text-[17px] font-medium text-navy-800">🎯 +720 or Fee Refund Promise</a>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="relative rounded-3xl overflow-hidden border border-navy-800/10 shadow-lg shadow-navy-800/10">
+        <img src="https://www.edushastra.com/wp-content/uploads/2026/03/Apex-final-e1774841680687.webp" alt="GMAT online coaching live classes at EduShastra" class="w-full object-cover rounded-3xl" />
+      </div>
+      <div class="glass-orange rounded-2xl p-5 flex items-center gap-5 mt-6">
+        <div class="w-12 h-12 bg-accent-500/20 rounded-xl flex items-center justify-center text-2xl">📅</div>
+        <div>
+          <p class="font-display font-700 text-navy-800 text-base">Next Batch Starts 27 October</p>
+          <p class="text-navy-600 text-xs mt-1">Live online · Weekday &amp; Weekend options</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GMAT FOCUS OVERVIEW -->
+<section id="overview" class="py-4 px-6 bg-navy-100/50">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-5 text-center">
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-navy-800">The GMAT Focus Edition: <span class="text-accent-600">Overview</span></h2>
+      <p class="text-navy-600 text-base leading-relaxed max-w-6xl mx-auto mt-4">The GMAT Focus Edition is the modern, streamlined version of the premier business school entrance exam. Re-engineered for efficiency, the exam is only 2 hours and 15 minutes long and allows you to complete the sections in any order you choose.</p>
+      <p class="text-navy-800 text-base font-semibold max-w-6xl mx-auto mt-4">The test consists of three 45-minute sections that contribute equally to your Total Score (Scale: 205–805):</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5 mb-4">
+      {exam.map(([title,q,detail,badge]) => (
+        <div class="reveal tier-card glass rounded-3xl p-7">
+          <span class={`batch-tag ${badge} mb-4`}>{q}</span>
+          <h3 class="font-display text-xl font-700 text-navy-800 mb-3">{title}</h3>
+          <p class="text-navy-600 text-sm leading-relaxed">{detail}</p>
+        </div>
+      ))}
+    </div>
+    <p class="reveal glass-orange rounded-2xl p-5 text-navy-800 text-base leading-relaxed max-w-6xl mx-auto">This edition prioritizes the higher-order reasoning skills essential for business school, removing the essay and grammar requirements. It also introduces a "Question Review" tool, allowing you to bookmark and edit up to three answers per section, giving you greater control over your performance.</p>
+  </div>
+</section>
+
+<!-- INTERACTION + FEATURES -->
+<section class="py-5 px-6 bg-navy-100/50">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-5 text-center">
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-navy-800">Highly Interactive <span class="text-accent-600">Live Online Classes</span></h2>
+      <p class="text-navy-600 text-base max-w-2xl mx-auto mt-4">Every session is built for two-way engagement, not a one-way lecture stream. You see, hear, write and talk to your faculty in real time.</p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+      {interact.map(([icon,title,desc]) => (
+        <div class="reveal tier-card glass rounded-2xl p-6">
+          <div class="text-3xl mb-3" aria-hidden="true">{icon}</div>
+          <h3 class="font-display font-700 text-accent-700 text-xl mb-2">{title}</h3>
+          <p class="text-navy-800 text-base leading-relaxed">{desc}</p>
+        </div>
+      ))}
+    </div>
+    <div class="reveal glass-orange rounded-3xl p-8 md:p-10 max-w-5xl mx-auto">
+      <h2 class="font-display text-3xl font-800 text-navy-800 mb-4">GMAT online coaching, <span class="text-accent-600">not recorded videos</span></h2>
+      <p class="text-navy-800 text-base leading-relaxed">Most "online GMAT courses" are recorded videos behind a login. Every EduShastra live online batch runs on scheduled video sessions where a 100%iler faculty member teaches, takes live questions and adjusts the day's pace to the room. Sessions are recorded for revision, but nothing is pre-shot: if you're stuck on a Data Insights question at 8 PM, you ask it at 8 PM and get an answer at 8 PM. Combined with percentile-based batching, you study with online peers matched to your current ability. It's built for students juggling college or jobs, or living in a city with no EduShastra centre nearby, without giving up the mentorship that makes coaching worth it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section id="schedule" class="py-5 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-5 text-center">
+      <p class="text-accent-700 text-xs font-semibold tracking-widest uppercase mb-3">Upcoming Batches</p>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-navy-800">Batch Schedule </h2>
+    </div>
+    <div class="reveal glass rounded-3xl overflow-hidden"><div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead><tr class="border-b border-navy-800/10 bg-navy-800/[0.03]">
+          {["Batch","Reg. Deadline","Mapping Start","Batch Start","Status"].map(h => <th scope="col" class="text-left px-6 py-4 font-600 text-navy-600 font-display">{h}</th>)}
+        </tr></thead>
+        <tbody>
+          {batches.map(name => (
+            <tr class="table-row border-b border-navy-800/5">
+              <td class="px-6 py-4 text-navy-800 font-medium">{name}</td>
+              <td class="px-6 py-4 text-navy-600">27 October</td><td class="px-6 py-4 text-navy-600">27 October</td><td class="px-6 py-4 text-navy-600">27 October</td>
+              <td class="px-6 py-4"><span class="batch-tag badge-offline">Open</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div></div>
+  </div>
+</section>
+
+<!-- FACULTY -->
+<section id="faculty" class="py-5 px-6 bg-navy-100/50">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-6 text-center">
+      <p class="text-accent-700 text-xs font-semibold tracking-widest uppercase mb-3">Who Teaches You</p>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-navy-800">Faculty Verified by<br/><span class="text-accent-600">Third-Party Audit</span></h2>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {faculty.map(([img,name,cred,role]) => (
+        <div class="reveal tier-card glass rounded-3xl overflow-hidden group">
+          <div class="aspect-[4/4] bg-navy-100 overflow-hidden">
+            <img src={`${U}/wp-content/uploads/${img}`} alt={`${name} - GMAT coaching faculty at EduShastra`} class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          </div>
+          <div class="p-5">
+            <p class="font-display font-700 text-navy-800 text-[20px]">{name}</p>
+            <p class="text-accent-700 text-[18px] font-semibold mt-0.5 mb-1.5">{cred}</p>
+            <p class="text-navy-600 text-[18px] leading-relaxed">{role}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="text-center mt-10">
+      <a href="https://www.edushastra.com/our-faculty-2" class="inline-block border-[1.5px] border-navy-800 text-navy-800 hover:bg-navy-800 hover:text-white text-sm font-semibold px-8 py-3.5 rounded-full transition-all">Meet All Faculty →</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- SUCCESS STORIES -->
+<section class="py-10 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-8 text-center">
+      <p class="text-accent-700 text-xs font-semibold tracking-widest uppercase mb-1">Real Results</p>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-navy-800">Success Stories</h2>
+    </div>
+    {stories.map(([label, ids, title]) => (
+      <div class="mb-10">
+        <h3 class="reveal font-display text-2xl font-bold text-accent-700 tracking-wide uppercase mb-5">{label}</h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {ids.map((id, i) => (
+            <div class="reveal glass rounded-2xl overflow-hidden">
+              <div class="aspect-video bg-navy-100 relative">
+                <button type="button" class="yt w-full h-full relative block" data-id={id} data-title={`${title} ${i+1}`} aria-label={`Play video: ${title} ${i+1}`}>
+                  <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" class="w-full h-full object-cover" loading="lazy" />
+                  <span class="yt-play" aria-hidden="true">▶</span>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- BATCHES & FEES -->
+<section id="batches" class="py-10 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-10 text-center">
+      <p class="text-accent-700 text-xs font-semibold tracking-widest uppercase mb-3">Program Fees</p>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-navy-800">Choose Your GMAT Online Course</h2>
+    </div>
+    <div class="reveal mb-6">
+      <h3 class="font-display text-3xl font-800 text-navy-800 mb-2">Elite Batches</h3>
+      <p class="text-navy-600 text-base">Batch size of 100-150 students. Interactive live online classes.</p>
+    </div>
+    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6 mb-12">
+      {elite.map(([m,name,p,orig,top,enroll,explore,cta,features]) => (
+        <div class="reveal tier-card glass rounded-3xl overflow-hidden flex flex-col">
+          {top && <div class="h-1 bg-gradient-to-r from-accent-500 to-accent-400"></div>}
+          <div class="p-6 flex flex-col flex-1">
+            <span class={`batch-tag ${b[m]} mb-2 self-start`}>{m}</span>
+            <h4 class="font-display text-lg font-700 text-navy-800">{name}</h4>
+            <p class="mt-1 mb-4"><span class="font-display text-2xl font-800 text-accent-700">{p}</span> <span class="text-navy-400 text-xs line-through ml-1">{orig}</span></p>
+            <ul class="space-y-2 text-sm text-navy-600 mb-6">{features.map(f => <li class="flex gap-2"><span class="text-accent-700">✓</span> {f}</li>)}</ul>
+            <div class="flex gap-2 mt-auto">
+              <a href={`${U}${explore}`} class="btn-ghost flex-1 text-center text-xs font-semibold px-4 py-2.5 rounded-full">Explore</a>
+              <a href={`${U}${enroll}`} class="btn cta-glow flex-1 text-center text-xs px-4 py-2.5 rounded-full transition-all">{cta}</a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="reveal mb-6">
+      <h3 class="font-display text-3xl font-800 text-navy-800 mb-2">Elite Plus Batches</h3>
+      <p class="text-navy-600 text-base">Batch size of 25-30 students. Audio, video, writing and chat interaction.</p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {elitePlus.map(([m,name,p,orig,top,features]) => (
+        <div class="reveal tier-card glass rounded-3xl overflow-hidden flex flex-col">
+          {top && <div class="h-1 bg-gradient-to-r from-accent-500 to-accent-400"></div>}
+          <div class="p-6 flex flex-col flex-1">
+            <span class={`batch-tag ${b[m]} mb-2 self-start`}>{m}</span>
+            <h4 class="font-display text-lg font-700 text-navy-800">{name}</h4>
+            <p class="mt-1 mb-4"><span class="font-display text-2xl font-800 text-accent-700">{p}</span> <span class="text-navy-400 text-xs line-through ml-1">{orig}</span></p>
+            <ul class="space-y-2 text-sm text-navy-600 mb-6">{features.map(f => <li class="flex gap-2"><span class="text-accent-700">✓</span> {f}</li>)}</ul>
+            <div class="flex gap-2 mt-auto">
+              <a href={`${U}/elite-eliteplus`} class="btn-ghost flex-1 text-center text-xs font-semibold px-4 py-2.5 rounded-full">Explore</a>
+              <a href={`${U}/gmat-courses-payment-portal/`} class="btn cta-glow flex-1 text-center text-xs px-4 py-2.5 rounded-full transition-all">Enroll Now</a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- APEX -->
+<section id="apex" class="py-12 px-6 bg-navy-800 text-white">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal text-center mb-12">
+      <span class="inline-block bg-accent-500 text-navy-900 text-xs font-bold tracking-widest uppercase px-5 py-2 rounded-full mb-5">⚡ Most Exclusive GMAT Program</span>
+      <h2 class="font-display text-4xl md:text-5xl font-800 text-white"><span class="text-accent-400">+720</span> Apex-25 Batch</h2>
+      <p class="text-navy-100 mt-4 max-w-2xl mx-auto text-base leading-relaxed">Only 25 seats. IQ-based entrance test. 8-9 dedicated teachers. Lifetime validity. Batch size of 25 students, highly personalised.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 mb-10">
+      {apex.map(([m,label,p,orig]) => (
+        <div class="reveal glass-dark rounded-3xl overflow-hidden">
+          <div class="h-1 bg-gradient-to-r from-accent-700 to-accent-500"></div>
+          <div class="p-7">
+            <span class={`batch-tag ${b[m]} mb-2`}>{label}</span>
+            <h3 class="font-display text-lg font-700 text-white">+99%ile Apex-25</h3>
+            <p class="mt-1 mb-4"><span class="font-display text-2xl font-800 text-accent-400">{p}</span> <span class="text-navy-400 text-xs line-through ml-1">{orig}</span></p>
+            <ul class="space-y-2 text-sm text-navy-100 mb-6">
+              <li class="flex gap-2"><span class="text-accent-400">✓</span> 500+ Hours Course Cycle</li>
+              <li class="flex gap-2"><span class="text-accent-400">✓</span> Average 25 Students per Batch</li>
+              <li class="flex gap-2"><span class="text-accent-400">✓</span> Live 24×7 Doubt Solving</li>
+              <li class="flex gap-2"><span class="text-accent-400">✓</span> Lifetime Validity</li>
+              <li class="flex gap-2 text-accent-400 font-medium"><span>⭐</span> Application Fee: ₹29 only</li>
+            </ul>
+            <div class="flex gap-2">
+              <a href={`${U}/faqs-gmat-720-apex-25-batches-details`} class="btn-ghost-dark flex-1 text-center text-xs font-semibold px-4 py-2.5 rounded-full">Explore</a>
+              <a href={`${U}/gmat-courses-payment-portal`} class="btn cta-glow flex-1 text-center text-xs px-4 py-2.5 rounded-full transition-all">Apply Now</a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="reveal glass-dark rounded-3xl p-8">
+      <h3 class="font-display text-xl font-700 text-white mb-5">How to Apply for Apex-25</h3>
+      <ol class="space-y-3">
+        {steps.map(([step,desc], i) => (
+          <li class="glass-orange rounded-2xl p-4 flex gap-4">
+            <span class="font-display text-xl font-800 text-accent-400 shrink-0">{i+1}.</span>
+            <p class="text-navy-100 text-base leading-relaxed"><strong class="font-display text-white">{step}</strong> {desc}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
+
+<!-- MEDIA -->
+<section class="py-10 px-6">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="font-display text-2xl font-700 text-accent-700 mb-8">EduShastra in Media &amp; News</h2>
+    <div class="media-scroller"><div class="media-track">
+      {[...media, ...media].map(([label, img, headline, link], i) => (
+        <a href={link} target="_blank" rel="noopener noreferrer" class="media-card glass rounded-2xl p-6 block" aria-hidden={i >= media.length ? "true" : undefined} tabindex={i >= media.length ? -1 : undefined}>
+          <p class="text-navy-800 text-xs font-semibold uppercase tracking-wide mb-3">{label}</p>
+          <div class="border-t border-navy-800/10 pt-4">
+            <div class="aspect-square bg-navy-100 overflow-hidden mb-3"><img src={`${U}/wp-content/uploads/2026/04/${img}`} alt={`${label} coverage of EduShastra`} class="w-full h-full object-cover object-top" loading="lazy" /></div>
+            <p class="text-navy-800 text-sm leading-relaxed">{headline}</p>
+          </div>
+        </a>
+      ))}
+    </div></div>
+  </div>
+</section>
+
+<!-- FAQs -->
+<section id="faqs" class="py-10 px-6 bg-navy-100/50">
+  <div class="max-w-4xl mx-auto">
+    <div class="reveal mb-10 text-center">
+      <p class="text-accent-700 text-xs font-semibold tracking-widest uppercase mb-3">Common Questions</p>
+      <h2 class="font-display text-4xl font-800 text-navy-800">GMAT Online Coaching FAQs</h2>
+    </div>
+    <div class="space-y-3">
+      {faqs.map(([q,a]) => (
+        <div class="reveal glass rounded-2xl overflow-hidden">
+          <button class="faq-btn w-full text-left px-7 py-5 flex items-start justify-between gap-4" aria-expanded="false">
+            <span class="font-display font-700 text-navy-800 text-sm leading-relaxed">{q}</span>
+            <span class="faq-icon text-accent-700 text-lg flex-shrink-0">+</span>
+          </button>
+          <div class="faq-body hidden px-7 pb-6"><p class="text-navy-600 text-sm leading-relaxed">{a}</p></div>
+        </div>
+      ))}
+    </div>
+    <p class="text-center mt-8"><a href="https://www.edushastra.com/faqs-gmat" class="text-accent-700 hover:text-navy-800 text-sm font-semibold">View all GMAT FAQs →</a></p>
+  </div>
+</section>
+
+<footer class="border-t border-navy-800/10 bg-navy-900 pt-12 pb-6 px-6 text-white">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-10 text-sm mb-10">
+    <div class="space-y-3">
+      <p class="font-display text-2xl font-800">Edu<span class="text-accent-400">Shastra</span></p>
+      <p class="text-navy-100 leading-relaxed">Affordable Quality Education for All. For People, Not Profits. Since 2016.</p>
+      <ul class="space-y-1 text-accent-400">
+        <li><a href="https://www.facebook.com/EduShastra.Philanthropy/" class="hover:text-white">Facebook</a></li>
+        <li><a href="https://www.instagram.com/edushastra/" class="hover:text-white">Instagram</a></li>
+        <li><a href="https://www.linkedin.com/company/edushastra" class="hover:text-white">LinkedIn</a></li>
+        <li><a href="https://www.youtube.com/channel/UCjLd8GlyCosf2jD49kdUGhA" class="hover:text-white">YouTube</a></li>
+      </ul>
+    </div>
+    <div><p class="font-semibold mb-3">Courses</p><ul class="space-y-2 text-accent-400">
+      <li><a href="https://www.edushastra.com/cat-2026/" class="hover:text-white">CAT Preparation</a></li>
+      <li><a href="https://www.edushastra.com/gmat-focus-prep/" class="hover:text-white">GMAT Coaching</a></li>
+      <li><a href="https://www.edushastra.com/gmat-cat-coaching/" class="hover:text-white">GMCAT Preparation</a></li>
+      <li><a href="https://www.edushastra.com/common-universities-entrance-test/" class="hover:text-white">CUET Preparation</a></li></ul></div>
+    <div><p class="font-semibold mb-3">Links</p><ul class="space-y-2 text-accent-400">
+      <li><a href="https://www.edushastra.com/courses" class="hover:text-white">Courses</a></li>
+      <li><a href="https://www.edushastra.com/why-us" class="hover:text-white">Why Us</a></li>
+      <li><a href="https://www.edushastra.com/faqs/" class="hover:text-white">FAQs</a></li>
+      <li><a href="https://www.edushastra.com/blog/" class="hover:text-white">Blog</a></li></ul></div>
+    <div><p class="font-semibold mb-3">Contact</p><ul class="space-y-2 text-accent-400">
+      <li><a href="tel:01147082205" class="hover:text-white">011-47082205</a></li>
+      <li><a href="mailto:contact@edushastra.com" class="hover:text-white">contact@edushastra.com</a></li>
+      <li><a href="https://www.edushastra.com/contact-us/" class="hover:text-white">View All Offices</a></li></ul></div>
+  </div>
+  <div class="max-w-7xl mx-auto border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between gap-3 text-navy-400 text-xs">
+    <p>© 2026 EduShastra Education Solutions Pvt. Ltd. All rights reserved.</p>
+    <p class="flex gap-4"><a href="https://www.edushastra.com/terms-conditions-and-policies" class="hover:text-white">Terms &amp; Conditions</a><a href="https://www.edushastra.com/privacy-policy" class="hover:text-white">Privacy Policy</a></p>
+  </div>
+</footer>
+
+<script is:inline>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('revealed'), i * 60); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  document.getElementById('menuBtn').addEventListener('click', () => document.getElementById('mobileMenu').classList.toggle('hidden'));
+  document.querySelectorAll('.faq-btn').forEach(btn => btn.addEventListener('click', () => {
+    const body = btn.nextElementSibling, open = !body.classList.contains('hidden');
+    document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+    document.querySelectorAll('.faq-btn').forEach(b => { b.setAttribute('aria-expanded','false'); b.querySelector('.faq-icon').textContent = '+'; });
+    if (!open) { body.classList.remove('hidden'); btn.setAttribute('aria-expanded','true'); btn.querySelector('.faq-icon').textContent = '−'; }
+  }));
+</script>
+<script is:inline>
+  document.querySelectorAll('.yt').forEach(btn => btn.addEventListener('click', () => {
+    const f = document.createElement('iframe');
+    f.src = 'https://www.youtube.com/embed/' + btn.dataset.id + '?rel=0&modestbranding=1&autoplay=1';
+    f.title = btn.dataset.title; f.className = 'w-full h-full'; f.allowFullscreen = true;
+    f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    btn.replaceWith(f);
+  }));
+</script>
+</body>
+</html>
