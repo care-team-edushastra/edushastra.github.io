@@ -104,7 +104,7 @@ const faqs = [
 const faqLd = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) };
 const crumbLd = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
   { "@type": "ListItem", position: 1, name: "Home", item: U },
-  { "@type": "ListItem", position: 2, name: "CAT Coaching", item: `${U}/cat-prep/` },
+  { "@type": "ListItem", position: 2, name: "CAT Coaching", item: `${U}/cat-coaching/` },
   { "@type": "ListItem", position: 3, name: "CAT Online Coaching", item: PAGE_URL }] };
 const pageLd = { "@context": "https://schema.org", "@type": "WebPage", name: TITLE, url: PAGE_URL, description: DESCRIPTION,
   isPartOf: { "@type": "WebSite", name: "EduShastra", url: `${U}/` },
