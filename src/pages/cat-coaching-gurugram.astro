@@ -1,7 +1,6 @@
 ---
 const U = "https://www.edushastra.com";
 const gurugramAddr = "101, DLF Phase-IV, Gurugram-122002";
-const gurugramCentre = { name: "DLF Phase-IV", zone: "Gurugram, Haryana", addr: gurugramAddr, batches: ["Weekday","Weekend"] };
 const upcoming = [
   ["GMAT Weekday, " + gurugramAddr, "3 November", "3 November", "3 November"],
   ["GMAT Weekend, " + gurugramAddr, "3 November", "3 November", "3 November"],
@@ -15,9 +14,9 @@ const courseTypes = [
     href: "/cat-2027-online-coaching", cta: "Explore online courses" },
 ];
 const stories = [
-  ["CAT Toppers", ["iFB7LK6QsmQ", "7mI6dHD-OeM", "epHftXoU3Rg", "TRYDqI99-wY"], "CAT topper story"],
-  ["GMAT Toppers", ["QJrt3bV31VM", "eUNSfRbbaAs", "iOUNqX6AKnY", "3bTP8Yv1F70"], "GMAT topper story"],
-  ["GMCAT Toppers", ["gBOw4auB_zI", "3golzQGiZtY", "3_MvXZ3ydeY", "FqC1bf-X9lA"], "GMCAT topper story"],
+  { label: "CAT Toppers", ids: ["iFB7LK6QsmQ", "7mI6dHD-OeM", "epHftXoU3Rg", "TRYDqI99-wY"], title: "CAT topper story" },
+  { label: "GMAT Toppers", ids: ["QJrt3bV31VM", "eUNSfRbbaAs", "iOUNqX6AKnY", "3bTP8Yv1F70"], title: "GMAT topper story" },
+  { label: "GMCAT Toppers", ids: ["gBOw4auB_zI", "3golzQGiZtY", "3_MvXZ3ydeY", "FqC1bf-X9lA"], title: "GMCAT topper story" },
 ];
 const crumbLd = { "@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
   {"@type":"ListItem","position":1,"name":"Home","item":U},
@@ -280,7 +279,7 @@ const crumbLd = { "@context":"https://schema.org","@type":"BreadcrumbList","item
       <p class="text-brand-400 text-xs font-semibold tracking-widest uppercase mb-3">Real Results</p>
       <h2 class="font-display text-4xl md:text-5xl font-800 text-white">Success Stories</h2>
     </div>
-    {stories.map(([label, ids, title]) => (
+    {stories.map(({ label, ids, title }) => (
       <div class="mb-10">
         <h3 class="reveal font-display font-700 text-brand-400 text-2xl mb-5">{label}</h3>
         <ul class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 list-none p-0 m-0">
