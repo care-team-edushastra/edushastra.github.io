@@ -1,0 +1,330 @@
+---
+const U = "https://www.edushastra.com";
+// Course shown when the page opens without ?plan= or #id. Change this one value.
+const DEFAULT_PLAN = "eliteplus-online";
+type Plan = [id: string, mode: string, name: string, price: number, features: string[], apex: boolean];
+const b: Record<string, string> = { Online:"badge-online", Classroom:"badge-offline", Hybrid:"badge-hybrid", Test:"badge-hybrid" };
+
+// [id, mode, name, price, features, apex?]
+const groups: [string, Plan[]][] = [
+  ["Elite & Self-Paced", [
+    ["self-paced","Online","Self-Paced Personalized Course",16999,["250+ Hours Course Cycle (Recorded)","24×7 Doubt Solving","Computer-Based & Adaptive Tests","Personalized Learning Experience","Valid for 6 Months"],false],
+    ["test-series","Test","Elite Plus GMAT Test Series",2999,["100+ FL Mocks & Sectional Tests","Computer-Based & Adaptive Tests","AI-Based Performance Analytics","Valid for 6 Months"],false],
+    ["elite-online","Online","Elite Live Online Course",18999,["250+ Hours Live Online & Recorded Classes","GMAT Course Material","Average Batch Size of 150 Students","Valid for 6 Months"],false],
+  ]],
+  ["Elite Plus", [
+    ["eliteplus-online","Online","Elite Plus Live Online",28999,["250+ Hours Course Cycle","Audio, Video & Chat Interaction","Live In-class Doubt Solving","Average Batch Size of 30 Students","Valid for 6 Months"],false],
+    ["eliteplus-classroom","Classroom","Elite Plus Classroom",42999,["250+ Hours Course Cycle","Personalized Learning Experience","Average Batch Size of 30 Students","Valid for 6 Months"],false],
+    ["eliteplus-hybrid","Hybrid","Elite Plus Hybrid (Offline & Online)",44999,["250+ Hours Course Cycle","Personalized Learning Experience","Average Batch Size of 30 Students","Valid for 6 Months"],false],
+  ]],
+  ["+705 Apex-25", [
+    ["apex-online","Online","+705 Apex-25 Live Online",39999,["500+ Hours Course Cycle","Audio, Video & Chat Interaction","Live 24×7 Doubt Solving","Average Batch Size of 25 Students","Lifetime Validity"],true],
+    ["apex-classroom","Classroom","+705 Apex-25 Classroom (Offline)",49999,["500+ Hours Course Cycle","Personalized Learning Experience","Live 24×7 Doubt Solving","Average Batch Size of 25 Students","Lifetime Validity"],true],
+    ["apex-hybrid","Hybrid","+705 Apex-25 Hybrid (Offline & Online)",51999,["500+ Hours Course Cycle","Audio, Video & Chat Interaction","Live 24×7 Doubt Solving","Average Batch Size of 25 Students","Lifetime Validity"],true],
+  ]],
+];
+const allPlans: Plan[] = groups.flatMap(g => g[1]);
+
+const apexSteps: [string, string][] = [
+  ["Application Fee:","The fee to apply in the +705 Apex-25 batch is ₹29."],
+  ["Post Fee Payment:","Email contact@edushastra.com with your Name, Email ID, Contact number and Course details."],
+  ["Entrance Mapping Test:","A Mapping Test is sent after payment confirmation."],
+  ["Enrollment Invite:","Selection is based on your Mapping Test and a review of academic records."],
+];
+const bank: [string, string, boolean][] = [
+  ["Account Name","EduShastra Education Solutions Pvt. Ltd.",true],
+  ["Account No.","018563400000373",true],
+  ["Account Type","Current Account",false],
+  ["Bank","Yes Bank",false],
+  ["IFSC","YESB0000185",true],
+  ["Branch","Meera Bagh, New Delhi — Ground Floor, B-379, Outer Ring Road, Delhi",false],
+];
+const crumbLd = JSON.stringify({
+  "@context":"https://schema.org","@type":"BreadcrumbList",
+  itemListElement:[
+    {"@type":"ListItem",position:1,name:"Home",item:U},
+    {"@type":"ListItem",position:2,name:"GMAT Coaching",item:`${U}/gmat-coaching/`},
+    {"@type":"ListItem",position:3,name:"GMAT Courses Payment Portal",item:`${U}/gmat-course-payment-portal/`},
+  ]
+});
+const fmt = (n: number) => "₹" + n.toLocaleString("en-IN");
+---
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GMAT Courses Payment Portal | EduShastra Education</title>
+<link rel="icon" href="https://www.edushastra.com/wp-content/uploads/2024/09/eduShastra-logo_only-100x100.png" sizes="32x32">
+<link rel="icon" href="https://www.edushastra.com/wp-content/uploads/2024/09/eduShastra-logo_only-300x300.png" sizes="192x192">
+<meta name="description" content="Pay for your GMAT course securely. Choose Self-Paced, Elite, Elite Plus or +705 Apex-25 batches and pay by QR code, UPI or bank transfer." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://www.edushastra.com/gmat-course-payment-portal/" />
+<meta property="og:title" content="GMAT Courses Payment Portal | EduShastra Education" />
+<meta property="og:description" content="Choose your GMAT course and pay securely by QR code, UPI or bank transfer." />
+<meta property="og:url" content="https://www.edushastra.com/gmat-course-payment-portal/" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://www.edushastra.com/wp-content/uploads/2024/09/edu-share-card.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<script type="application/ld+json" set:html={crumbLd}></script>
+
+<script is:inline src="https://cdn.tailwindcss.com"></script>
+<script is:inline>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { display: ['Syne','sans-serif'], body: ['DM Sans','sans-serif'] },
+    colors: {
+      paper: '#FBF8F3',
+      line:  '#E6DFD3',
+      navy:  { 900:'#0B1730', 800:'#0F1F3D', 700:'#1B2F57', 600:'#34476B', 400:'#6B7A99', 100:'#E9EDF5' },
+      accent:{ 400:'#F7B733', 500:'#F2A413', 600:'#D98B00', 700:'#9A5B00' },
+    }
+  }}}
+</script>
+
+<style>
+  :root { --paper:#FBF8F3; --line:#E6DFD3; --navy:#0F1F3D; --accent:#F2A413; }
+  body { font-family:'DM Sans',sans-serif; background:var(--paper); color:var(--navy); }
+  h1,h2,h3,h4,h5,.font-display { font-family:'Syne',sans-serif; }
+  :focus-visible { outline:3px solid #D98B00; outline-offset:3px; border-radius:6px; }
+
+  .hero-bg {
+    background:
+      radial-gradient(ellipse 70% 60% at 15% 50%, rgba(242,164,19,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 70% at 85% 20%, rgba(15,31,61,0.06) 0%, transparent 55%),
+      var(--paper);
+  }
+  .glass { background:rgba(255,255,255,0.65); border:1.5px solid rgba(15,31,61,0.22); backdrop-filter:blur(12px); box-shadow:0 2px 8px rgba(15,31,61,0.06); }
+  .glass-orange { background:rgba(242,164,19,0.10); border:1.5px solid rgba(242,164,19,0.6); backdrop-filter:blur(12px); }
+  .nav-blur { background:rgba(251,248,243,0.8); backdrop-filter:blur(20px); border-bottom:1.5px solid rgba(15,31,61,0.15); }
+
+  .btn { background:var(--accent); color:var(--navy); font-weight:700; transition:background .2s ease, box-shadow .2s ease; }
+  .btn:hover { background:#F7B733; }
+  .cta-glow:hover { box-shadow:0 0 32px rgba(242,164,19,0.5); }
+
+  .batch-tag { font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:3px 10px; border-radius:999px; display:inline-block; }
+  .badge-online  { background:#E6EEFB; color:#1E4FA3; border:1px solid #C5D6F2; }
+  .badge-offline { background:#E5F4EA; color:#1F6B3A; border:1px solid #BFE2CB; }
+  .badge-hybrid  { background:#EFE8FA; color:#5B3C99; border:1px solid #D8CBF0; }
+
+  .tab { border:1.5px solid rgba(15,31,61,0.3); color:var(--navy); transition:background .2s ease,color .2s ease; }
+  .tab:hover { background:rgba(242,164,19,0.12); }
+  .tab[aria-selected="true"] { background:var(--navy); color:#fff; border-color:var(--navy); }
+  .copy-btn { border:1.5px solid rgba(15,31,61,0.3); transition:background .2s ease,color .2s ease; }
+  .copy-btn:hover { background:var(--navy); color:#fff; }
+  select.pick { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%230F1F3D' stroke-width='2'%3E%3Cpath d='M3 6l5 5 5-5'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 1rem center; }
+
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } }
+</style>
+</head>
+
+<body class="relative overflow-x-hidden">
+
+<!-- NAVBAR -->
+<nav class="fixed top-0 left-0 right-0 z-50 nav-blur" aria-label="Primary">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+    <a href="/" class="font-display text-2xl font-800 text-navy-800 tracking-tight">Edu<span class="text-accent-600">Shastra</span></a>
+    <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-navy-600">
+      <li><a href="https://www.edushastra.com/courses/" class="hover:text-accent-700 transition-colors">Courses</a></li>
+      <li><a href="https://www.edushastra.com/gmat-coaching/" class="hover:text-accent-700 transition-colors">GMAT Coaching</a></li>
+      <li><a href="https://www.edushastra.com/faqs-gmat" class="hover:text-accent-700 transition-colors">FAQs</a></li>
+      <li><a href="https://www.edushastra.com/contact-us/" class="hover:text-accent-700 transition-colors">Contact</a></li>
+    </ul>
+    <a href="https://www.edushastra.com/login/" class="btn cta-glow text-sm px-5 py-2 rounded-full">Login</a>
+  </div>
+</nav>
+
+<main class="hero-bg pt-24 pb-10 px-6">
+  <div class="max-w-6xl mx-auto">
+    <nav aria-label="Breadcrumb" class="text-xs text-navy-600 mb-2">
+      <a href="https://www.edushastra.com/" class="hover:text-accent-700">Home</a> <span class="mx-1">/</span>
+      <a href="https://www.edushastra.com/gmat-coaching/" class="hover:text-accent-700">GMAT Coaching</a> <span class="mx-1">/</span> Payment Portal
+    </nav>
+    <h1 class="font-display text-3xl md:text-4xl font-800 text-navy-800 mb-6">GMAT Courses <span class="text-accent-600">Payment Portal</span></h1>
+
+    <div class="grid lg:grid-cols-2 gap-6 items-start">
+
+      <!-- LEFT: selected batch -->
+      <section class="glass rounded-3xl p-6 space-y-4" aria-labelledby="selLabel">
+        <div>
+          <label id="selLabel" for="planSelect" class="font-display font-700 text-navy-800 text-sm block mb-2">Your course</label>
+          <select id="planSelect" data-default={DEFAULT_PLAN} class="pick glass w-full rounded-full pl-5 pr-10 py-3 text-sm font-medium text-navy-800 cursor-pointer">
+            {groups.map(([g, plans]) => (
+              <optgroup label={g}>
+                {plans.map(([id,,name,price]) => <option value={id} selected={id === DEFAULT_PLAN}>{name} — {fmt(price)}</option>)}
+              </optgroup>
+            ))}
+          </select>
+        </div>
+
+        {allPlans.map(([id,mode,name,price,features,apex]) => (
+          <article class="plan-panel space-y-4" data-id={id} hidden={id !== DEFAULT_PLAN}>
+            <div class="flex justify-between items-start gap-3">
+              <div>
+                <span class={`batch-tag ${b[mode]} mb-2`}>{mode === "Test" ? "Test Portal" : mode}</span>
+                <h2 class="font-display text-xl font-800 text-navy-800 leading-snug">{name}</h2>
+              </div>
+              <div class="text-right shrink-0">
+                <p class="font-display text-2xl font-800 text-accent-700">{apex ? "₹29" : fmt(price)}</p>
+                <p class="text-navy-600 text-xs">{apex ? "Application fee (pay now)" : "Amount payable"}</p>
+              </div>
+            </div>
+            <ul class="grid sm:grid-cols-2 gap-x-4 gap-y-1.5 text-sm text-navy-600">
+              {features.map(f => <li class="flex gap-2"><span class="text-accent-700" aria-hidden="true">✓</span> {f}</li>)}
+            </ul>
+            {apex && (
+              <div class="glass-orange rounded-2xl p-4 space-y-2">
+                <p class="text-sm text-navy-800"><strong>Course fee: {fmt(price)}</strong> — payable only after you are selected.</p>
+                <ol class="space-y-1 text-xs text-navy-800">
+                  {apexSteps.map(([t,d],n) => <li><span class="font-display font-700 text-accent-700">Step {n+1}: {t}</span> {d}</li>)}
+                </ol>
+              </div>
+            )}
+          </article>
+        ))}
+
+        <div class="border-t border-navy-800/10 pt-3 space-y-2 text-xs text-navy-800 leading-relaxed">
+          <p class="glass rounded-2xl p-3"><strong>Note-1:</strong> After Successful payment, please share details to <a class="text-accent-700 font-semibold underline" href="mailto:contact@edushastra.com">contact@edushastra.com</a> with your Name, Email ID, Contact number &amp; Course details.</p>
+          <p class="glass rounded-2xl p-3"><strong>Note-2:</strong> An installment payment option is available. Please contact our team via email (<a class="text-accent-700 font-semibold underline" href="mailto:contact@edushastra.com">contact@edushastra.com</a>) or phone (<a class="text-accent-700 font-semibold underline" href="tel:01147082205">01147082205</a> or <a class="text-accent-700 font-semibold underline" href="tel:07428724580">07428724580</a>) for detailed information.</p>
+        </div>
+      </section>
+
+      <!-- RIGHT: payment modes -->
+      <section class="glass rounded-3xl p-6" aria-labelledby="payHead">
+        <div class="mb-4">
+          <p class="text-accent-700 text-xs font-semibold tracking-widest uppercase">Secured Checkout</p>
+          <h2 id="payHead" class="font-display text-xl font-800 text-navy-800">Choose your payment method</h2>
+          <p class="text-navy-600 text-xs mt-1">Your account information is end-to-end encrypted and secure.</p>
+        </div>
+
+        <div role="tablist" aria-label="Payment method" class="flex flex-wrap gap-2 mb-5">
+          <button role="tab" id="t-qr" aria-controls="p-qr" aria-selected="true" class="tab text-xs font-semibold px-4 py-2 rounded-full">QR Code <span class="opacity-70">· Recommended</span></button>
+          <button role="tab" id="t-upi" aria-controls="p-upi" aria-selected="false" class="tab text-xs font-semibold px-4 py-2 rounded-full">UPI</button>
+          <button role="tab" id="t-bank" aria-controls="p-bank" aria-selected="false" class="tab text-xs font-semibold px-4 py-2 rounded-full">Bank Transfer</button>
+        </div>
+
+        <div role="tabpanel" id="p-qr" aria-labelledby="t-qr">
+          <div class="grid grid-cols-2 gap-4">
+            {[["Option 01","qr-code_v1.png"],["Option 02","qr-code-edu.png"]].map(([l,f]) => (
+              <figure class="text-center">
+                <img src={`${U}/wp-content/uploads/2024/11/${f}`} alt={`EduShastra payment QR code, ${l}`} class="mx-auto w-full max-w-[210px] rounded-2xl bg-white p-2 border border-navy-800/10" loading="lazy" width="210" height="210" />
+                <figcaption class="font-display font-700 text-navy-800 text-xs mt-2">{l}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+
+        <div role="tabpanel" id="p-upi" aria-labelledby="t-upi" hidden class="space-y-3">
+          {[["Option 01","vipulmanikparashar@okaxis"],["Option 02","edushastra@yesbank"]].map(([l,v]) => (
+            <div class="glass rounded-2xl p-4 flex items-center justify-between gap-3">
+              <div class="min-w-0"><p class="text-navy-600 text-xs">{l}</p><p class="font-medium text-navy-800 text-sm break-all">{v}</p></div>
+              <button type="button" class="copy-btn text-xs font-semibold px-3 py-2 rounded-full shrink-0" data-copy={v}>Copy</button>
+            </div>
+          ))}
+        </div>
+
+        <div role="tabpanel" id="p-bank" aria-labelledby="t-bank" hidden>
+          <dl class="grid sm:grid-cols-2 gap-3 text-sm">
+            {bank.map(([k,v,c]) => (
+              <div class={`glass rounded-2xl p-3 flex items-start justify-between gap-2 ${k === "Branch" || k === "Account Name" ? "sm:col-span-2" : ""}`}>
+                <div class="min-w-0"><dt class="text-navy-600 text-xs">{k}</dt><dd class="font-medium text-navy-800 break-words">{v}</dd></div>
+                {c && <button type="button" class="copy-btn text-xs font-semibold px-3 py-2 rounded-full shrink-0" data-copy={v}>Copy</button>}
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="border-t border-navy-800/10 bg-navy-900 pt-16 pb-8 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-12 mb-12">
+      <div class="space-y-4">
+        <p class="font-display text-2xl font-800 text-white">Edu<span class="text-accent-400">Shastra</span></p>
+        <p class="text-white text-sm leading-relaxed">Affordable Quality Education for All. For People, Not Profits. Since 2016.</p>
+        <a href="https://www.facebook.com/EduShastra.Philanthropy/" class="block text-accent-400 text-sm hover:text-white transition-colors">ⓕ Facebook</a>
+        <a href="https://www.instagram.com/edushastra/" class="block text-accent-400 text-sm hover:text-white transition-colors">📸 Instagram</a>
+        <a href="https://www.linkedin.com/company/edushastra" class="block text-accent-400 text-sm hover:text-white transition-colors">🇮🇳 LinkedIn</a>
+        <a href="https://www.youtube.com/channel/UCjLd8GlyCosf2jD49kdUGhA" class="block text-accent-400 text-sm hover:text-white transition-colors">▶️ YouTube</a>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Courses</p>
+        <ul class="space-y-2 text-accent-400 text-sm">
+          <li><a href="https://www.edushastra.com/cat-coaching/" class="hover:text-white transition-colors">CAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/gmat-coaching/" class="hover:text-white transition-colors">GMAT Coaching</a></li>
+          <li><a href="https://www.edushastra.com/gmat-cat-coaching/" class="hover:text-white transition-colors">GMCAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/common-universities-entrance-test/" class="hover:text-white transition-colors">CUET Preparation</a></li>
+        </ul>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Links</p>
+        <ul class="space-y-2 text-accent-400 text-sm">
+          <li><a href="https://www.edushastra.com/courses" class="hover:text-white transition-colors">Courses</a></li>
+          <li><a href="https://www.edushastra.com/why-us" class="hover:text-white transition-colors">Why Us</a></li>
+          <li><a href="https://www.edushastra.com/faqs/" class="hover:text-white transition-colors">FAQs</a></li>
+          <li><a href="https://www.edushastra.com/payment-page" class="hover:text-white transition-colors">Instalment Payments</a></li>
+        </ul>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Contact</p>
+        <ul class="space-y-2 text-accent-400 text-sm">
+          <li><a href="tel:01147082205" class="hover:text-white transition-colors">011-47082205</a></li>
+          <li><a href="mailto:contact@edushastra.com" class="hover:text-white transition-colors">contact@edushastra.com</a></li>
+          <li><a href="https://www.edushastra.com/contact-us/" class="hover:text-white transition-colors">View All Offices</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-navy-100 text-xs">
+      <p>© 2026 EduShastra Education Solutions Pvt. Ltd. All rights reserved.</p>
+      <div class="flex gap-4">
+        <a href="https://www.edushastra.com/terms-conditions-and-policies" class="hover:text-white transition-colors">Terms &amp; Conditions</a>
+        <a href="https://www.edushastra.com/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script is:inline>
+  // Course selection: show only the chosen batch
+  const sel = document.getElementById('planSelect');
+  const panels = [...document.querySelectorAll('.plan-panel')];
+  function show(id) {
+    panels.forEach(p => p.hidden = p.dataset.id !== id);
+    sel.value = id;
+    try { history.replaceState(null, '', '#' + id); } catch (e) {}
+  }
+  sel.addEventListener('change', () => show(sel.value));
+  const want = new URLSearchParams(location.search).get('plan') || location.hash.slice(1);
+  show(panels.some(p => p.dataset.id === want) ? want : sel.dataset.default);
+
+  // Payment tabs
+  const tabs = [...document.querySelectorAll('[role=tab]')];
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => activate(t));
+    t.addEventListener('keydown', e => {
+      const n = e.key === 'ArrowRight' ? (i + 1) % tabs.length : e.key === 'ArrowLeft' ? (i - 1 + tabs.length) % tabs.length : null;
+      if (n !== null) { tabs[n].focus(); activate(tabs[n]); }
+    });
+  });
+  function activate(tab) {
+    tabs.forEach(t => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  }
+
+  // Copy buttons
+  document.querySelectorAll('.copy-btn').forEach(btn => btn.addEventListener('click', async () => {
+    const old = btn.textContent;
+    try { await navigator.clipboard.writeText(btn.dataset.copy); btn.textContent = 'Copied'; }
+    catch (e) { btn.textContent = 'Copy failed'; }
+    setTimeout(() => btn.textContent = old, 1500);
+  }));
+</script>
+</body>
+</html>
