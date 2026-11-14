@@ -1,11 +1,5 @@
 ---
 const U = "https://www.edushastra.com";
-const interact = [
-  ["🎙️","Audio Interaction","Unmute anytime to ask a doubt or answer a question — faculty respond live, just like a physical classroom discussion."],
-  ["📹","Video Interaction","Turn your camera on to stay visible and accountable, and see your teacher's expressions and board work clearly."],
-  ["✍️","Writing Interaction","Solve problems on a shared digital whiteboard in real time so faculty can spot mistakes as you make them."],
-  ["💬","Chatting Interaction","Drop quick questions or answers in live chat without interrupting the class flow — every message gets addressed."],
-];
 const why = [
   ["🎯","Ability-Based Learning Model","Instead of focusing on syllabus completion, the focus is on shifting a student's \"Ability Quotient\". Progress is dictated by performance benchmarks, ensuring mastery at every stage."],
   ["🧭","Adaptive Four-Phase Structure","Aspirants progress through Mapping, Foundation, Testing, and Control, a structure that identifies and rectifies individual cognitive gaps in real-time."],
@@ -20,7 +14,7 @@ const phases = [
   ["Testing Phase","One-on-One Stage","Full-length Computer-Adaptive GMAT Focus mocks and sectional tests. Every course carries a “Minimum Tests” commitment, the minimum number of tests a student must attempt to complete the course."],
   ["Control Phase","One-on-One Stage","The last phase looks into any remaining gaps in test preparation before your exam date."],
 ];
-const stories = [
+const stories: [string, string[], string][] = [
   ["GMAT Toppers",["PRIHE2jnOrU","DRVo1r2Y4u4","Oox4aJVOHDE","7rO99uo3Og8"],"GMAT Coaching"],
   ["CAT Toppers",["sOzNln6QK7c","3zhfgyCW6VA","JgeR-90qgDg","YsOgM1qPZks"],"MBA Coaching Journey"],
   ["GMCAT Toppers",["gBOw4auB_zI","3golzQGiZtY","3_MvXZ3ydeY","FqC1bf-X9lA"],"MBA Coaching Journey"],
@@ -35,19 +29,28 @@ const faculty = [
   [`${U}/wp-content/uploads/2023/08/kushalbhardwaj.webp`,"Dr. Kushal Bhardwaj","Ph.D. (DU), CAT 99.99 %iler & GMAT 780 Scorer","16+ yrs Exp at Leadership Level in IT & Retail"],
   [`${U}/wp-content/uploads/2023/08/ankur-agarwal.webp`,"Mr. Ankur Agarwal","16+ yrs Teaching Exp in Education Industry","Former Deputy Director-LPU, Multiple Top Scores"],
 ];
-const b = { Online:"badge-online", Classroom:"badge-offline", Hybrid:"badge-hybrid" };
-const elite = [
+type Mode = "Online" | "Classroom" | "Hybrid";
+const b: Record<Mode, string> = {
+  Online: "badge-online",
+  Classroom: "badge-offline",
+  Hybrid: "badge-hybrid",
+};
+const elite: [Mode, string, string, string, boolean, string, string, string, string[]][] = [
   ["Hybrid","Free Live Hybrid Course","Free","₹15,999",true,"/faq-gmat-free-course/","/faq-gmat-free-course/","Enroll Free",["250+ Hours Course Cycle","Audio, Video & Chat Interaction","Live In-class Doubt Solving","Personalized Learning Experience"]],
-  ["Online","Self-Paced Personalized","₹16,999","₹28,332",false,"/gmat-course-payment-portal/","/faqs-gmat-self-paced-personalized-course/","Enroll Now",["250+ Hours Course Cycle","Personalized Learning Experience","24×7 Doubt Solving","Valid for Six Months"]],
-  ["Online","Elite Plus Test Series","₹2,999","₹4,999",false,"/gmat-course-payment-portal/","/faqs-elite-plus-gmat-test-series/","Enroll Now",["100+ FL Mocks & Sectional Tests","Computer-Adaptive Tests","AI-Based Performance Analytics","Valid for Six Months"]],
-  ["Online","Elite Live Online Course","₹18,999","₹31,665",false,"/gmat-course-payment-portal/","/elite-eliteplus","Enroll Now",["250+ Hours Course Cycle","Audio, Video & Chat Interaction","Batch Size: 150–200 Students","Valid for Six Months"]],
+  ["Online","Self-Paced Personalized","₹16,999","₹28,332",false,"/gmat-course-payment-portal/?plan=self-paced","/faqs-gmat-self-paced-personalized-course/","Enroll Now",["250+ Hours Course Cycle","Personalized Learning Experience","24×7 Doubt Solving","Valid for Six Months"]],
+  ["Online","Elite Plus Test Series","₹2,999","₹4,999",false,"/gmat-course-payment-portal/?plan=test-series","/faqs-elite-plus-gmat-test-series/","Enroll Now",["100+ FL Mocks & Sectional Tests","Computer-Adaptive Tests","AI-Based Performance Analytics","Valid for Six Months"]],
+  ["Online","Elite Live Online Course","₹18,999","₹31,665",false,"/gmat-course-payment-portal/?plan=elite-online","/elite-eliteplus","Enroll Now",["250+ Hours Course Cycle","Audio, Video & Chat Interaction","Batch Size: 150–200 Students","Valid for Six Months"]],
 ];
-const elitePlus = [
-  ["Online","Elite Plus Live Online","₹28,999","₹48,332",true,["250+ Hours Course Cycle","Audio, Video & Chat Interaction","Average Batch Size of 30 Students","Valid for Six Months"]],
-  ["Classroom","Elite Plus Classroom","₹42,999","₹71,665",false,["250+ Hours Course Cycle","Personalized Learning Experience","Average Batch Size of 30 Students","Valid for Six Months"]],
-  ["Hybrid","Elite Plus Hybrid Course","₹44,999","₹74,999",true,["250+ Hours Course Cycle","Personalized Learning Experience","Average Batch Size of 30 Students","Valid for Six Months"]],
+const elitePlus: [Mode, string, string, string, boolean, string[], string][] = [
+  ["Online","Elite Plus Live Online","₹28,999","₹48,332",true,["250+ Hours Course Cycle","Audio, Video & Chat Interaction","Average Batch Size of 30 Students","Valid for Six Months"],"eliteplus-online"],
+  ["Classroom","Elite Plus Classroom","₹42,999","₹71,665",false,["250+ Hours Course Cycle","Personalized Learning Experience","Average Batch Size of 30 Students","Valid for Six Months"],"eliteplus-classroom"],
+  ["Hybrid","Elite Plus Hybrid Course","₹44,999","₹74,999",true,["250+ Hours Course Cycle","Personalized Learning Experience","Average Batch Size of 30 Students","Valid for Six Months"],"eliteplus-hybrid"],
 ];
-const apex = [["Online","Live Online","₹39,999","₹66,665"],["Classroom","Classroom (Offline)","₹49,999","₹83,332"],["Hybrid","Hybrid","₹51,999","₹86,665"]];
+const apex: [Mode, string, string, string, string][] = [
+  ["Online","Live Online","₹39,999","₹66,665","apex-online"],
+  ["Classroom","Classroom (Offline)","₹49,999","₹83,332","apex-classroom"],
+  ["Hybrid","Hybrid","₹51,999","₹86,665","apex-hybrid"],
+];
 const steps = [
   ["Apply Now:","To secure your spot, click Apply Now in the Program Fees section."],
   ["Application Fee:","The fee to apply in the +705 Apex-25 batch is ₹29."],
@@ -92,11 +95,17 @@ const faqLd = JSON.stringify({
   mainEntity: faqs.map(([q,a]) => ({"@type":"Question",name:q,acceptedAnswer:{"@type":"Answer",text:a}}))
 });
 const portal = `${U}/gmat-course-payment-portal/`;
-const mk = (name, price, url, hours, extra={}) => ({
-  "@type":"CourseInstance", name, courseMode:"online",
-  ...(hours ? {courseWorkload:hours} : {}),
-  availableAtOrFrom:{"@type":"VirtualLocation", url},
-  offers:{"@type":"Offer", name, ...extra, price, priceCurrency:"INR", url, availability:"https://schema.org/InStock"}
+const mk = (
+  name: string,
+  price: string,
+  url: string,
+  hours: string | null,
+  extra: Record<string, string> = {}
+) => ({
+  "@type": "CourseInstance", name, courseMode: "online",
+  ...(hours ? { courseWorkload: hours } : {}),
+  availableAtOrFrom: { "@type": "VirtualLocation", url },
+  offers: { "@type": "Offer", name, ...extra, price, priceCurrency: "INR", url, availability: "https://schema.org/InStock" }
 });
 const courseLd = JSON.stringify({
   "@context":"https://schema.org","@type":"Course",
@@ -111,7 +120,7 @@ const courseLd = JSON.stringify({
     mk("Elite Plus Test Series","2999",portal,null),
     mk("Elite Live Online Course","18999",portal,"PT250H"),
     mk("Elite Plus Live Online","28999",portal,"PT250H"),
-    mk("Apex-25 Live Online","39999",`${U}/gmat-course-payment-portal`,"PT500H"),
+    mk("Apex-25 Live Online","39999",portal,"PT500H"),
   ]
 });
 const crumbLd = JSON.stringify({
@@ -131,7 +140,7 @@ const crumbLd = JSON.stringify({
 <title>GMAT Coaching | 5-Level Percentile based batches by EduShastra</title>
 <link rel="icon" href="https://www.edushastra.com/wp-content/uploads/2024/09/eduShastra-logo_only-100x100.png" sizes="32x32">
 <link rel="icon" href="https://www.edushastra.com/wp-content/uploads/2024/09/eduShastra-logo_only-300x300.png" sizes="192x192">
-<meta name="description" content=Best GMAT coaching. Target a GMAT FE 705+ with our refund promise. Study under 100%ile faculty in 5-level percentile batches. Enroll in Apex batches today!" />
+<meta name="description" content="Best GMAT coaching. Target a GMAT FE 705+ with our refund promise. Study under 100%ile faculty in 5-level percentile batches. Enroll in Apex batches today!"/>
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="https://www.edushastra.com/gmat-coaching/" />
 <meta property="og:title" content="GMAT Coaching | 5-Level Percentile based batches by EduShastra" />
@@ -418,8 +427,8 @@ const crumbLd = JSON.stringify({
             <ul class="space-y-2 text-sm text-navy-600 mb-6">{features.map(f => <li class="flex gap-2"><span class="text-accent-700" aria-hidden="true">✓</span> {f}</li>)}</ul>
             <div class="flex gap-2">
               <a href={`${U}${explore}`} aria-label={`Explore ${name}`} class="btn-ghost flex-1 text-center text-xs font-semibold px-4 py-2.5 rounded-full">Explore</a>
-              <a href={`${U}${enroll}`} aria-label={`${cta}: ${name}`} class="btn cta-glow flex-1 text-center text-xs px-4 py-2.5 rounded-full transition-all">{cta}</a>
-            </div>
+              <a  href={`${U}${enroll.split("?")[0]}`}  data-plan={enroll.includes("?plan=") ? enroll.split("?plan=")[1] : undefined}  aria-label={`${cta}: ${name}`}  class="btn cta-glow flex-1 text-center text-xs px-4 py-2.5 rounded-full transition-all">{cta}</a>
+              </div>
           </div>
         </div>
       ))}
@@ -430,7 +439,7 @@ const crumbLd = JSON.stringify({
       <p class="text-navy-600 text-base">Batch size of 25–30 students. Audio, Video, Writing and Chat Interaction</p>
     </div>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-      {elitePlus.map(([mode,name,price,orig,top,features]) => (
+      {elitePlus.map(([mode,name,price,orig,top,features,plan]) => (
         <div class="tier-card glass rounded-3xl overflow-hidden">
           {top && <div class="h-1 bg-gradient-to-r from-accent-500 to-accent-400"></div>}
           <div class="p-7">
@@ -441,8 +450,7 @@ const crumbLd = JSON.stringify({
             <ul class="space-y-2 text-sm text-navy-600 mb-6">{features.map(f => <li class="flex gap-2"><span class="text-accent-700" aria-hidden="true">✓</span> {f}</li>)}</ul>
             <div class="flex gap-2">
               <a href={`${U}/elite-eliteplus`} aria-label={`Explore ${name}`} class="btn-ghost flex-1 text-center text-xs font-semibold px-4 py-2.5 rounded-full">Explore</a>
-              <a href={portal} aria-label={`Enroll now: ${name}`} class="btn cta-glow flex-1 text-center text-xs px-4 py-2.5 rounded-full transition-all">Enroll Now</a>
-            </div>
+              <a href={portal} data-plan={plan} aria-label={`Enroll now: ${name}`} class="btn cta-glow flex-1 text-center text-xs px-4 py-2.5 rounded-full transition-all">Enroll Now</a>            </div>
           </div>
         </div>
       ))}
@@ -463,7 +471,7 @@ const crumbLd = JSON.stringify({
       <p class="text-navy-100 text-sm mt-1">Batch Size of 25 Students. Highly Personalized Course.</p>
     </div>
     <div class="grid md:grid-cols-3 gap-6 mb-10">
-      {apex.map(([mode,label,price,orig]) => (
+      {apex.map(([mode,label,price,orig,plan]) => (
         <div class="glass-dark rounded-3xl overflow-hidden">
           <div class="h-1 bg-gradient-to-r from-accent-700 to-accent-500"></div>
           <div class="p-7">
@@ -480,7 +488,7 @@ const crumbLd = JSON.stringify({
             </ul>
             <div class="flex gap-2">
               <a href={`${U}/faqs-gmat-720-apex-25-batches-details`} aria-label={`Explore Apex-25 ${label}`} class="btn-ghost-dark flex-1 text-center text-xs font-semibold px-4 py-2.5 rounded-full">Explore</a>
-              <a href={`${U}/gmat-course-payment-portal`} aria-label={`Apply now: Apex-25 ${label}`} class="btn cta-glow flex-1 text-center text-xs px-4 py-2.5 rounded-full transition-all">Apply Now</a>
+              <a href={portal} data-plan={plan} aria-label={`Apply now: Apex-25 ${label}`} class="btn cta-glow flex-1 text-center text-xs px-4 py-2.5 rounded-full transition-all">Apply Now</a>
             </div>
           </div>
         </div>
@@ -671,7 +679,13 @@ const crumbLd = JSON.stringify({
     menu.classList.toggle('hidden');
     menuBtn.setAttribute('aria-expanded', String(!menu.classList.contains('hidden')));
   });
-
+  document.querySelectorAll('a[data-plan]').forEach(a =>
+    ['click', 'auxclick'].forEach(ev =>
+      a.addEventListener(ev, () => {
+        try { localStorage.setItem('es_plan', a.dataset.plan); } catch (e) {}
+      })
+    )
+  );
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('revealed'), i * 60); io.unobserve(e.target); } });
   }, { threshold: 0.08 });
