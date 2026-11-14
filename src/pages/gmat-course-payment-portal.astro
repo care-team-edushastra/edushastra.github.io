@@ -292,14 +292,30 @@ const fmt = (n: number) => "₹" + n.toLocaleString("en-IN");
   // Course selection: show only the chosen batch
   const sel = document.getElementById('planSelect');
   const panels = [...document.querySelectorAll('.plan-panel')];
+  const valid = id => panels.some(p => p.dataset.id === id);
+
   function show(id) {
     panels.forEach(p => p.hidden = p.dataset.id !== id);
     sel.value = id;
-    try { history.replaceState(null, '', '#' + id); } catch (e) {}
+    // keeps the choice on refresh without touching the URL
+    try { sessionStorage.setItem('es_plan_active', id); } catch (e) {}
   }
   sel.addEventListener('change', () => show(sel.value));
-  const want = new URLSearchParams(location.search).get('plan') || location.hash.slice(1);
-  show(panels.some(p => p.dataset.id === want) ? want : sel.dataset.default);
+
+  // Plan saved by the GMAT coaching page (read once, then cleared)
+  let saved = null;
+  try { saved = localStorage.getItem('es_plan'); localStorage.removeItem('es_plan'); } catch (e) {}
+  let active = null;
+  try { active = sessionStorage.getItem('es_plan_active'); } catch (e) {}
+
+  // Priority: ?plan= (old links) > #hash (old links) > saved click > this session's choice > default
+  const want = [
+    new URLSearchParams(location.search).get('plan'),
+    location.hash.slice(1),
+    saved,
+    active
+  ].find(valid);
+  show(want || sel.dataset.default);
 
   // Payment tabs
   const tabs = [...document.querySelectorAll('[role=tab]')];
