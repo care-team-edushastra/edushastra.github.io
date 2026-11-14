@@ -32,9 +32,9 @@ const faculty = [
 const b = { Online:"badge-online", Classroom:"badge-offline", Hybrid:"badge-hybrid" };
 const elite = [
   ["Hybrid","Free Live Hybrid Course","Free","₹15,999",true,"/faq-cat-live-online-free-course/","/faq-cat-live-online-free-course/","Enroll Free",["250+ Hours Course Cycle","Audio, Video & Chat Interaction","Live In-class Doubt Solving","Personalized Learning Experience"]],
-  ["Online","Self-Paced Personalized","₹16,999","₹28,332",false,"/gmat-courses-payment-portal/","/faqs-gmat-self-paced-personalized-course/","Enroll Now",["250+ Hours Course Cycle","Personalized Learning Experience","24×7 Doubt Solving","Valid for Six Months"]],
-  ["Online","Elite Plus Test Series","₹2,999","₹4,999",false,"/gmat-courses-payment-portal/","/faqs-elite-plus-gmat-test-series/","Enroll Now",["100+ FL Mocks & Sectional Tests","Computer-Adaptive Tests","AI-Based Performance Analytics","Valid for Six Months"]],
-  ["Online","Elite Live Online Course","₹18,999","₹31,665",false,"/gmat-courses-payment-portal/","/elite-eliteplus","Enroll Now",["250+ Hours Course Cycle","Audio, Video & Chat Interaction","Batch Size: 150–200 Students","Valid for Six Months"]],
+  ["Online","Self-Paced Personalized","₹16,999","₹28,332",false,"/gmat-course-payment-portal/","/faqs-gmat-self-paced-personalized-course/","Enroll Now",["250+ Hours Course Cycle","Personalized Learning Experience","24×7 Doubt Solving","Valid for Six Months"]],
+  ["Online","Elite Plus Test Series","₹2,999","₹4,999",false,"/gmat-course-payment-portal/","/faqs-elite-plus-gmat-test-series/","Enroll Now",["100+ FL Mocks & Sectional Tests","Computer-Adaptive Tests","AI-Based Performance Analytics","Valid for Six Months"]],
+  ["Online","Elite Live Online Course","₹18,999","₹31,665",false,"/gmat-course-payment-portal/","/elite-eliteplus","Enroll Now",["250+ Hours Course Cycle","Audio, Video & Chat Interaction","Batch Size: 150–200 Students","Valid for Six Months"]],
 ];
 const elitePlus = [
   ["Online","Elite Plus Live Online","₹28,999","₹48,332",true,["250+ Hours Course Cycle","Audio, Video & Chat Interaction","Average Batch Size of 30 Students","Valid for Six Months"]],
@@ -217,14 +217,14 @@ const faqs = [
       "courseWorkload": "PT250H",
       "availableAtOrFrom": {
         "@type": "VirtualLocation",
-        "url": "https://www.edushastra.com/gmat-courses-payment-portal/"
+        "url": "https://www.edushastra.com/gmat-course-payment-portal/"
       },
       "offers": {
         "@type": "Offer",
         "name": "Self-Paced Personalized",
         "price": "16999",
         "priceCurrency": "INR",
-        "url": "https://www.edushastra.com/gmat-courses-payment-portal/",
+        "url": "https://www.edushastra.com/gmat-course-payment-portal/",
         "availability": "https://schema.org/InStock"
       }
     },
@@ -234,14 +234,14 @@ const faqs = [
       "courseMode": "online",
       "availableAtOrFrom": {
         "@type": "VirtualLocation",
-        "url": "https://www.edushastra.com/gmat-courses-payment-portal/"
+        "url": "https://www.edushastra.com/gmat-course-payment-portal/"
       },
       "offers": {
         "@type": "Offer",
         "name": "Elite Plus Test Series",
         "price": "2999",
         "priceCurrency": "INR",
-        "url": "https://www.edushastra.com/gmat-courses-payment-portal/",
+        "url": "https://www.edushastra.com/gmat-course-payment-portal/",
         "availability": "https://schema.org/InStock"
       }
     },
@@ -252,14 +252,14 @@ const faqs = [
       "courseWorkload": "PT250H",
       "availableAtOrFrom": {
         "@type": "VirtualLocation",
-        "url": "https://www.edushastra.com/gmat-courses-payment-portal/"
+        "url": "https://www.edushastra.com/gmat-course-payment-portal/"
       },
       "offers": {
         "@type": "Offer",
         "name": "Elite Live Online Course",
         "price": "18999",
         "priceCurrency": "INR",
-        "url": "https://www.edushastra.com/gmat-courses-payment-portal/",
+        "url": "https://www.edushastra.com/gmat-course-payment-portal/",
         "availability": "https://schema.org/InStock"
       }
     },
@@ -270,14 +270,14 @@ const faqs = [
       "courseWorkload": "PT250H",
       "availableAtOrFrom": {
         "@type": "VirtualLocation",
-        "url": "https://www.edushastra.com/gmat-courses-payment-portal/"
+        "url": "https://www.edushastra.com/gmat-course-payment-portal/"
       },
       "offers": {
         "@type": "Offer",
         "name": "Elite Plus Live Online",
         "price": "28999",
         "priceCurrency": "INR",
-        "url": "https://www.edushastra.com/gmat-courses-payment-portal/",
+        "url": "https://www.edushastra.com/gmat-course-payment-portal/",
         "availability": "https://schema.org/InStock"
       }
     },
@@ -288,14 +288,14 @@ const faqs = [
       "courseWorkload": "PT500H",
       "availableAtOrFrom": {
         "@type": "VirtualLocation",
-        "url": "https://www.edushastra.com/gmat-courses-payment-portal"
+        "url": "https://www.edushastra.com/gmat-course-payment-portal"
       },
       "offers": {
         "@type": "Offer",
         "name": "Apex-25 Live Online",
         "price": "39999",
         "priceCurrency": "INR",
-        "url": "https://www.edushastra.com/gmat-courses-payment-portal",
+        "url": "https://www.edushastra.com/gmat-course-payment-portal",
         "availability": "https://schema.org/InStock"
       }
     }
@@ -570,7 +570,7 @@ const faqs = [
             <ul class="space-y-2 text-sm text-navy-600 mb-6">{features.map(f => <li class="flex gap-2"><span class="text-accent-700">✓</span> {f}</li>)}</ul>
             <div class="flex gap-2">
               <a href={`${U}/elite-eliteplus`} class="btn-ghost flex-1 text-center text-xs font-semibold px-4 py-2.5 rounded-full">Explore</a>
-              <a href={`${U}/gmat-courses-payment-portal/`} class="btn cta-glow flex-1 text-center text-xs px-4 py-2.5 rounded-full transition-all">Enroll Now</a>
+              <a href={`${U}/gmat-course-payment-portal/`} class="btn cta-glow flex-1 text-center text-xs px-4 py-2.5 rounded-full transition-all">Enroll Now</a>
             </div>
           </div>
         </div>
@@ -609,7 +609,7 @@ const faqs = [
             </ul>
             <div class="flex gap-2">
               <a href={`${U}/faqs-gmat-720-apex-25-batches-details`} class="btn-ghost-dark flex-1 text-center text-xs font-semibold px-4 py-2.5 rounded-full">Explore</a>
-              <a href={`${U}/gmat-courses-payment-portal`} class="btn cta-glow flex-1 text-center text-xs px-4 py-2.5 rounded-full transition-all">Apply Now</a>
+              <a href={`${U}/gmat-course-payment-portal`} class="btn cta-glow flex-1 text-center text-xs px-4 py-2.5 rounded-full transition-all">Apply Now</a>
             </div>
           </div>
         </div>
