@@ -293,15 +293,15 @@ const fmt = (n: number) => "₹" + n.toLocaleString("en-IN");
     panels.forEach(p => p.hidden = p.dataset.id !== id);
     sel.value = id;
     // keeps the choice on refresh without touching the URL
-    try { sessionStorage.setItem('es_plan_active', id); } catch (e) {}
+    try { sessionStorage.setItem('es_cat_plan_active', id); } catch (e) {}
   }
   sel.addEventListener('change', () => show(sel.value));
 
   // Plan saved by the CAT coaching page (read once, then cleared)
   let saved = null;
-  try { saved = localStorage.getItem('es_plan'); localStorage.removeItem('es_plan'); } catch (e) {}
+  try { saved = localStorage.getItem('es_cat_plan'); localStorage.removeItem('es_cat_plan'); } catch (e) {}
   let active = null;
-  try { active = sessionStorage.getItem('es_plan_active'); } catch (e) {}
+  try { active = sessionStorage.getItem('es_cat_plan_active'); } catch (e) {}
 
   // Priority: ?plan= (old links) > #hash (old links) > saved click > this session's choice > default
   const want = [
