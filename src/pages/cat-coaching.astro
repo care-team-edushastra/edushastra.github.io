@@ -1,16 +1,15 @@
 ---
 const U = "https://www.edushastra.com";
 const PAGE = `${U}/cat-coaching/`;
-const nextBatch = "17 November"; 
+const PAY = `${U}/cat-payment-portal/`;
+const nextBatch = "17 November";
 
-const modes = [
-  { tag: "In person", title: "Classroom CAT Coaching", sub: "Study at one of six Delhi centres in weekday or weekend batches, morning or evening.",
-    feats: ["Average batch size of about 30 students", "Elite, Elite Plus and Apex-25 batches", "Lifetime validity on Apex-25", "Classroom, live online or hybrid"],
-    href: "/cat-2027-coaching/", cta: "See classroom batches" },
-  { tag: "From home", title: "Online CAT Coaching", sub: "Live classes with the same four-phase course and the same teachers, wherever you are.",
-    feats: ["Audio, video and chat interaction", "Live in-class doubt solving", "24x7 doubt solving on self-paced courses", "Free live hybrid course to try first"],
-    href: "/cat-online-coaching/", cta: "See online batches" },
-];
+const TITLE = "CAT Coaching | Personalized Batches for 99+ Percentile";
+const DESC = "Best CAT coaching by 100%ilers faculty with a +99%ile or Refund Guarantee. Enroll in Apex batches today for personalized prep and crack your dream IIMs.";
+// Swap for a 1200x630 JPG or PNG when you have one. WebP is not read by every social platform.
+const OG_IMAGE = `${U}/wp-content/uploads/2026/03/Apex-final-e1774841680687.webp`;
+const OG_IMAGE_ALT = "EduShastra Apex batch for CAT coaching";
+
 const phases = [
   ["Mapping Phase", "One-on-one", "Takes 2-4 sessions. Instructors assess every student in the batch. About 10% of course time."],
   ["Foundation Phase", "Batch", "Covers the basics of all CAT sections. About 20-50% of the course."],
@@ -42,7 +41,106 @@ const compareRows = [
   ["Validity", "Till April 2028", "Till April 2028", "Lifetime"],
   ["Admission", "Open enrolment", "Open enrolment", "By Entrance Mapping Test and academic record review"],
 ];
-const stories = [
+type FeeCard = {
+  name: string; badge: string; mode: string; price: string; was: string;
+  hl?: boolean; feats: string[]; note?: string; more: string; join: string;
+  plan?: string; cta: string;
+};
+type FeeGroup = { id: string; title: string; sub: string; cards: FeeCard[] };
+
+// ---------- Fees (CAT 2027 batches), laid out like the Delhi page ----------
+const feeGroups: FeeGroup[] = [
+  { id: "elite", title: "Elite Batches", sub: "Batch size of 150-200 students. Interactive live online classes.", cards: [
+    { name: "Free Live Hybrid Course", badge: "badge-hybrid", mode: "Hybrid", price: "Free", was: "₹15,999", hl: true,
+      feats: ["500+ Hours Course Cycle", "Audio, Video & Chat Interaction", "Live In-class Doubt Solving", "Personalized Learning Experience"],
+      more: "/faq-cat-live-online-free-course/", join: `${U}/faq-cat-live-online-free-course/`, cta: "Enroll Free" },
+    { name: "Self-Paced Personalized", badge: "badge-online", mode: "Online", price: "₹16,999", was: "₹28,332",
+      feats: ["500+ Hours Course Cycle", "Fully Personalized Path", "24×7 Doubt Solving", "Validity till April 2028"],
+      more: "/faqs-self-paced-personalized-course/", join: PAY, plan: "self-paced", cta: "Enroll Now" },
+    { name: "Elite Plus Test Series", badge: "badge-online", mode: "Online", price: "₹2,999", was: "₹4,999",
+      feats: ["500+ FL & Sectional Tests", "Computer-Adaptive Tests", "AI-Based Performance Analytics", "Validity for 1 year"],
+      more: "/faqs-elite-plus-cat-test-series/", join: PAY, plan: "test-series", cta: "Enroll Now" },
+    { name: "Elite Live Online Course", badge: "badge-online", mode: "Online", price: "₹18,999", was: "₹31,665",
+      feats: ["500+ Hours Course Cycle", "Live Classes & Recordings", "Batch Size: 150–200 Students", "Validity till April 2028"],
+      more: "/elite-eliteplus", join: PAY, plan: "elite-online", cta: "Enroll Now" },
+  ]},
+  { id: "elite-plus", title: "Elite Plus Batches", sub: "Batch size of 25–30 students. Audio, video, writing and chat interaction.", cards: [
+    { name: "Elite Plus Live Online", badge: "badge-online", mode: "Online", price: "₹28,999", was: "₹48,332", hl: true,
+      feats: ["500+ Hours Course Cycle", "Audio, Video & Chat Interaction", "Batch Size: 25–30 Students", "Validity till April 2028"],
+      more: "/elite-eliteplus", join: PAY, plan: "eliteplus-online", cta: "Enroll Now" },
+    { name: "Elite Plus Classroom", badge: "badge-offline", mode: "Classroom", price: "₹42,999", was: "₹71,665",
+      feats: ["500+ Hours Course Cycle", "Batch Size: 25–30 Students", "In-class Doubt Solving", "Validity till April 2028"],
+      more: "/elite-eliteplus", join: PAY, plan: "eliteplus-classroom", cta: "Enroll Now" },
+    { name: "Elite Plus Hybrid Course", badge: "badge-hybrid", mode: "Hybrid", price: "₹44,999", was: "₹74,999",
+      feats: ["500+ Hours Course Cycle", "Personalized Learning Experience", "Batch Size: 25–30 Students", "Validity till April 2028"],
+      more: "/elite-eliteplus", join: PAY, plan: "eliteplus-hybrid", cta: "Enroll Now" },
+  ]},
+  { id: "apex", title: "Apex-25 Program Fees", sub: "Batch size of 25 students. Highly personalized course.", cards: [
+    { name: "+99%ile Apex-25", badge: "badge-online", mode: "Live Online", price: "₹39,999", was: "₹66,665",
+      feats: ["500+ Hours Course Cycle", "Average 25 Students per Batch", "Live 24×7 Doubt Solving", "Lifetime Validity"], note: "⭐ Application Fee: ₹29 only",
+      more: "/faqs-99ile-apex-30-batch-course-details/", join: PAY, plan: "apex-online", cta: "Apply Now" },
+    { name: "+99%ile Apex-25", badge: "badge-offline", mode: "Classroom (Offline)", price: "₹49,999", was: "₹83,332",
+      feats: ["500+ Hours Course Cycle", "Average 25 Students per Batch", "Live 24×7 Doubt Solving", "Lifetime Validity"], note: "⭐ Application Fee: ₹29 only",
+      more: "/faqs-99ile-apex-30-batch-course-details/", join: PAY, plan: "apex-classroom", cta: "Apply Now" },
+    { name: "+99%ile Apex-25", badge: "badge-hybrid", mode: "Hybrid", price: "₹51,999", was: "₹86,665",
+      feats: ["500+ Hours Course Cycle", "Average 25 Students per Batch", "Live 24×7 Doubt Solving", "Lifetime Validity"], note: "⭐ Application Fee: ₹29 only",
+      more: "/faqs-99ile-apex-30-batch-course-details/", join: PAY, plan: "apex-hybrid", cta: "Apply Now" },
+  ]},
+];
+const applySteps = [
+  ["Apply Now:", "To secure your spot, click Apply Now in the Apex-25 Program Fees section."],
+  ["Application Fees:", "The fees to apply in the +99%ile Apex-25 batch is ₹29."],
+  ["Post Fee Payment Procedure:", "After the successful payment please share details to contact@edushastra.com with your Name, Email ID, Contact number and Course details."],
+  ["Entrance Mapping Test:", "After the payment confirmation a Mapping Test will be sent to a student."],
+  ["Enrollment Invite:", "The selection of students will be determined by their performance on the Entrance Mapping Test and a review of their academic records. Selected students will receive Batch enrollment invite in their email."],
+];
+
+// ---------- Exam pattern and syllabus ----------
+const examSections = [
+  { code: "VARC", full: "Verbal Ability and Reading Comprehension", q: "24", time: "40 minutes", marks: "72",
+    about: "Critical reading, grammar, vocabulary, sentence completion and logical reading.",
+    topics: ["Reading Comprehension", "Para Jumbles", "Sentence Completion", "Odd Sentence Out", "Critical Reasoning", "Grammar & Vocabulary"] },
+  { code: "DILR", full: "Data Interpretation and Logical Reasoning", q: "22", time: "40 minutes", marks: "66",
+    about: "Caselets, tables, charts, graphs, puzzles and analytical reasoning.",
+    topics: ["Tables & Caselets", "Line & Bar Graphs", "Venn Diagrams", "Blood Relations", "Syllogisms", "Seating Arrangements"] },
+  { code: "QA", full: "Quantitative Ability", q: "22", time: "40 minutes", marks: "66",
+    about: "Arithmetic, Algebra, Geometry, Modern Math, numbers and numerical reasoning.",
+    topics: ["Arithmetic", "Algebra", "Geometry", "Trigonometry", "Permutation & Combination", "Probability"] },
+];
+
+// ---------- Results dashboard ----------
+const resultsPeriod = "June 2025 to January 2026";
+const featuredToppers = [
+  { img: `${U}/wp-content/uploads/2026/01/chanchal-singh-02-final.webp`, name: "Mr. Chanchal Singh",
+    alt: "Chanchal Singh, 99.99 percentile in CAT 2025, EduShastra Apex-25 batch",
+    rows: [["CAT 2025", "99.99 %ile"], ["GMAT", "FE 755"], ["Course", "CAT Apex Batch"], ["Mode", "Live Hybrid Batch"], ["Graduation", "B.Tech, NIT Uttarakhand"], ["Work experience", "1+ years, automobile manufacturing"], ["Batch", "+99%ile Apex-25 Batch"]] },
+  { img: `${U}/wp-content/uploads/2026/01/deepika-002.webp`, name: "Ms. Deepika Malhotra",
+    alt: "Deepika Malhotra, GMAT FE 775 and 99.98 percentile in CAT 2025, EduShastra Apex-25 batch",
+    rows: [["GMAT", "FE 775 (100 %ile)"], ["CAT 2025", "99.98 %ile"], ["Course", "GMCAT (GMAT + CAT)"], ["Mode", "Live Hybrid Batch"], ["Graduation", "MBBS, Dayanand Medical College"], ["Work experience", "2+ years, health care"], ["Batch", "+99%ile Apex-25 Batch"]] },
+];
+// [name, branch, course, CAT 2025, GMAT]
+const topTen = [
+  ["Mr. Chanchal Singh", "Delhi", "GMCAT Apex Batch", "99.99 %ile", "FE 755"],
+  ["Ms. Deepika Malhotra", "Mumbai", "GMCAT Live Online", "99.98 %ile", "FE 775 (100 %ile, Nov 2025)"],
+  ["Mr. Deepak Patel", "Gurugram", "GMCAT Classroom", "99.98 %ile", "FE 765 (99.9 %ile, Sep 2025)"],
+  ["Mr. K. V. Kelu", "Hyderabad", "GMCAT Live Online", "99.98 %ile", "FE 755 (99.7 %ile, Nov 2025)"],
+  ["Mr. Aarav Sharma", "New Delhi", "CAT Live Online", "99.98 %ile", "—"],
+  ["Mr. Vikram Singh", "Noida", "CAT Classroom", "99.97 %ile", "—"],
+  ["Mr. Karthik Reddy", "Vijayawada", "GMAT Hybrid", "—", "FE 755 (99.7 %ile, Dec 2025)"],
+  ["Ms. Kavya Srinivasan", "Hyderabad", "GMCAT Classroom", "99.97 %ile", "FE 745 (99.6 %ile, Oct 2025)"],
+  ["Mr. Shreyas Deshpande", "Mumbai", "GMAT Live Online", "—", "FE 735 (99.5 %ile, Dec 2025)"],
+  ["Ms. Ananya Joshi", "New Delhi", "GMCAT Live Online", "99.97 %ile", "FE 735 (99.5 %ile, Aug 2025)"],
+];
+// [label, count, share of all students]
+const resultStats = [
+  ["All students", "19,225", null],
+  ["90+ percentile", "17,203", "89.48%"],
+  ["95+ percentile", "13,375", "69.57%"],
+  ["99+ percentile", "737", "3.83%"],
+  ["99.9+ percentile", "40", "0.21%"],
+];
+
+const stories: [string, string[], string][] = [
   ["CAT Toppers",["sOzNln6QK7c","3zhfgyCW6VA","JgeR-90qgDg","YsOgM1qPZks"],"CAT topper story"],
   ["GMAT Toppers",["PRIHE2jnOrU","DRVo1r2Y4u4","Oox4aJVOHDE","7rO99uo3Og8"],"GMAT topper story"],  
   ["GMCAT Toppers",["gBOw4auB_zI","3golzQGiZtY","3_MvXZ3ydeY","FqC1bf-X9lA"],"GMCAT topper story"],
@@ -75,37 +173,136 @@ const counselling = [
 const faqs = [
   ["What is CAT coaching?", "CAT coaching is structured preparation for the Common Admission Test, covering Quantitative Aptitude, Verbal Ability and Reading Comprehension, and Data Interpretation and Logical Reasoning, along with mock tests and doubt solving."],
   ["When is CAT 2026?", "CAT 2026 is on Sunday, 29 November 2026, conducted by IIM Indore. Always check iimcat.ac.in for the latest schedule."],
+  ["How much does CAT coaching cost at EduShastra?", "Fees depend on the batch and mode. Full courses start at ₹16,999 (self-paced) and Elite live online is ₹18,999. Elite Plus runs from ₹28,999 (live online) to ₹44,999 (hybrid), and Apex-25 runs from ₹39,999 (live online) to ₹51,999 (hybrid). The free live hybrid course and the ₹2,999 Elite Plus test series are also available. The fees section on this page lists every batch."],
   ["Which is better: classroom or online CAT coaching?", "Both follow the same four-phase course. Choose classroom if you want to study at a Delhi centre, and online if you want live classes from home."],
   ["Do I need to prepare for the Mapping Test?", "No. It is an IQ-based test, not a knowledge test. It only decides which of the five groups you start in."],
   ["Is there a free way to start?", "Yes. The free live hybrid course gives you live classes, recordings and live in-class doubt solving."],
   ["How does the money-back promise work?", "Each batch group has its own percentile target, from +60 for 6-Series to +99 for 10-Series. Read the full terms on the Money-Back Promise page before you enrol."],
 ];
+const orgId = `${U}/#organization`;
+const LOGO = `${U}/wp-content/uploads/2024/09/eduShastra-logo_only-100x100.png`;
 
-const faqLd = { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faqs.map(([q, a]) => ({ "@type": "Question", "name": q, "acceptedAnswer": { "@type": "Answer", "text": a } })) };
-const crumbLd = { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-  { "@type": "ListItem", "position": 1, "name": "Home", "item": U },
-  { "@type": "ListItem", "position": 2, "name": "CAT Coaching", "item": PAGE }] };
-const orgLd = { "@context": "https://schema.org", "@type": "EducationalOrganization", "name": "EduShastra", "url": U, "telephone": "+91-11-47082205", "email": "contact@edushastra.com", "foundingDate": "2016" };
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(([q, a]) => ({
+    "@type": "Question", "name": q,
+    "acceptedAnswer": { "@type": "Answer", "text": a },
+  })),
+};
+
+const orgLd = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "@id": orgId,
+  "name": "EduShastra",
+  "legalName": "EduShastra Education Solutions Pvt. Ltd.",
+  "url": U,
+  "logo": { "@type": "ImageObject", "url": LOGO },
+  "foundingDate": "2016",
+  "telephone": "+91-11-47082205",
+  "email": "contact@edushastra.com",
+  "contactPoint": [{ "@type": "ContactPoint", "contactType": "customer support", "telephone": "+91-11-47082205", "email": "contact@edushastra.com", "areaServed": "IN" }],
+  "sameAs": [
+    "https://www.facebook.com/EduShastra.Philanthropy/",
+    "https://www.instagram.com/edushastra/",
+    "https://www.linkedin.com/company/edushastra",
+    "https://www.youtube.com/channel/UCjLd8GlyCosf2jD49kdUGhA",
+  ],
+};
+
+const crumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": `${PAGE}#breadcrumb`,
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": U },
+    { "@type": "ListItem", "position": 2, "name": "CAT Coaching", "item": PAGE },
+  ],
+};
+
+const pageLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${PAGE}#webpage`,
+  "url": PAGE,
+  "name": TITLE,
+  "description": DESC,
+  "inLanguage": "en-IN",
+  "isPartOf": { "@type": "WebSite", "url": U, "name": "EduShastra" },
+  "about": { "@id": orgId },
+  "breadcrumb": { "@id": `${PAGE}#breadcrumb` },
+  "primaryImageOfPage": { "@type": "ImageObject", "url": OG_IMAGE },
+  "dateModified": "2026-11-16", // update by hand when the content changes
+};
+
+// One Course per card in the "CAT courses" section (modes)
+const modeMap: Record<string, string> = { "Online": "Online", "Live Online": "Online", "Classroom": "Onsite", "Classroom (Offline)": "Onsite", "Hybrid": "Blended" };
+const courseLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "CAT coaching courses",
+  "itemListElement": feeGroups.flatMap(g => g.cards).map((c, i) => ({
+    "@type": "ListItem", "position": i + 1,
+    "item": {
+      "@type": "Course",
+      "name": `${c.name} (${c.mode})`,
+      "description": c.feats.join(". ") + ".",
+      "url": `${U}${c.more}`,
+      "provider": { "@type": "EducationalOrganization", "@id": orgId, "name": "EduShastra", "url": U },
+      "hasCourseInstance": { "@type": "CourseInstance", "courseMode": modeMap[c.mode] },
+      "offers": { "@type": "Offer", "price": c.price === "Free" ? "0" : c.price.replace(/[^\d]/g, ""), "priceCurrency": "INR", "url": c.join },
+    },
+  })),
+};
+
+// One Person per faculty card
+const peopleLd = {
+  "@context": "https://schema.org",
+  "@graph": faculty.map(([img, name, cred, role]) => ({
+    "@type": "Person",
+    "name": name,
+    "image": `${U}/wp-content/uploads/${img}`,
+    "description": `${cred}. ${role}`,
+    "worksFor": { "@type": "EducationalOrganization", "@id": orgId, "name": "EduShastra" },
+  })),
+};
+
+const schemas = [orgLd, pageLd, crumbLd, faqLd, courseLd, peopleLd];
 ---
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CAT Coaching | Personalized Batches for 99+ Percentile</title>
-<meta name="description" content="Best CAT coaching by 100%ilers faculty with a +99%ile or Refund Guarantee. Enroll in Apex batches today for personalized prep and crack your dream IIMs." />
+<title>{TITLE}</title>
+<meta name="description" content={DESC} />
 <meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://www.edushastra.com/cat-coaching/" />
+<link rel="canonical" href={PAGE} />
 <link rel="icon" href="https://www.edushastra.com/wp-content/uploads/2024/09/eduShastra-logo_only-100x100.png" sizes="32x32">
-<meta property="og:title" content="CAT Coaching | Personalized Batches for 99+ Percentile" />
-<meta property="og:description" content="Best CAT coaching by 100%ilers faculty with a +99%ile or Refund Guarantee. Enroll in Apex batches today for personalized prep and crack your dream IIMs." />
-<meta property="og:url" content="https://www.edushastra.com/cat-coaching/" />
+
+<!-- Open Graph -->
+<meta property="og:title" content={TITLE} />
+<meta property="og:description" content={DESC} />
+<meta property="og:url" content={PAGE} />
 <meta property="og:type" content="website" />
+<meta property="og:site_name" content="EduShastra" />
+<meta property="og:locale" content="en_IN" />
+<meta property="og:image" content={OG_IMAGE} />
+<meta property="og:image:alt" content={OG_IMAGE_ALT} />
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={TITLE} />
+<meta name="twitter:description" content={DESC} />
+<meta name="twitter:image" content={OG_IMAGE} />
+<meta name="twitter:image:alt" content={OG_IMAGE_ALT} />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
-<script type="application/ld+json" set:html={JSON.stringify(faqLd)}></script>
-<script type="application/ld+json" set:html={JSON.stringify(crumbLd)}></script>
-<script type="application/ld+json" set:html={JSON.stringify(orgLd)}></script>
+{schemas.map(ld => (
+  <script type="application/ld+json" set:html={JSON.stringify(ld)}></script>
+))}
 <script is:inline src="https://cdn.tailwindcss.com"></script>
 <script is:inline>
   tailwind.config = { theme: { extend: {
@@ -116,7 +313,7 @@ const orgLd = { "@context": "https://schema.org", "@type": "EducationalOrganizat
     }
   }}}
 </script>
-<style>
+<style is:global>
   body { font-family:'DM Sans',sans-serif; background:#0c1016; color:#eef0f4; }
   h1,h2,h3,h4,.font-display { font-family:'Syne',sans-serif; }
   :focus-visible { outline:3px solid #e3ab2b; outline-offset:3px; border-radius:6px; }
@@ -128,6 +325,10 @@ const orgLd = { "@context": "https://schema.org", "@type": "EducationalOrganizat
   .btn:hover { filter:brightness(1.1); }
   .tag { font-size:11px; font-weight:700; padding:3px 10px; border-radius:999px; display:inline-block; }
   .chip-on { background:rgba(227,171,43,.12); color:#e3ab2b; border:1px solid rgba(227,171,43,.25); }
+  .batch-tag { font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:3px 10px; border-radius:999px; }
+  .badge-online { background:rgba(73,199,184,.15); color:#49c7b8; border:1px solid rgba(73,199,184,.3); }
+  .badge-offline { background:rgba(154,140,255,.12); color:#9a8cff; border:1px solid rgba(154,140,255,.25); }
+  .badge-hybrid { background:rgba(227,171,43,.12); color:#e3ab2b; border:1px solid rgba(227,171,43,.25); }
   .yt-play { position:absolute; inset:0; margin:auto; width:3.5rem; height:3.5rem; display:grid; place-items:center; border-radius:9999px; background:rgba(12,16,22,.7); border:1px solid rgba(227,171,43,.5); color:#e3ab2b; font-size:1.25rem; transition:transform .2s ease, background .2s ease, color .2s ease; }
   .yt:hover .yt-play, .yt:focus-visible .yt-play { transform:scale(1.1); background:#e3ab2b; color:#0c1016; }
   .yt-frame { position:absolute; inset:0; width:100%; height:100%; border:0; }  
@@ -141,13 +342,13 @@ const orgLd = { "@context": "https://schema.org", "@type": "EducationalOrganizat
   <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
     <a href="/" class="font-display text-2xl font-800 text-white tracking-tight">Edu<span class="text-brand-500">Shastra</span></a>
     <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-ink-200">
-      <li><a href="#courses" class="hover:text-brand-400">Courses</a></li>
+      <li><a href="#fees" class="hover:text-brand-400">Fees</a></li>
             <li><a href="#faculty" class="hover:text-brand-400">Faculty</a></li>
       <li><a href="#doubts" class="hover:text-brand-400">Doubt support</a></li>
       <li><a href="#money-back" class="hover:text-brand-400">Money-back</a></li>
       <li><a href="#faqs" class="hover:text-brand-400">FAQs</a></li>
     </ul>
-    <a href="#courses" class="btn text-sm font-semibold px-5 py-2.5 rounded-full">Enroll now</a>
+    <a href="#fees" class="btn text-sm font-semibold px-5 py-2.5 rounded-full">Enroll now</a>
   </div>
 </nav>
 
@@ -165,7 +366,7 @@ const orgLd = { "@context": "https://schema.org", "@type": "EducationalOrganizat
         <a href="https://www.edushastra.com/ability-based-model/" class="glass rounded-full px-4 py-2 text-base font-medium text-white">Lifetime validity</a>
         <a href="https://www.edushastra.com/money-back-promise/" class="glass rounded-full px-4 py-2 text-base font-medium text-white">+99%ile or fee refund promise</a>
       </div>
-      <a href="#courses" class="btn inline-block font-semibold px-7 py-3.5 rounded-full">Choose your course</a>
+      <a href="#fees" class="btn inline-block font-semibold px-7 py-3.5 rounded-full">Choose your course</a>
     </div>
     <div>
       <img src="https://www.edushastra.com/wp-content/uploads/2026/03/Apex-final-e1774841680687.webp" alt="EduShastra Apex batch for CAT coaching" class="w-full object-cover rounded-3xl border border-white/10" width="800" height="600" />
@@ -244,23 +445,56 @@ const orgLd = { "@context": "https://schema.org", "@type": "EducationalOrganizat
   </div>
 </section>
 
-<section id="courses" class="py-14 px-6">
-  <div class="max-w-5xl mx-auto">
-    <h2 class="font-display text-4xl font-800 text-white text-center mb-10">CAT courses</h2>
-    <div class="grid md:grid-cols-2 gap-6">
-      {modes.map(c => (
-        <div class="lift glass rounded-3xl overflow-hidden flex flex-col">
-          <div class="h-1 bg-brand-500"></div>
-          <div class="p-6 flex flex-col flex-1">
-            <span class="tag chip-on mb-3 self-start">{c.tag}</span>
-            <h3 class="font-display text-2xl font-800 text-white">{c.title}</h3>
-            <p class="text-ink-200 text-sm mt-2 mb-5 leading-relaxed">{c.sub}</p>
-            <ul class="space-y-2 text-sm text-ink-200 mb-8">{c.feats.map(f => <li class="flex gap-2"><span class="text-brand-400" aria-hidden="true">✓</span> {f}</li>)}</ul>
-            <a href={`${U}${c.href}`} class="btn mt-auto text-center text-sm font-semibold px-6 py-3 rounded-full">{c.cta}</a>
-          </div>
-        </div>
-      ))}
+<!-- CAT COACHING FEES -->
+<section id="fees" class="py-14 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-10">
+      <h2 class="font-display text-4xl font-800 text-white">CAT coaching fees</h2>
+      <p class="text-ink-200 max-w-3xl mx-auto mt-4">Fees for CAT 2027 batches in classroom, live online and hybrid modes. Struck-through amounts are the original prices.</p>
     </div>
+    {feeGroups.map(g => (
+      <div class="mb-12">
+        <h3 class="font-display text-3xl font-800 text-white">{g.title} <span class="text-base font-body font-normal text-ink-400 ml-2">CAT 2027</span></h3>
+        <p class="text-ink-200 text-base mt-1 mb-6">{g.sub}</p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {g.cards.map(c => (
+            <article class="lift glass rounded-3xl overflow-hidden flex flex-col">
+              {c.hl && <div class="h-1 bg-gradient-to-r from-brand-500 to-brand-400"></div>}
+              <div class="p-7 flex flex-col flex-1">
+                <div class="flex justify-between items-start mb-4">
+                  <div>
+                    <span class={`batch-tag ${c.badge} mb-2 inline-block`}>{c.mode}</span>
+                    <h4 class="font-display text-lg font-700 text-white">{c.name}</h4>
+                  </div>
+                  <div class="text-right">
+                    <p class="font-display text-2xl font-800 text-brand-400">{c.price}</p>
+                    <s class="text-ink-400 text-xs">{c.was}</s>
+                  </div>
+                </div>
+                <ul class="space-y-2 text-sm text-ink-200 mb-6">
+                  {c.feats.map(f => <li class="flex gap-2"><span class="text-brand-400" aria-hidden="true">✓</span> {f}</li>)}
+                </ul>
+                {c.note && <p class="text-brand-400 text-sm font-medium mb-6">{c.note}</p>}
+                <div class="flex gap-2 mt-auto">
+                  <a href={`${U}${c.more}`} class="flex-1 text-center border border-brand-500/40 text-brand-400 text-xs font-semibold px-4 py-2.5 rounded-full hover:bg-brand-500/10">Explore</a>
+                  <a href={c.join} data-plan={c.plan} class="btn flex-1 text-center text-xs font-semibold px-4 py-2.5 rounded-full">{c.cta}</a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+        {g.id === "apex" && (
+          <div class="glass rounded-3xl p-8 mt-8">
+            <h4 class="font-display text-xl font-700 text-white mb-5">How to apply for Apex-25</h4>
+            <ol class="space-y-3">
+              {applySteps.map(([step, desc], i) => (
+                <li class="glass-gold rounded-2xl px-5 py-3 text-sm leading-relaxed"><span class="font-display font-700 text-brand-400">Step {i + 1}: {step}</span> <span class="text-white">{desc}</span></li>
+              ))}
+            </ol>
+          </div>
+        )}
+      </div>
+    ))}
   </div>
 </section>
 
@@ -364,6 +598,41 @@ const orgLd = { "@context": "https://schema.org", "@type": "EducationalOrganizat
   </div>
 </section>
 
+<!-- EXAM PATTERN AND SYLLABUS -->
+<section id="syllabus" class="py-14 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-10">
+      <h2 class="font-display text-4xl font-800 text-white">CAT exam pattern and syllabus</h2>
+      <p class="text-ink-200 max-w-3xl mx-auto mt-4 leading-relaxed">The last two CAT papers had 68 questions across three sections, to be solved in 120 minutes. Each section is timed at 40 minutes and locks when the time ends, so you cannot go back to it. The IIMs can change the pattern, so confirm the current one at iimcat.ac.in.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5">
+      {examSections.map(s => (
+        <article class="glass rounded-3xl p-7">
+          <h3 class="font-display font-800 text-white text-2xl">{s.code}</h3>
+          <p class="text-brand-400 text-sm font-semibold mt-1">{s.full}</p>
+          <dl class="flex gap-3 mt-5 text-xs">
+  {[[s.q, "Questions"], [s.time, "Time"], [s.marks, "Marks"]].map(([v, l]) => (
+    <div class="glass-gold rounded-lg px-3 py-2 text-center flex flex-col-reverse">
+      <dt class="text-ink-200 mt-0.5">{l}</dt>
+      <dd class="font-display font-700 text-white text-base">{v}</dd>
+    </div>
+  ))}
+</dl>
+          <p class="text-ink-200 text-sm leading-relaxed mt-5">{s.about}</p>
+          <h4 class="font-display font-700 text-white text-sm mt-5 mb-3">{s.code} topics</h4>
+          <ul class="space-y-2 text-sm text-ink-200">
+            {s.topics.map(t => (
+              <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-brand-500 rounded-full flex-shrink-0" aria-hidden="true"></span>{t}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+    <p class="text-ink-200 text-sm leading-relaxed mt-6 max-w-4xl">Marking: +3 for every correct answer and −1 for every wrong multiple-choice answer. Typed-in answers (TITA) carry no negative marking. The paper is worth 204 marks in total.</p>
+    <p class="mt-4"><a href="https://www.edushastra.com/cat-introduction/" class="text-brand-400 hover:text-brand-100 font-semibold text-sm">Full CAT exam details</a></p>
+  </div>
+</section>
+
 <section id="cities" class="py-14 px-6">
   <div class="max-w-7xl mx-auto">
     <h2 class="font-display text-4xl font-800 text-white text-center mb-10">CAT coaching in your city</h2>
@@ -372,6 +641,52 @@ const orgLd = { "@context": "https://schema.org", "@type": "EducationalOrganizat
         <a href={`${U}${href}`} class="lift glass rounded-2xl px-6 py-5 flex items-center justify-between">
           <span class="font-display font-700 text-white">{c}</span><span class="text-brand-400" aria-hidden="true">→</span>
         </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS DASHBOARD -->
+<section id="results" class="py-14 px-6" aria-labelledby="results-heading">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-10">
+      <h2 id="results-heading" class="font-display text-4xl font-800 text-white">Results dashboard</h2>
+      <p class="text-ink-200 max-w-3xl mx-auto mt-4">{resultsPeriod}. CAT, GMAT and CUET courses.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 mb-10">
+      {featuredToppers.map(t => (
+        <article class="glass rounded-3xl p-6">
+          <div class="flex items-center gap-4">
+           <img src={t.img} alt={t.alt} class="flex-shrink-0 rounded-full object-cover object-top" width="96" height="96" loading="lazy" />
+            <h3 class="font-display font-700 text-white text-xl">{t.name}</h3>
+          </div>
+          <dl class="mt-5 grid grid-cols-[auto_1fr] gap-x-5 gap-y-2 text-sm">
+            {t.rows.map(([k, v]) => (
+              <>
+                <dt class="text-ink-400">{k}</dt>
+                <dd class="text-white">{v}</dd>
+              </>
+            ))}
+          </dl>
+        </article>
+      ))}
+    </div>
+
+    <h3 class="font-display font-700 text-brand-400 text-2xl mb-5">Top 10 students</h3>
+    <ol class="glass rounded-3xl p-6 md:p-8 mb-10 space-y-3 list-decimal list-inside text-ink-200 text-sm leading-relaxed">
+      {topTen.map(([name, branch, course, cat, gmat]) => (
+        <li><strong class="text-white">{name},</strong> Branch: {branch}, {course}{cat !== "—" && `, CAT 2025 ${cat}`}{gmat !== "—" && `, GMAT ${gmat}`}.</li>
+      ))}
+    </ol>
+
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      {resultStats.map(([label, count, share]) => (
+        <div class="glass-gold rounded-2xl p-5 text-center">
+          <p class="font-display text-3xl font-800 text-brand-500">{count}</p>
+          <p class="text-white text-sm font-semibold mt-1">{label}</p>
+          {share && <p class="text-ink-200 text-xs mt-1">{share} of all students</p>}
+        </div>
       ))}
     </div>
   </div>
@@ -448,7 +763,15 @@ const orgLd = { "@context": "https://schema.org", "@type": "EducationalOrganizat
 </footer>
 
 <script is:inline>
-      document.querySelectorAll('button.yt').forEach(btn => btn.addEventListener('click', () => {
+  // Remember the chosen plan for the payment portal
+  document.querySelectorAll('a[data-plan]').forEach(a =>
+    ['click', 'auxclick'].forEach(ev =>
+      a.addEventListener(ev, () => {
+        try { localStorage.setItem('es_cat_plan', a.dataset.plan); } catch (e) {}
+      })
+    )
+  );
+  document.querySelectorAll('button.yt').forEach(btn => btn.addEventListener('click', () => {
     const f = document.createElement('iframe');
     f.className = 'yt-frame';
     f.src = 'https://www.youtube-nocookie.com/embed/' + btn.dataset.id + '?autoplay=1&rel=0';
