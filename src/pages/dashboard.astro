@@ -1,0 +1,52 @@
+---
+// Logged-in page: /dashboard
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My dashboard | EduShastra</title>
+  <meta name="robots" content="noindex" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-50 p-4">
+  <main id="app" class="hidden mx-auto max-w-2xl bg-white rounded-2xl shadow p-8">
+    <div class="flex items-center gap-4">
+      <img id="avatar" alt="" class="h-14 w-14 rounded-full bg-slate-200" referrerpolicy="no-referrer" />
+      <div>
+        <h1 id="name" class="text-xl font-bold text-slate-900"></h1>
+        <p id="email" class="text-slate-600"></p>
+      </div>
+    </div>
+    <p class="mt-6 text-slate-700">You're logged in. Your test scores and progress will appear here.</p>
+    <button id="logout"
+      class="mt-6 rounded-lg bg-slate-900 px-4 py-2 font-medium text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+      Log out
+    </button>
+  </main>
+
+  <script>
+    import { supabase } from '../lib/supabase'
+
+    const { data } = await supabase.auth.getSession()
+
+    if (!data.session) {
+      // Not logged in: send to the login page.
+      window.location.href = '/login'
+    } else {
+      const user = data.session.user
+      const meta = user.user_metadata || {}
+      document.getElementById('name').textContent = meta.full_name || 'Student'
+      document.getElementById('email').textContent = user.email
+      if (meta.avatar_url) document.getElementById('avatar').src = meta.avatar_url
+      document.getElementById('app').classList.remove('hidden')
+    }
+
+    document.getElementById('logout').addEventListener('click', async () => {
+      await supabase.auth.signOut()
+      window.location.href = '/login'
+    })
+  </script>
+</body>
+</html>
