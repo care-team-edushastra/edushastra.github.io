@@ -1,0 +1,439 @@
+---
+/**
+ * src/pages/cat-percentile-predictor.astro
+ *
+ * Flow:
+ *   1. Student fills slot + attempted/correct for VARC, LRDI, QA
+ *   2. Submit -> form is saved to sessionStorage -> we ask the backend "who am I?"
+ *   3. Logged in  -> percentile results are shown
+ *      Not logged in -> login modal; after login the student returns here,
+ *      the saved form is restored and results show automatically
+ *
+ * >>> Everything you need to wire up is in the CONFIG block below. <<<
+ */
+
+const CONFIG = {
+  // GET endpoint. Must return 200 (JSON) when logged in, 401/403 when not.
+  authCheckUrl: '/api/auth/me',
+  // Where the login / signup pages live. "?next=" is added automatically.
+  loginUrl: '/login',
+  signupUrl: '/signup',
+  // Set true while building the page locally, to skip the auth check.
+  devForceLoggedIn: false,
+  year: 2025,
+};
+
+/**
+ * Score -> percentile anchor points: [percentile, VARC, LRDI, QA, Overall]
+ * PLACEHOLDER VALUES copied from the reference page's CAT 2025 (Slot 1) table.
+ * Replace with your own data. Slot 2 and 3 reuse Slot 1 until you add theirs.
+ */
+const slot1 = [
+  [99.9, 53,   38,   37,   111.48],
+  [99.5, 48,   33,   31.2, 93],
+  [99,   44,   29.8, 27.3, 84.8],
+  [95,   32.5, 21.5, 18.5, 62.3],
+  [90,   26,   16.7, 15,   51.5],
+  [85,   22,   14,   12,   44.2],
+  [80,   19,   11.5, 10,   38],
+  [70,   18,   8.5,  7.1,  29.5],
+];
+const percentileData = { '1': slot1, '2': slot1, '3': slot1 };
+
+// CAT pattern: 68 questions. VARC 24, LRDI 22, QA 22. +3 correct, -1 wrong.
+const sections = [
+  { key: 'varc', label: 'VARC', total: 24 },
+  { key: 'lrdi', label: 'LRDI', total: 22 },
+  { key: 'qa',   label: 'QA',   total: 22 },
+];
+
+const slotRows = slot1;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CAT Percentile Predictor {CONFIG.year + 1}</title>
+    <meta
+      name="description"
+      content="Enter the questions you attempted and expect to have right in each section. Get an estimated CAT score and percentile."
+    />
+  </head>
+  <body>
+    <main class="page">
+      <header class="intro">
+        <h1>CAT Percentile Predictor</h1>
+        <p>
+          Tell us how many questions you attempted and how many you think are
+          correct in each section. We estimate your score and percentile.
+        </p>
+      </header>
+
+      <form id="predictorForm" class="panel" novalidate>
+        <label class="field slot">
+          <span>Your slot</span>
+          <select name="slot" id="slot" required>
+            <option value="" disabled selected>Select slot</option>
+            <option value="1">Slot 1</option>
+            <option value="2">Slot 2</option>
+            <option value="3">Slot 3</option>
+          </select>
+        </label>
+
+        <div class="sections">
+          {sections.map((s) => (
+            <fieldset>
+              <legend>{s.label} <small>{s.total} questions</small></legend>
+              <label class="field">
+                <span>Attempted</span>
+                <input type="number" inputmode="numeric" min="0" max={s.total}
+                  name={`${s.key}_attempted`} placeholder="0" required />
+              </label>
+              <label class="field">
+                <span>Expected correct</span>
+                <input type="number" inputmode="numeric" min="0" max={s.total}
+                  name={`${s.key}_correct`} placeholder="0" required />
+              </label>
+            </fieldset>
+          ))}
+        </div>
+
+        <p id="formError" class="error" role="alert" hidden></p>
+        <button type="submit" id="submitBtn" class="primary">Get my percentile</button>
+      </form>
+
+      <!-- RESULTS (only revealed when logged in) -->
+      <section id="results" class="panel results" hidden aria-live="polite">
+        <h2>Your estimated result</h2>
+
+        <div class="hero">
+          <div>
+            <div class="big" id="overallPct">–</div>
+            <div class="caption">overall percentile</div>
+          </div>
+          <div>
+            <div class="big small" id="overallScore">–</div>
+            <div class="caption">estimated score out of 204</div>
+          </div>
+        </div>
+
+        <div class="ruler" aria-hidden="true">
+          <div class="ruler-track"><div class="ruler-marker" id="rulerMarker"></div></div>
+          <div class="ruler-scale"><span>0</span><span>50</span><span>90</span><span>99</span></div>
+        </div>
+
+        <table class="breakdown">
+          <thead>
+            <tr><th>Section</th><th>Score</th><th>Percentile</th></tr>
+          </thead>
+          <tbody id="breakdownBody"></tbody>
+        </table>
+
+        <p class="note">
+          This is an estimate based on previous-year score patterns. Your actual
+          percentile depends on your slot's difficulty and how everyone else performs.
+          Sectional percentiles are shown on the same basis. TITA questions carry no
+          negative marking, so your real score may be slightly higher.
+        </p>
+      </section>
+
+      <section class="panel reference">
+        <h2>CAT {CONFIG.year} score vs percentile</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th>Percentile</th><th>VARC</th><th>LRDI</th><th>QA</th><th>Overall</th></tr>
+            </thead>
+            <tbody>
+              {slotRows.map((r) => (
+                <tr>{r.map((c) => <td>{c}</td>)}</tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- LOGIN PROMPT -->
+    <div id="loginModal" class="modal" hidden>
+      <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+        <button type="button" class="modal-close" id="loginClose" aria-label="Close">×</button>
+        <h2 id="loginTitle">Log in to see your percentile</h2>
+        <p>
+          Your answers are saved. Log in or create a free account and your result
+          will appear as soon as you come back.
+        </p>
+        <div class="modal-actions">
+          <a class="primary" id="loginLink" href={CONFIG.loginUrl}>Log in</a>
+          <a class="secondary" id="signupLink" href={CONFIG.signupUrl}>Create account</a>
+        </div>
+      </div>
+    </div>
+
+    <script define:vars={{ CONFIG, percentileData, sections }}>
+      const STORAGE_KEY = 'catPredictorForm';
+      const form = document.getElementById('predictorForm');
+      const errorEl = document.getElementById('formError');
+      const submitBtn = document.getElementById('submitBtn');
+      const resultsEl = document.getElementById('results');
+      const modal = document.getElementById('loginModal');
+
+      /* ---------- helpers ---------- */
+      const num = (v) => Number(v) || 0;
+      const round1 = (n) => Math.round(n * 10) / 10;
+
+      // Score for a section: +3 per correct, -1 per wrong attempt
+      function sectionScore(attempted, correct) {
+        return 3 * correct - (attempted - correct);
+      }
+
+      // Anchor rows are sorted high -> low percentile. col = 1 VARC, 2 LRDI, 3 QA, 4 Overall
+      function scoreToPercentile(rows, col, score) {
+        const top = rows[0];
+        const bottom = rows[rows.length - 1];
+        if (score <= 0) return 0;
+        if (score >= top[col]) return 99.99;
+        if (score <= bottom[col]) {
+          // below the lowest anchor: scale linearly from (0, 0) to (lowest score, lowest percentile)
+          return round1((score / bottom[col]) * bottom[0]);
+        }
+        for (let i = 0; i < rows.length - 1; i++) {
+          const hi = rows[i], lo = rows[i + 1];
+          if (score <= hi[col] && score >= lo[col]) {
+            const span = hi[col] - lo[col];
+            const t = span === 0 ? 0 : (score - lo[col]) / span;
+            return round1(lo[0] + t * (hi[0] - lo[0]));
+          }
+        }
+        return 0;
+      }
+
+      function readForm() {
+        const data = {};
+        new FormData(form).forEach((v, k) => (data[k] = v));
+        return data;
+      }
+
+      function validate(data) {
+        if (!data.slot) return 'Select your slot.';
+        for (const s of sections) {
+          const a = data[`${s.key}_attempted`];
+          const c = data[`${s.key}_correct`];
+          if (a === '' || a === undefined || c === '' || c === undefined)
+            return `Fill in both numbers for ${s.label}.`;
+          if (num(a) > s.total) return `${s.label} has only ${s.total} questions.`;
+          if (num(c) > num(a)) return `${s.label}: correct answers can't be more than attempted.`;
+        }
+        return '';
+      }
+
+      /* ---------- auth ---------- */
+      async function isLoggedIn() {
+        if (CONFIG.devForceLoggedIn) return true;
+        try {
+          const res = await fetch(CONFIG.authCheckUrl, { credentials: 'include' });
+          return res.ok;
+        } catch {
+          return false; // network/CORS error: treat as logged out
+        }
+      }
+
+      function showLoginPrompt() {
+        const next = encodeURIComponent(location.pathname + location.search);
+        document.getElementById('loginLink').href = `${CONFIG.loginUrl}?next=${next}`;
+        document.getElementById('signupLink').href = `${CONFIG.signupUrl}?next=${next}`;
+        modal.hidden = false;
+        modal.querySelector('a').focus();
+      }
+
+      /* ---------- results ---------- */
+      function showResults(data) {
+        const rows = percentileData[data.slot];
+        const body = document.getElementById('breakdownBody');
+        body.innerHTML = '';
+
+        let total = 0;
+        sections.forEach((s, i) => {
+          const score = sectionScore(num(data[`${s.key}_attempted`]), num(data[`${s.key}_correct`]));
+          total += score;
+          const pct = scoreToPercentile(rows, i + 1, score);
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${s.label}</td><td>${score}</td><td>${pct}</td>`;
+          body.appendChild(tr);
+        });
+
+        const overall = scoreToPercentile(rows, 4, total);
+        document.getElementById('overallPct').textContent = overall.toFixed(2);
+        document.getElementById('overallScore').textContent = total;
+
+        // ruler: spread 0-100 so the 90-100 zone gets extra room
+        const pos = overall <= 90 ? (overall / 90) * 70 : 70 + ((overall - 90) / 10) * 30;
+        document.getElementById('rulerMarker').style.left = Math.min(pos, 100) + '%';
+
+        resultsEl.hidden = false;
+        resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      async function handleSubmit(data) {
+        errorEl.hidden = true;
+        const problem = validate(data);
+        if (problem) {
+          errorEl.textContent = problem;
+          errorEl.hidden = false;
+          return;
+        }
+
+        // Save so the student doesn't retype after logging in
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
+
+        submitBtn.disabled = true;
+        const loggedIn = await isLoggedIn();
+        submitBtn.disabled = false;
+
+        if (loggedIn) {
+          resultsEl.hidden = true;
+          showResults(data);
+        } else {
+          resultsEl.hidden = true;
+          showLoginPrompt();
+        }
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        handleSubmit(readForm());
+      });
+
+      /* ---------- modal ---------- */
+      const closeModal = () => (modal.hidden = true);
+      document.getElementById('loginClose').addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+      /* ---------- restore after returning from login ---------- */
+      (async function restore() {
+        let saved;
+        try { saved = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || 'null'); } catch {}
+        if (!saved) return;
+        Object.entries(saved).forEach(([k, v]) => {
+          const field = form.elements[k];
+          if (field) field.value = v;
+        });
+        // Only auto-show for a logged-in student; never pop the login box on page load
+        if (await isLoggedIn()) {
+          if (!validate(saved)) showResults(saved);
+        }
+      })();
+    </script>
+
+    <style is:global>
+      :root {
+        --paper: #f5f6f8;
+        --panel: #ffffff;
+        --ink: #17212b;
+        --muted: #5d6b79;
+        --line: #d9dee4;
+        --accent: #0b6e8c;
+        --accent-dark: #084f66;
+        --danger: #b3261e;
+        color-scheme: light;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #0f161c;
+          --panel: #17212b;
+          --ink: #e8edf2;
+          --muted: #9aa8b5;
+          --line: #2c3a47;
+          --accent: #4fb3d1;
+          --accent-dark: #7cc9e0;
+          --danger: #f2877f;
+          color-scheme: dark;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.55;
+      }
+      .page { max-width: 880px; margin: 0 auto; padding: 40px 20px 80px; }
+      .intro h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; margin: 0 0 12px; letter-spacing: -0.02em; }
+      .intro p { color: var(--muted); max-width: 60ch; margin: 0 0 28px; }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 24px;
+        margin-bottom: 24px;
+      }
+      .panel h2 { margin: 0 0 16px; font-size: 1.35rem; }
+
+      .field { display: block; margin-bottom: 14px; }
+      .field span { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 4px; }
+      input, select {
+        width: 100%; padding: 10px 12px; font: inherit; color: inherit;
+        background: var(--paper); border: 1px solid var(--line); border-radius: 6px;
+      }
+      input:focus-visible, select:focus-visible, button:focus-visible, a:focus-visible {
+        outline: 3px solid var(--accent); outline-offset: 2px;
+      }
+      .slot { max-width: 260px; margin-bottom: 20px; }
+
+      .sections { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      fieldset { border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px 4px; margin: 0; min-width: 0; }
+      legend { font-weight: 700; padding: 0 6px; }
+      legend small { font-weight: 400; color: var(--muted); margin-left: 4px; }
+
+      .primary, .secondary {
+        display: inline-block; text-align: center; text-decoration: none; cursor: pointer;
+        font: inherit; font-weight: 600; padding: 12px 22px; border-radius: 6px; border: 1px solid var(--accent);
+      }
+      .primary { background: var(--accent); color: #fff; }
+      .primary:hover { background: var(--accent-dark); }
+      .primary:disabled { opacity: .6; cursor: wait; }
+      .secondary { background: transparent; color: var(--accent); }
+      #submitBtn { margin-top: 18px; width: 100%; }
+      @media (prefers-color-scheme: dark) { .primary { color: #08202a; } .primary:hover { color: #08202a; } }
+
+      .error { color: var(--danger); margin: 8px 0 0; font-weight: 500; }
+
+      /* results */
+      .hero { display: flex; gap: 48px; flex-wrap: wrap; margin-bottom: 24px; }
+      .big { font-size: clamp(3rem, 9vw, 5rem); font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: var(--accent); }
+      .big.small { font-size: clamp(2rem, 6vw, 3rem); color: var(--ink); padding-top: 14px; }
+      .caption { color: var(--muted); font-size: .9rem; margin-top: 6px; }
+
+      .ruler { margin: 8px 0 28px; }
+      .ruler-track { position: relative; height: 10px; border-radius: 5px; background: linear-gradient(90deg, var(--line) 0 70%, var(--accent) 70% 100%); }
+      .ruler-marker {
+        position: absolute; top: -6px; width: 4px; height: 22px; border-radius: 2px;
+        background: var(--ink); transform: translateX(-50%); transition: left .6s ease;
+      }
+      .ruler-scale { display: flex; justify-content: space-between; font-size: .75rem; color: var(--muted); margin-top: 6px; }
+
+      table { width: 100%; border-collapse: collapse; text-align: center; }
+      th, td { padding: 10px 8px; border-bottom: 1px solid var(--line); }
+      th { font-size: .85rem; color: var(--muted); font-weight: 600; }
+      .breakdown td:first-child, .breakdown th:first-child { text-align: left; font-weight: 600; }
+      .table-scroll { overflow-x: auto; }
+      .note { color: var(--muted); font-size: .85rem; margin: 16px 0 0; max-width: 70ch; }
+
+      /* modal */
+      .modal { position: fixed; inset: 0; background: rgba(10, 16, 22, .6); display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 50; }
+      .modal[hidden] { display: none; }
+      .modal-box { position: relative; background: var(--panel); border-radius: 12px; padding: 32px 28px 28px; max-width: 420px; width: 100%; }
+      .modal-box h2 { margin: 0 0 10px; font-size: 1.4rem; padding-right: 24px; }
+      .modal-box p { color: var(--muted); margin: 0 0 22px; }
+      .modal-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+      .modal-actions > * { flex: 1 1 140px; }
+      .modal-close { position: absolute; top: 10px; right: 14px; background: none; border: 0; font-size: 1.8rem; line-height: 1; color: var(--muted); cursor: pointer; }
+
+      @media (max-width: 720px) { .sections { grid-template-columns: 1fr; } .hero { gap: 24px; } }
+    </style>
+  </body>
+</html>
