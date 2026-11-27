@@ -8,17 +8,15 @@ const sections = [
   { key: "lrdi", name: "LRDI", max: 22 },
   { key: "qa", name: "Quant (QA)", max: 22 },
 ];
-const inputCls = "mt-1 w-full rounded-lg border border-white/10 bg-ink-800 px-3 py-2.5 text-sm text-white";
+const inputCls = "mt-1 w-full rounded-lg border border-ink-100/15 bg-ink-800 px-3 py-2.5 text-sm text-ink-100";
 const info = [
   ["Conducting IIM", "IIM Indore"],
   ["Exam date", "Sunday, 29 November 2026, in three sessions"],
   ["Mode and duration", "Computer-based, 120 minutes, 40 minutes per section"],
-  ["Questions", "66 to 68, a mix of MCQ and TITA"],
+  ["Questions", " 68, a mix of MCQ and TITA"],
   ["Marking", "+3 for a correct answer, -1 for a wrong MCQ, no negative marking for TITA"],
   ["Registration", "3 August to 22 September 2026 (extended from 15 September)"],
-  ["Admit card", "Available from 4 November 2026"],
-  ["Application fee", "Rs 2,700 (general), Rs 1,350 (SC/ST/PwBD)"],
-  ["Answer key", "Provisional key expected within a few days of the exam"],
+  ["Admit card", "Released on 4 November 2026"],
   ["Result", "Expected in the first week of January 2027"],
 ];
 const years = ["2025", "2024", "2023", "2022", "2021", "2020"];
@@ -34,7 +32,32 @@ const faqs = [
   ["Why do I need to log in?", "A free Google login shows your result and saves your scores so you can come back to them. We store your email and the scores you enter. Read our Privacy Policy for details."],
   ["Are TITA questions counted correctly?", "TITA questions have no negative marking, but the predictor treats every wrong answer as -1. Your estimate may be slightly lower than your real score."],
   ["When is the CAT 2026 result?", "The result is expected in the first week of January 2027. Check iimcat.ac.in for official dates and updates."],
+  ["Does CAT percentile depend on the difficulty level of the paper?", "Yes. The difficulty level affects the score distribution. A more difficult examination may result in a lower score requirement for achieving a particular percentile."],
+  ["How many marks are required for 99 percentile in CAT?", "The required marks change every year. Historical estimates suggest approximately 85 marks in CAT 2025, 95–96 marks in CAT 2024 and 76 marks in CAT 2023 for the 99 percentile benchmark."],
+  ["What is the difference between CAT score and CAT percentile?", "CAT score represents the marks obtained by a candidate, whereas CAT percentile indicates the candidate's relative position compared with other test takers."],
+  ["Is CAT percentile calculated separately for each section?", "Yes. CAT calculates separate percentiles for VARC, DILR and QA, along with an overall percentile."],
+  ["Can I get an IIM call with 90 percentile in CAT?", "Yes, a 90 percentile may make you eligible for consideration at certain IIMs and other B-schools, depending on your category, academic profile, sectional scores and the institute's admission policy. However, an interview call is not guaranteed."],
+  ["Can I get into an IIM with a low sectional percentile?", "It depends on the specific IIM's admission policy. Many IIMs specify minimum sectional percentile requirements, and failing to meet these requirements can affect your eligibility."],
+  ["What is a scaled score in CAT?", "A scaled score is the score obtained after the CAT normalization process, which adjusts for differences in difficulty across examination slots."],
 ];
+const u = (p) => (p.startsWith("http") ? p : U + p);
+const menu = [
+  ["Home", "/"],
+  ["About Us", "/about-us/"],
+  ["Courses", "/courses/", [["CAT 2027 Coaching", "/cat-2027-coaching"], ["Live Online Academy", "/live-online-academy/"], ["GMAT Preparation", "/gmat-coaching/"], ["GMCAT Prep", "/gmat-cat-coaching/"], ["CAT Preparation", "/cat-coaching/"], ["CUET (UG) 2026 & 2027", "/common-universities-entrance-test/"], ["SAT Preparation", "/sat-preparation/"], ["XAT Preparation", "/xat-preparation/"], ["SNAP Preparation", "/snap-preparation/"], ["NMAT Preparation", "/nmat-preparation/"], ["Mapping Test", "/new-mapping-test/"], ["Profile Evaluator", "/profile-evaluator/"]]],
+  ["Free Coaching", "/free-study-suite/", [["Free Daily Practice Tests", "/daily-free-practice-test/"], ["Free CAT Sectional Tests", "/cat-mocks/"], ["Free CAT 2026 Mocks", "/free-cat-mocks/"], ["Student Login", "https://edushastra-free.onrender.com/"]]],
+  ["Why Us?", "/why-us/"],
+  ["All Results", "/edushastra-results/", [["Profile Evaluator", "/profile-evaluator/"], ["CAT 2025 Response Sheet", "/cat-2025-response-sheet-download-and-free-score-audit/"], ["2025 Results", "/edushastra-caresults/"], ["2024 Results", "/cat-2024-results/"], ["2023 Results", "/cat-2023-results/"], ["2022 Results", "/cat-2022-results/"]]],
+  ["Blog", "/blog/"],
+  ["Contact Us", "/contact-us/"],
+];
+const T = {
+  five: { head: ["CAT Year", "99 Percentile", "95 Percentile", "90 Percentile"], rows: [["CAT 2025", "84–85", "62–63", "51–52"], ["CAT 2024", "95–96", "70", "57–58"], ["CAT 2023", "76", "54–55", "44–45"], ["CAT 2022", "84", "60–62", "48–49"], ["CAT 2021", "97–98", "72–73", "60"]] },
+  y25: { head: ["CAT Percentile", "Approx. Scaled Score"], rows: [["99.99", "132.8"], ["99.95", "118.4"], ["99.90", "111.5"], ["99.50", "93"], ["99", "84.8"], ["98", "76"], ["97", "70"], ["95", "62.3"], ["90", "51.5"], ["85", "44.2"], ["80", "38"], ["75", "33"], ["70", "29.5"], ["60", "23"]] },
+  sec: { head: ["Percentile", "VARC", "DILR", "QA"], rows: [["99", "43.2", "29.9", "26.7"], ["98", "39.2", "25.9", "23.4"], ["95", "32.3", "21.2", "18.5"], ["90", "26.4", "16.7", "14.3"], ["85", "22.6", "13.9", "12.1"], ["80", "19.4", "10.0", "10.1"]] },
+  good: { head: ["CAT Percentile", "General Performance Level"], rows: [["99+", "Excellent – Highly competitive"], ["95–99", "Very Good – Competitive for several leading B-schools"], ["90–95", "Good – Opens opportunities at many reputed institutes"], ["85–90", "Competitive – Several MBA options available"], ["75–85", "Moderate – Opportunities at selected B-schools"], ["Below 75", "Focus on a wider range of MBA institutions"]] },
+};
+const tbl = (t) => `<div class="glass rounded-2xl overflow-hidden my-5"><div class="overflow-x-auto"><table class="w-full text-sm min-w-[420px]"><thead><tr class="border-b border-ink-100/15">${t.head.map((h) => `<th scope="col" class="text-left px-5 py-3 font-display text-ink-100">${h}</th>`).join("")}</tr></thead><tbody>${t.rows.map((r) => `<tr class="border-b border-ink-100/10 last:border-0 odd:bg-ink-100/[0.03]">${r.map((c, i) => (i ? `<td class="px-5 py-3 text-ink-200">${c}</td>` : `<th scope="row" class="text-left px-5 py-3 font-display text-brand-400">${c}</th>`)).join("")}</tr>`).join("")}</tbody></table></div></div>`;
 const ld = [
   { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home", "item": U },
@@ -68,20 +91,21 @@ const ld = [
   tailwind.config = { theme: { extend: {
     fontFamily: { display:['Syne','sans-serif'], body:['DM Sans','sans-serif'] },
     colors: {
-      brand: { 50:'#f7ecd5', 100:'#f0dcae', 400:'#e3ab2b', 500:'#e3ab2b', 600:'#e3ab2b', 700:'#e3ab2b' },
-      ink: { 900:'#0c1016', 800:'#12161f', 700:'#151a24', 400:'#6b7284', 200:'#a6adbb', 100:'#eef0f4' },
+      brand: { 50:'#fff1e6', 100:'#ffd8b8', 400:'#d9480f', 500:'#d9480f', 600:'#c2410c', 700:'#9a3412' },
+      ink: { 900:'#ffead6', 800:'#ffffff', 700:'#ffffff', 400:'#7a5a43', 200:'#6b4d38', 100:'#2b1708' },
     }
   }}}
 </script>
 <style is:global>
-  body { font-family:'DM Sans',sans-serif; background:#0c1016; color:#eef0f4; }
+  html { scroll-behavior:smooth; scroll-padding-top:5rem; }
+  body { font-family:'DM Sans',sans-serif; background:#fff6ec; color:#2b1708; }
   h1,h2,h3,h4,.font-display { font-family:'Syne',sans-serif; }
-  :focus-visible { outline:3px solid #e3ab2b; outline-offset:3px; border-radius:6px; }
-  .hero-bg { background: radial-gradient(ellipse 70% 60% at 15% 50%, rgba(227,171,43,.15) 0%, transparent 60%), #0c1016; }
-  .glass { background:#151a24; border:1px solid rgba(255,255,255,.09); }
-  .glass-gold { background:rgba(227,171,43,.06); border:1px solid rgba(227,171,43,.2); }
-  .nav-blur { background:rgba(12,16,22,.85); backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,.06); }
-  .btn { background:#e3ab2b; color:#0c1016; transition:filter .2s ease; }
+  :focus-visible { outline:3px solid #d9480f; outline-offset:3px; border-radius:6px; }
+  .hero-bg { background: radial-gradient(ellipse 70% 60% at 15% 50%, rgba(217,72,15,.13) 0%, transparent 60%), #fff6ec; }
+  .glass { background:#ffffff; border:1px solid rgba(43,23,8,.12); }
+  .glass-gold { background:rgba(217,72,15,.07); border:1px solid rgba(217,72,15,.25); }
+  .nav-blur { background:rgba(255,255,255,.92); backdrop-filter:blur(20px); border-bottom:1px solid rgba(43,23,8,.1); }
+  .btn { background:#d9480f; color:#ffffff; transition:filter .2s ease; }
   .btn:hover { filter:brightness(1.1); }
   @media (prefers-reduced-motion: reduce) { .btn { transition:none; } html { scroll-behavior:auto; } }
 </style>
@@ -89,18 +113,24 @@ const ld = [
 <body class="relative overflow-x-hidden">
 
 <nav class="fixed top-0 left-0 right-0 z-50 nav-blur" aria-label="Main">
-  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
-    <a href="/" class="font-display text-2xl font-extrabold text-white tracking-tight">Edu<span class="text-brand-500">Shastra</span></a>
-    <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-ink-200">
-      <li><a href="#predictor" class="hover:text-brand-400">Predictor</a></li>
-      <li><a href="#cat-2026" class="hover:text-brand-400">CAT 2026</a></li>
-      <li><a href="#past-years" class="hover:text-brand-400">Past years</a></li>
-      <li><a href="#faqs" class="hover:text-brand-400">FAQs</a></li>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex items-center justify-between gap-4">
+    <a href={U + "/"} class="shrink-0"><img src="https://www.edushastra.com/wp-content/uploads/2024/09/cropped-eduShastra_new_main.png" alt="EduShastra Education" width="75" height="20" class="h-7 w-auto" /></a>
+    <ul class="hidden xl:flex items-center gap-5 text-sm font-bold text-ink-200">
+      {menu.map(([label, href, sub]) => (
+        <li class="group relative">
+          <a href={u(href)} class="inline-block py-3 hover:text-brand-400">{label}{sub && <span aria-hidden="true"> ▾</span>}</a>
+          {sub && (
+            <ul class="glass absolute left-0 top-full hidden min-w-[16rem] rounded-xl p-2 shadow-lg group-hover:block group-focus-within:block">
+              {sub.map(([l, h]) => <li><a href={u(h)} class="block rounded-lg px-3 py-2 hover:bg-brand-50 hover:text-brand-400">{l}</a></li>)}
+            </ul>
+          )}
+        </li>
+      ))}
     </ul>
     <div class="flex items-center gap-3">
-      <a href="https://www.edushastra.com/cat-coaching/" class="btn hidden sm:inline-block text-sm font-semibold px-5 py-2.5 rounded-full">CAT coaching</a>
+      <a href={u("/free-study-suite/")} class="btn hidden sm:inline-block text-sm font-semibold px-5 py-2.5 rounded-full">Free Coaching</a>
       <div id="account" class="relative">
-        <button id="login-btn" type="button" aria-label="Log in" class="invisible flex items-center gap-2 rounded-full border border-white/15 px-3 py-2 text-sm font-medium text-white hover:border-brand-400">
+        <button id="login-btn" type="button" aria-label="Log in" class="invisible flex items-center gap-2 rounded-full border border-ink-100/20 px-3 py-2 text-sm font-bold text-ink-100 hover:border-brand-400">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
           <span class="hidden sm:inline">Log in</span>
         </button>
@@ -108,19 +138,27 @@ const ld = [
           <img id="avatar" class="hidden h-full w-full object-cover" alt="" referrerpolicy="no-referrer" /><span id="initial"></span>
         </button>
         <div id="menu" class="glass absolute right-0 mt-2 hidden w-64 rounded-xl p-4 text-sm">
-          <p id="m-name" class="truncate font-semibold text-white"></p>
+          <p id="m-name" class="truncate font-semibold text-ink-100"></p>
           <p id="m-email" class="truncate text-ink-200"></p>
-          <button id="logout" type="button" class="mt-3 w-full rounded-lg border border-white/15 py-2 text-white hover:border-brand-400">Log out</button>
+          <button id="logout" type="button" class="mt-3 w-full rounded-lg border border-ink-100/20 py-2 text-ink-100 hover:border-brand-400">Log out</button>
         </div>
       </div>
+      <button id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" class="xl:hidden flex h-10 w-10 items-center justify-center rounded-full border border-ink-100/20 text-ink-100">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
+  </div>
+  <div id="mobile-menu" class="hidden max-h-[75vh] overflow-y-auto border-t border-ink-100/10 bg-white px-6 py-3 xl:hidden">
+    <ul class="text-sm font-bold">
+      {menu.map(([label, href]) => <li><a href={u(href)} class="block py-2.5 hover:text-brand-400">{label}</a></li>)}
+    </ul>
   </div>
 </nav>
 
 <header class="hero-bg pt-28 pb-10 px-6">
-  <div class="max-w-4xl mx-auto text-center space-y-5">
+  <div class="max-w-7xl mx-auto text-center space-y-5">
     <nav aria-label="Breadcrumb" class="text-xs text-ink-200"><a href="https://www.edushastra.com/" class="hover:text-brand-400">Home</a> / CAT Percentile Predictor</nav>
-    <h1 class="font-display text-4xl md:text-6xl font-extrabold leading-tight text-white">CAT Percentile <span class="text-brand-500">Predictor 2026</span></h1>
+    <h1 class="font-display text-4xl md:text-6xl font-bold leading-tight text-ink-100">CAT Percentile <span class="text-brand-500">Predictor 2026</span></h1>
     <p class="text-ink-200 text-lg max-w-2xl mx-auto">Enter your attempts and expected correct answers to estimate your overall and sectional CAT percentile.</p>
     <p id="countdown" class="glass-gold inline-block rounded-full px-5 py-2 text-sm font-semibold text-brand-400">CAT 2026: Sunday, 29 November 2026</p>
   </div>
@@ -130,7 +168,7 @@ const ld = [
 <section id="predictor" class="py-8 px-6">
   <div class="max-w-3xl mx-auto">
     <form id="form" novalidate class="glass rounded-3xl p-6 sm:p-8 space-y-6">
-      <label class="block text-sm font-medium text-white">Slot
+      <label class="block text-sm font-bold text-ink-100">Slot
         <select name="slot" required class={inputCls}>
           <option value="">Select your slot</option>
           <option value="1">Slot 1</option><option value="2">Slot 2</option><option value="3">Slot 3</option>
@@ -138,8 +176,8 @@ const ld = [
       </label>
       <div class="grid gap-4 sm:grid-cols-3">
         {sections.map((s) => (
-          <fieldset class="rounded-xl border border-white/10 p-4">
-            <legend class="px-1 text-sm font-semibold text-white">{s.name} <span class="font-normal text-ink-200">(max {s.max})</span></legend>
+          <fieldset class="rounded-xl border border-ink-100/15 p-4">
+            <legend class="px-1 text-sm font-semibold text-ink-100">{s.name} <span class="font-normal text-ink-200">(max {s.max})</span></legend>
             <label class="block text-xs font-medium text-ink-200">Attempted
               <input type="number" name={s.key + "_attempted"} min="0" max={s.max} required class={inputCls} />
             </label>
@@ -149,21 +187,21 @@ const ld = [
           </fieldset>
         ))}
       </div>
-      <p id="error" role="alert" class="text-sm text-red-400"></p>
+      <p id="error" role="alert" class="text-sm text-red-700"></p>
       <button type="submit" class="btn w-full rounded-full py-3.5 font-semibold">Predict my percentile</button>
     </form>
 
     <section id="gate" class="glass-gold mt-6 hidden rounded-3xl p-6 text-center">
-      <h2 class="font-display text-2xl font-bold text-white">Log in to see your percentile</h2>
+      <h2 class="font-display text-2xl font-bold text-ink-100">Log in to see your percentile</h2>
       <p class="mt-2 text-ink-200">It takes one tap with Google. Your answers are saved and your result shows when you return.</p>
       <button id="google" type="button" class="btn mt-4 rounded-full px-7 py-3 font-semibold">Continue with Google</button>
-      <p id="gate-error" role="alert" class="mt-3 text-sm text-red-400"></p>
+      <p id="gate-error" role="alert" class="mt-3 text-sm text-red-700"></p>
     </section>
 
     <section id="result" class="glass mt-6 hidden rounded-3xl p-6 text-center" aria-live="polite">
       <p class="text-sm text-ink-200">Your predicted percentile</p>
-      <p id="pct" class="font-display text-6xl font-extrabold text-brand-500"></p>
-      <p class="mt-3 text-ink-200">Estimated overall score: <strong id="total" class="text-white"></strong></p>
+      <p id="pct" class="font-display text-6xl font-medium text-brand-500"></p>
+      <p class="mt-3 text-ink-200">Estimated overall score: <strong id="total" class="text-ink-100"></strong></p>
       <div id="sections" class="mt-5 grid gap-3 sm:grid-cols-3"></div>
       <p class="mt-5 text-xs text-ink-200">This is an estimate based on CAT 2025 trends. The real percentile depends on the paper, slot scaling and the candidate pool.</p>
       <a href="https://www.edushastra.com/cat-coaching/" class="btn mt-4 inline-block rounded-full px-6 py-3 text-sm font-semibold">Plan your next step with EduShastra</a>
@@ -173,51 +211,163 @@ const ld = [
 
 <section id="cat-2026" class="py-14 px-6">
   <div class="max-w-5xl mx-auto">
-    <h2 class="font-display text-3xl md:text-4xl font-extrabold text-white text-center">CAT 2026 at a glance</h2>
-    <p class="text-ink-200 text-center mt-3">Always confirm details on the official site, iimcat.ac.in.</p>
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-ink-100 text-center">CAT 2026 at a glance</h2>
     <dl class="mt-8 grid gap-4 sm:grid-cols-2">
       {info.map(([k, v]) => (
-        <div class="glass rounded-2xl p-5"><dt class="text-xs font-semibold uppercase tracking-wide text-brand-400">{k}</dt><dd class="mt-1 text-white">{v}</dd></div>
+        <div class="glass rounded-2xl p-5"><dt class="text-xs font-semibold uppercase tracking-wide text-brand-400">{k}</dt><dd class="mt-1 text-ink-100">{v}</dd></div>
       ))}
     </dl>
   </div>
 </section>
 
-<section id="past-years" class="py-14 px-6">
-  <div class="max-w-5xl mx-auto">
-    <h2 class="font-display text-3xl md:text-4xl font-extrabold text-white text-center">CAT past years: marks needed for each percentile</h2>
-    <p class="text-ink-200 text-center mt-3 max-w-2xl mx-auto">Approximate overall marks. Figures are estimates compiled from published analyses, vary by slot and source, and are not an official IIM table.</p>
-    <div class="glass rounded-3xl overflow-hidden mt-8">
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm min-w-[560px]">
-          <caption class="sr-only">Approximate overall CAT marks for the 99th, 95th and 90th percentile, 2020 to 2025</caption>
-          <thead><tr class="border-b border-white/10">
-            <th scope="col" class="text-left px-5 py-4 font-display text-white">Percentile</th>
-            {years.map(y => <th scope="col" class="text-left px-5 py-4 font-display text-white">CAT {y}</th>)}
-          </tr></thead>
-          <tbody>
-            {rows.map(([label, ...vals]) => (
-              <tr class="border-b border-white/5 last:border-0 odd:bg-white/[0.02]">
-                <th scope="row" class="text-left px-5 py-4 font-display text-brand-400">{label}</th>
-                {vals.map(v => <td class="px-5 py-4 text-ink-200">{v}</td>)}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <p class="text-ink-200 text-xs mt-4">Papers differ in length: CAT 2020 had 76 questions and CAT 2021 and 2022 had 66. CAT up to 2019 was marked out of 300. Last reviewed 27 November 2026.</p>
+
+<section id="what-is-cat-percentile" class="py-10 px-6"><div class="max-w-7xl mx-auto">
+  <h2 class="font-display text-3xl md:text-4xl font-bold text-ink-100 mb-5">What Is CAT Percentile?</h2>
+  <div class="space-y-4 leading-relaxed text-ink-200">
+    <p>The Common Admission Test (CAT) is a national-level MBA entrance examination conducted for admission to postgraduate management programmes at the Indian Institutes of Management (IIMs) and several other leading B-schools.</p>
+    <p>A CAT percentile indicates the percentage of candidates who scored equal to or below your performance in the examination.</p>
+    <p>For example:</p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li><strong class="text-ink-100">99 percentile:</strong> You performed better than approximately 99% of the candidates.</li>
+      <li><strong class="text-ink-100">95 percentile:</strong> You performed better than approximately 95% of the candidates.</li>
+      <li><strong class="text-ink-100">90 percentile:</strong> You performed better than approximately 90% of the candidates.</li>
+      <li><strong class="text-ink-100">80 percentile:</strong> You performed better than approximately 80% of the candidates.</li>
+    </ul>
+    <p>It is important to understand that a 99 percentile does not mean you scored 99% of the total marks. It represents your relative performance compared with other test takers.</p>
   </div>
-</section>
+</div></section>
+
+<section id="past-years" class="py-10 px-6"><div class="max-w-7xl mx-auto">
+  <h2 class="font-display text-3xl md:text-4xl font-bold text-ink-100 mb-5">CAT Score vs Percentile – Previous 5 Years</h2>
+  <div class="space-y-4 leading-relaxed text-ink-200">
+    <p>The relationship between CAT marks and percentile changes every year depending on the difficulty level of the examination, candidate performance and score normalisation.</p>
+    <p>A particular score may result in different percentiles in different CAT examination years.</p>
+    <p>The following table provides an approximate comparison of overall scaled scores corresponding to major percentile benchmarks.</p>
+    <Fragment set:html={tbl(T.five)} />
+    <p class="text-xs italic">Note: These are approximate historical scorecard-based estimates, not official IIM score-to-percentile conversion tables. Scores are presented on the respective year's scoring scale.</p>
+    <p>The comparison highlights an important aspect of CAT preparation: the marks required to achieve a particular percentile are not fixed.</p>
+    <p>For instance, approximately 76 marks corresponded to the 99 percentile benchmark in CAT 2023, whereas the corresponding benchmark was approximately 95–96 marks in CAT 2024.</p>
+    <p>Therefore, candidates should evaluate their performance using year-specific trends rather than relying on a fixed marks-to-percentile formula.</p>
+  </div>
+</div></section>
+
+<section id="cat-2025-score-vs-percentile" class="py-10 px-6"><div class="max-w-7xl mx-auto">
+  <h2 class="font-display text-3xl md:text-4xl font-bold text-ink-100 mb-5">CAT 2025 Score vs Percentile</h2>
+  <div class="space-y-4 leading-relaxed text-ink-200">
+    <Fragment set:html={tbl(T.y25)} />
+  </div>
+</div></section>
+
+<section id="sectional-score-vs-percentile" class="py-10 px-6"><div class="max-w-7xl mx-auto">
+  <h2 class="font-display text-3xl md:text-4xl font-bold text-ink-100 mb-5">Section-Wise CAT Score vs Percentile</h2>
+  <div class="space-y-4 leading-relaxed text-ink-200">
+    <p>The CAT examination evaluates candidates across three sections:</p>
+    <ol class="list-decimal pl-6 space-y-1">
+      <li>Verbal Ability and Reading Comprehension (VARC)</li>
+      <li>Data Interpretation and Logical Reasoning (DILR)</li>
+      <li>Quantitative Ability (QA)</li>
+    </ol>
+    <p>Each section receives an independent sectional percentile. Your overall CAT percentile is calculated separately using your total scaled score.</p>
+    <p>Sectional Score vs Percentile.</p>
+    <Fragment set:html={tbl(T.sec)} />
+    <h3 class="font-display text-xl font-bold text-ink-100 pt-2">Why Are Sectional Percentiles Important?</h3>
+    <p>Achieving a high overall CAT percentile does not automatically guarantee an IIM interview call.</p>
+    <p>Several IIMs specify minimum sectional percentile requirements in VARC, DILR and QA, in addition to an overall percentile requirement.</p>
+    <p>Therefore, aspirants should focus on maintaining a balanced performance across all three sections.</p>
+  </div>
+</div></section>
+
+<section id="how-is-cat-percentile-calculated" class="py-10 px-6"><div class="max-w-7xl mx-auto">
+  <h2 class="font-display text-3xl md:text-4xl font-bold text-ink-100 mb-5">How Is CAT Percentile Calculated?</h2>
+  <div class="space-y-4 leading-relaxed text-ink-200">
+    <p>CAT percentile is calculated by comparing a candidate's performance with that of other candidates who appeared for the examination.</p>
+    <p>The official percentile calculation uses the candidate's rank and the total number of candidates who appeared.</p>
+    <p>The formula is:</p>
+    <p class="glass-gold rounded-2xl px-5 py-4 text-center font-display text-lg font-bold text-ink-100">Percentile = [(N − r) / N] × 100</p>
+    <p>Where:</p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li>N = Total number of candidates who appeared for CAT.</li>
+      <li>r = Rank of the candidate based on the relevant scaled score.</li>
+    </ul>
+    <p>The calculation is performed separately for the overall score and each of the three sections.</p>
+    <p>The resulting percentile is rounded to two decimal places.</p>
+    <p>This means that your CAT percentile is determined by your relative performance rather than simply the percentage of marks you obtain.</p>
+  </div>
+</div></section>
+
+<section id="raw-vs-scaled-score" class="py-10 px-6"><div class="max-w-7xl mx-auto">
+  <h2 class="font-display text-3xl md:text-4xl font-bold text-ink-100 mb-5">CAT Raw Score vs Scaled Score</h2>
+  <div class="space-y-4 leading-relaxed text-ink-200">
+    <p>Understanding the difference between raw scores and scaled scores is essential when using a CAT percentile predictor.</p>
+    <h3 class="font-display text-xl font-bold text-ink-100">1. Raw Score</h3>
+    <p>Your raw score is calculated using the marks awarded for correct and incorrect answers in the examination.</p>
+    <p>Under the standard CAT marking scheme:</p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li>Correct answer: +3 marks</li>
+      <li>Incorrect MCQ answer: -1 mark</li>
+      <li>Incorrect TITA answer: No negative marking</li>
+      <li>Unattempted question: 0 marks</li>
+    </ul>
+    <h3 class="font-display text-xl font-bold text-ink-100 pt-2">2. Scaled Score</h3>
+    <p>CAT is conducted in multiple examination slots. Since the question papers may differ in difficulty, raw scores are normalized to ensure fairness among candidates appearing in different sessions.</p>
+    <p>The normalization process adjusts for differences in the score distributions across examination slots.</p>
+    <p>The resulting scaled scores are used for calculating the final CAT percentile.</p>
+    <p>Therefore, your raw score and final scaled score may not always be identical.</p>
+  </div>
+</div></section>
+
+<section id="good-cat-percentile" class="py-10 px-6"><div class="max-w-7xl mx-auto">
+  <h2 class="font-display text-3xl md:text-4xl font-bold text-ink-100 mb-5">What Is a Good CAT Percentile?</h2>
+  <div class="space-y-4 leading-relaxed text-ink-200">
+    <p>A good CAT percentile depends on your target B-school, academic profile, category, sectional performance and admission requirements.</p>
+    <p>Here is a broad guide to understanding different CAT percentile ranges.</p>
+    <Fragment set:html={tbl(T.good)} />
+    <p>These are general performance bands, not guaranteed admission thresholds.</p>
+    <p>The actual admission criteria vary across institutions and admission cycles.</p>
+  </div>
+</div></section>
+
+<section id="iim-cutoffs" class="py-10 px-6"><div class="max-w-7xl mx-auto">
+  <h2 class="font-display text-3xl md:text-4xl font-bold text-ink-100 mb-5">Expected IIM Cutoffs and CAT Percentile Requirements</h2>
+  <div class="space-y-4 leading-relaxed text-ink-200">
+    <p>The IIMs use CAT scores as an important component of their admission processes. However, the minimum eligibility cutoff and the actual percentile required for shortlisting can be different.</p>
+    <p>Admission decisions may also consider:</p>
+    <ul class="list-disc pl-6 space-y-1">
+      <li>Class 10 academic performance</li>
+      <li>Class 12 academic performance</li>
+      <li>Graduation marks</li>
+      <li>Academic and gender diversity</li>
+      <li>Work experience</li>
+      <li>CAT overall percentile</li>
+      <li>CAT sectional percentiles</li>
+      <li>Personal interview performance</li>
+      <li>Written ability or other selection components, where applicable</li>
+    </ul>
+    <p>Candidates should always refer to the latest admission policy published by their target IIM.</p>
+    <p>A high CAT percentile can improve your chances of being shortlisted, but it does not guarantee admission.</p>
+  </div>
+</div></section>
+
+<section id="factors" class="py-10 px-6"><div class="max-w-7xl mx-auto">
+  <h2 class="font-display text-3xl md:text-4xl font-bold text-ink-100 mb-5">Factors That Affect Your CAT Percentile</h2>
+  <div class="space-y-4 leading-relaxed text-ink-200">
+    <p>Several factors influence the relationship between your CAT score and final percentile.</p>
+    <div class="grid gap-4 sm:grid-cols-2">
+      {[["1. Difficulty Level of the Examination", "If a particular year's CAT examination is more difficult, candidates may achieve higher percentiles at comparatively lower scores."], ["2. Performance of Other Candidates", "Your percentile depends on how your performance compares with the performance of other candidates who appeared for CAT."], ["3. Slot-Wise Normalization", "CAT examinations conducted across multiple slots undergo a normalization process to account for differences in difficulty and score distributions."], ["4. Overall Score", "Your total scaled score determines your overall CAT percentile."], ["5. Sectional Performance", "VARC, DILR and QA are evaluated independently for sectional percentile calculations."]].map(([k, v]) => (
+        <div class="glass rounded-2xl p-5"><h3 class="font-display font-bold text-ink-100">{k}</h3><p class="mt-1 text-sm">{v}</p></div>
+      ))}
+    </div>
+  </div>
+</div></section>
 
 <section id="faqs" class="py-14 px-6">
-  <div class="max-w-4xl mx-auto">
-    <h2 class="font-display text-3xl md:text-4xl font-extrabold text-white text-center mb-10">CAT percentile predictor FAQs</h2>
+  <div class="max-w-7xl mx-auto">
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-ink-100 text-center mb-10">CAT percentile predictor FAQs</h2>
     <div class="space-y-3">
       {faqs.map(([q, a]) => (
         <div class="glass rounded-2xl overflow-hidden">
           <button class="faq-btn w-full text-left px-7 py-5 flex items-start justify-between gap-4" aria-expanded="false">
-            <span class="font-display font-bold text-white text-sm leading-relaxed">{q}</span>
+            <span class="font-display font-bold text-ink-100 text-sm leading-relaxed">{q}</span>
             <span class="faq-icon text-brand-400 text-lg flex-shrink-0" aria-hidden="true">+</span>
           </button>
           <div class="faq-body hidden px-7 pb-6"><p class="text-ink-200 text-sm leading-relaxed">{a}</p></div>
@@ -228,20 +378,20 @@ const ld = [
 </section>
 </main>
 
-<footer class="border-t border-white/06 bg-ink-900 pt-16 pb-8 px-6">
+<footer class="border-t border-ink-100/10 bg-ink-900 pt-16 pb-8 px-6">
   <div class="max-w-7xl mx-auto">
     <div class="grid md:grid-cols-4 gap-12 mb-12">
       <div class="md:col-span-1 space-y-4">
-        <p class="font-display text-2xl font-800 text-white">Edu<span class="text-brand-500">Shastra</span></p>
-        <p class="text-white text-sm leading-relaxed">Affordable Quality Education for All. For People, Not Profits. Since 2016.</p><br>
-        <p class="font-display text-2xl font-800 text-white text-sm">Connect With Edu<span class="text-brand-500 text-sm">Shastra</span>:</p>
+        <p class="font-display text-2xl font-bold text-ink-100">Edu<span class="text-brand-500">Shastra</span></p>
+        <p class="text-ink-100 text-sm leading-relaxed">Affordable Quality Education for All. For People, Not Profits. Since 2016.</p><br>
+        <p class="font-display text-2xl font-bold text-ink-100 text-sm">Connect With Edu<span class="text-brand-500 text-sm">Shastra</span>:</p>
         <a href="https://www.facebook.com/EduShastra.Philanthropy/" class="text-brand-400 text-sm hover:text-brand-400 transition-colors">ⓕ Facebook</a><br/>
         <a href="https://www.instagram.com/edushastra/" class="text-brand-400 text-sm hover:text-brand-400 transition-colors"> 📸 Instagram</a><br/>
         <a href="https://www.linkedin.com/company/edushastra" class="text-brand-400 text-sm hover:text-brand-400 transition-colors">🇮🇳Linkedin</a><br/>
         <a href="https://www.youtube.com/channel/UCjLd8GlyCosf2jD49kdUGhA" class="text-brand-400 text-sm hover:text-brand-400 transition-colors">▶️Youtube</a>
       </div>
       <div class="space-y-4">
-        <p class="font-semibold text-white text-sm">Courses</p>
+        <p class="font-semibold text-ink-100 text-sm">Courses</p>
         <ul class="space-y-2 text-brand-400 text-sm">
           <li><a href="https://www.edushastra.com/cat-coaching/" class="hover:text-brand-400 transition-colors">CAT Preparation</a></li>
           <li><a href="https://www.edushastra.com/gmat-prep/" class="hover:text-brand-400 transition-colors">GMAT Preparation</a></li>
@@ -250,7 +400,7 @@ const ld = [
         </ul>
       </div>
       <div class="space-y-4">
-        <p class="font-semibold text-white text-sm">Links</p>
+        <p class="font-semibold text-ink-100 text-sm">Links</p>
         <ul class="space-y-2 text-brand-400 text-sm">
           <li><a href="https://www.edushastra.com/courses" class="hover:text-brand-400 transition-colors">Courses</a></li>
           <li><a href="https://www.edushastra.com/why-us" class="hover:text-brand-400 transition-colors">Why Us</a></li>
@@ -259,7 +409,7 @@ const ld = [
         </ul>
       </div>
       <div class="space-y-4">
-        <p class="font-semibold text-white text-sm">Contact</p>
+        <p class="font-semibold text-ink-100 text-sm">Contact</p>
         <ul class="space-y-2 text-brand-400 text-sm">
           <li><a href="tel:01147082205" class="hover:text-brand-400 transition-colors">011-47082205</a></li>
           <li><a href="mailto:contact@edushastra.com" class="hover:text-brand-400 transition-colors">contact@edushastra.com</a></li>
@@ -267,7 +417,7 @@ const ld = [
         </ul>
       </div>
     </div>
-    <div class="border-t border-white/06 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-ink-400 text-xs">
+    <div class="border-t border-ink-100/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-ink-400 text-xs">
       <p>© 2026 EduShastra Education Solutions Pvt. Ltd. All rights reserved.</p>
       <div class="flex gap-4">
         <a href="https://www.edushastra.com/terms-conditions-and-policies" class="hover:text-brand-400 transition-colors">Terms & Conditions</a>
@@ -385,9 +535,9 @@ async function save(d, total, pcts) {
       box.textContent = ''
       for (const k of KEYS) {
         const card = document.createElement('div')
-        card.className = 'rounded-xl border border-white/10 p-3'
+        card.className = 'rounded-xl border border-ink-100/15 p-3'
         const name = document.createElement('p'); name.className = 'text-xs font-semibold text-ink-200'; name.textContent = NAMES[k]
-        const val = document.createElement('p'); val.className = 'font-display text-2xl font-bold text-white'; val.textContent = pcts[k].toFixed(2)
+        const val = document.createElement('p'); val.className = 'font-display text-2xl font-bold text-ink-100'; val.textContent = pcts[k].toFixed(2)
         const sc = document.createElement('p'); sc.className = 'text-xs text-ink-200'; sc.textContent = 'Score ' + secs[k]
         card.append(name, val, sc)
         box.appendChild(card)
@@ -436,6 +586,10 @@ async function save(d, total, pcts) {
   restore()
 </script>
 <script is:inline>
+  (() => {
+    const mb = document.getElementById('menu-btn'), mm = document.getElementById('mobile-menu');
+    if (mb && mm) mb.addEventListener('click', () => { const o = mm.classList.toggle('hidden') === false; mb.setAttribute('aria-expanded', String(o)); });
+  })();
   document.querySelectorAll('.faq-btn').forEach(btn => btn.addEventListener('click', () => {
     const body = btn.nextElementSibling, open = !body.classList.contains('hidden');
     document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
