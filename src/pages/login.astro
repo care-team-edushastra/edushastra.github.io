@@ -47,6 +47,7 @@ const input = 'mt-1 w-full rounded-lg border border-slate-300 bg-slate-50 px-3 p
     </div>
     <p id="error" role="alert" class="text-sm text-red-600"></p>
     <button type="submit" class="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white hover:bg-blue-700">Submit</button>
+    <p class="text-center text-xs text-slate-500">By submitting, you agree that your email and scores are saved. See our <a href="/privacy-policy" class="underline">Privacy Policy</a>.</p>
   </form>
 
   <section id="gate" class="mt-6 hidden rounded-2xl bg-white p-6 text-center shadow">
@@ -60,7 +61,7 @@ const input = 'mt-1 w-full rounded-lg border border-slate-300 bg-slate-50 px-3 p
     <p class="text-sm text-slate-500">Your predicted percentile</p>
     <p id="pct" class="text-6xl font-bold text-blue-600"></p>
     <p class="mt-3 text-slate-700">Estimated overall score: <strong id="total"></strong></p>
-    <p id="parts" class="mt-1 text-sm text-slate-500"></p>
+    <div id="sections" class="mt-5 grid gap-3 sm:grid-cols-3"></div>
     <p class="mt-4 text-xs text-slate-500">This is an estimate. Real percentiles depend on the actual exam and normalisation.</p>
   </section>
 </main>
@@ -74,6 +75,7 @@ const input = 'mt-1 w-full rounded-lg border border-slate-300 bg-slate-50 px-3 p
   const KEY = 'catPredictorForm'
   const PENDING = 'catPredictorPending'
   const KEYS = ['varc', 'lrdi', 'qa']
+  const NAMES = { varc: 'VARC', lrdi: 'LRDI', qa: 'Quant' }
 
   if (isSample) $('sample-note').classList.remove('hidden')
 
@@ -101,26 +103,59 @@ const input = 'mt-1 w-full rounded-lg border border-slate-300 bg-slate-50 px-3 p
   // +3 per correct answer, -1 per wrong answer (assumes every wrong answer is negatively marked).
   function score(d) {
     let total = 0
-    const parts = []
+    const secs = {}
     for (const k of KEYS) {
       const a = Number(d[k + '_attempted']), c = Number(d[k + '_correct'])
-      const s = 3 * c - (a - c)
-      total += s
-      parts.push(k.toUpperCase() + ' ' + s)
+      secs[k] = 3 * c - (a - c)
+      total += secs[k]
     }
-    return { total, parts: parts.join('  |  ') }
+    return { total, secs }
+  }
+
+  // Save the submission as a lead. A failure here must never block the result.
+  async function save(d, total, pcts) {
+    try {
+      await supabase.from('predictor_submissions').insert({
+        slot: Number(d.slot),
+        varc_attempted: Number(d.varc_attempted), varc_correct: Number(d.varc_correct),
+        lrdi_attempted: Number(d.lrdi_attempted), lrdi_correct: Number(d.lrdi_correct),
+        qa_attempted: Number(d.qa_attempted), qa_correct: Number(d.qa_correct),
+        total_score: total,
+        overall_percentile: pcts.overall, varc_percentile: pcts.varc,
+        lrdi_percentile: pcts.lrdi, qa_percentile: pcts.qa,
+      })
+    } catch (x) {}
   }
 
   async function run(d) {
     const { data } = await supabase.auth.getSession()
     if (data.session) {
-      const { total, parts } = score(d)
-      $('pct').textContent = estimate(d.slot, total).toFixed(2)
+      const { total, secs } = score(d)
+      const pcts = { overall: estimate(d.slot, 'overall', total) }
+      for (const k of KEYS) pcts[k] = estimate(d.slot, k, secs[k])
+      $('pct').textContent = pcts.overall.toFixed(2)
       $('total').textContent = total
-      $('parts').textContent = parts
+      const box = $('sections')
+      box.textContent = ''
+      for (const k of KEYS) {
+        const card = document.createElement('div')
+        card.className = 'rounded-lg border border-slate-200 p-3'
+        const name = document.createElement('p')
+        name.className = 'text-xs font-semibold text-slate-500'
+        name.textContent = NAMES[k]
+        const val = document.createElement('p')
+        val.className = 'text-2xl font-bold'
+        val.textContent = pcts[k].toFixed(2)
+        const sc = document.createElement('p')
+        sc.className = 'text-xs text-slate-500'
+        sc.textContent = 'Score ' + secs[k]
+        card.append(name, val, sc)
+        box.appendChild(card)
+      }
       $('gate').classList.add('hidden')
       $('result').classList.remove('hidden')
       $('result').scrollIntoView({ behavior: 'smooth' })
+      save(d, total, pcts)
     } else {
       $('result').classList.add('hidden')
       $('gate').classList.remove('hidden')
