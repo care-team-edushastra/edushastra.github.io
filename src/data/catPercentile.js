@@ -1,21 +1,21 @@
-// SAMPLE DATA. Replace with your own score-vs-percentile data, then set isSample = false.
-// Each row is [score, percentile], sorted by score ascending.
-// Give each slot (1, 2, 3) its own rows. Sections: overall, varc, lrdi, qa.
-export const isSample = true
+// ESTIMATES, not official data. Rough score-to-percentile mapping built from ranges reported for
+// CAT 2025 in published analyses. IIMs do not publish an official table. Update it with the real
+// CAT 2026 slot data after the exam. Rows are [score, percentile], sorted by score ascending.
+// Below the 80th percentile the numbers are rough. You can give each slot its own rows.
+export const isSample = false
 
-const sample = {
-  overall: [[0, 0], [20, 40], [30, 60], [40, 75], [50, 87], [60, 94], [70, 97], [80, 98.5], [90, 99.3], [110, 99.9], [204, 100]],
-  varc: [[0, 0], [10, 45], [20, 75], [30, 92], [40, 98], [50, 99.5], [72, 100]],
-  lrdi: [[0, 0], [5, 40], [10, 70], [15, 90], [25, 98], [35, 99.5], [66, 100]],
-  qa: [[0, 0], [5, 40], [10, 70], [15, 88], [25, 97], [35, 99.5], [66, 100]],
+const est = {
+  overall: [[0, 0], [10, 30], [20, 55], [30, 70], [38, 80], [43, 85], [52, 90], [66, 95], [77, 98], [86, 99], [100, 99.5], [118, 99.9], [204, 100]],
+  varc: [[0, 0], [6, 35], [12, 60], [18, 80], [20, 85], [24, 90], [31, 95], [34, 98], [40, 99], [45, 99.5], [52, 99.9], [72, 100]],
+  lrdi: [[0, 0], [4, 40], [8, 65], [12, 80], [14, 85], [17, 90], [23, 95], [28, 98], [31, 99], [37, 99.5], [44, 99.9], [66, 100]],
+  qa: [[0, 0], [4, 40], [8, 65], [12, 80], [14, 85], [16, 90], [22, 95], [27, 98], [30, 99], [37, 99.5], [45, 99.9], [66, 100]],
 }
 
-export const table = { 1: sample, 2: sample, 3: sample }
+export const table = { 1: est, 2: est, 3: est }
 
 // Linear interpolation between the two nearest rows.
 export function estimate(slot, section, score) {
-  const slotTable = table[slot] || table[1]
-  const pts = slotTable[section]
+  const pts = (table[slot] || table[1])[section]
   if (!pts) return 0
   if (score <= pts[0][0]) return pts[0][1]
   const last = pts[pts.length - 1]
