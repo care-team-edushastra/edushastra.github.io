@@ -1,439 +1,447 @@
 ---
-/**
- * src/pages/cat-percentile-predictor.astro
- *
- * Flow:
- *   1. Student fills slot + attempted/correct for VARC, LRDI, QA
- *   2. Submit -> form is saved to sessionStorage -> we ask the backend "who am I?"
- *   3. Logged in  -> percentile results are shown
- *      Not logged in -> login modal; after login the student returns here,
- *      the saved form is restored and results show automatically
- *
- * >>> Everything you need to wire up is in the CONFIG block below. <<<
- */
-
-const CONFIG = {
-  // GET endpoint. Must return 200 (JSON) when logged in, 401/403 when not.
-  authCheckUrl: '/api/auth/me',
-  // Where the login / signup pages live. "?next=" is added automatically.
-  loginUrl: '/login',
-  signupUrl: '/signup',
-  // Set true while building the page locally, to skip the auth check.
-  devForceLoggedIn: false,
-  year: 2025,
-};
-
-/**
- * Score -> percentile anchor points: [percentile, VARC, LRDI, QA, Overall]
- * PLACEHOLDER VALUES copied from the reference page's CAT 2025 (Slot 1) table.
- * Replace with your own data. Slot 2 and 3 reuse Slot 1 until you add theirs.
- */
-const slot1 = [
-  [99.9, 53,   38,   37,   111.48],
-  [99.5, 48,   33,   31.2, 93],
-  [99,   44,   29.8, 27.3, 84.8],
-  [95,   32.5, 21.5, 18.5, 62.3],
-  [90,   26,   16.7, 15,   51.5],
-  [85,   22,   14,   12,   44.2],
-  [80,   19,   11.5, 10,   38],
-  [70,   18,   8.5,  7.1,  29.5],
-];
-const percentileData = { '1': slot1, '2': slot1, '3': slot1 };
-
-// CAT pattern: 68 questions. VARC 24, LRDI 22, QA 22. +3 correct, -1 wrong.
+const U = "https://www.edushastra.com";
+const PAGE = `${U}/cat-percentile-predictor/`;
+const TITLE = "CAT Percentile Predictor 2026 | Score vs Percentile | EduShastra";
+const DESC = "Predict your CAT 2026 percentile from your attempts and correct answers. See CAT 2026 dates, exam pattern and past years score vs percentile data.";
 const sections = [
-  { key: 'varc', label: 'VARC', total: 24 },
-  { key: 'lrdi', label: 'LRDI', total: 22 },
-  { key: 'qa',   label: 'QA',   total: 22 },
+  { key: "varc", name: "VARC", max: 24 },
+  { key: "lrdi", name: "LRDI", max: 22 },
+  { key: "qa", name: "Quant (QA)", max: 22 },
 ];
-
-const slotRows = slot1;
+const inputCls = "mt-1 w-full rounded-lg border border-white/10 bg-ink-800 px-3 py-2.5 text-sm text-white";
+const info = [
+  ["Conducting IIM", "IIM Indore"],
+  ["Exam date", "Sunday, 29 November 2026, in three sessions"],
+  ["Mode and duration", "Computer-based, 120 minutes, 40 minutes per section"],
+  ["Questions", "66 to 68, a mix of MCQ and TITA"],
+  ["Marking", "+3 for a correct answer, -1 for a wrong MCQ, no negative marking for TITA"],
+  ["Registration", "3 August to 22 September 2026 (extended from 15 September)"],
+  ["Admit card", "Available from 4 November 2026"],
+  ["Application fee", "Rs 2,700 (general), Rs 1,350 (SC/ST/PwBD)"],
+  ["Answer key", "Provisional key expected within a few days of the exam"],
+  ["Result", "Expected in the first week of January 2027"],
+];
+const years = ["2025", "2024", "2023", "2022", "2021", "2020"];
+const rows = [
+  ["99th", "81-91", "87-92", "77-83", "84", "98", "101"],
+  ["95th", "62-70", "65-70", "55-59", "60-62", "73", "76"],
+  ["90th", "50-55", "53-58", "48-50", "49", "60", "63"],
+];
+const faqs = [
+  ["How is the CAT percentile calculated?", "A percentile shows the share of candidates who scored below you. Because CAT is held in three slots with different papers, raw scores are scaled across slots before percentiles are worked out."],
+  ["How does this predictor work?", "It turns your attempts and correct answers into marks (+3 for correct, -1 for wrong), then compares your marks with estimated score-to-percentile trends from CAT 2025. Slot scaling is not modelled."],
+  ["How accurate is it?", "It is an estimate, not a result. Real percentiles depend on the paper's difficulty, the slot scaling and how everyone else performs, so treat the number as a range of a few percentile points either way."],
+  ["Why do I need to log in?", "A free Google login shows your result and saves your scores so you can come back to them. We store your email and the scores you enter. Read our Privacy Policy for details."],
+  ["Are TITA questions counted correctly?", "TITA questions have no negative marking, but the predictor treats every wrong answer as -1. Your estimate may be slightly lower than your real score."],
+  ["When is the CAT 2026 result?", "The result is expected in the first week of January 2027. Check iimcat.ac.in for official dates and updates."],
+];
+const ld = [
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": U },
+    { "@type": "ListItem", "position": 2, "name": "CAT Percentile Predictor", "item": PAGE } ] },
+  { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faqs.map(([q, a]) => ({
+    "@type": "Question", "name": q, "acceptedAnswer": { "@type": "Answer", "text": a } })) },
+];
 ---
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{TITLE}</title>
+<meta name="description" content={DESC} />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href={PAGE} />
+<link rel="icon" href="https://www.edushastra.com/wp-content/uploads/2024/09/eduShastra-logo_only-100x100.png" sizes="32x32">
+<meta property="og:title" content={TITLE} />
+<meta property="og:description" content={DESC} />
+<meta property="og:url" content={PAGE} />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="EduShastra" />
+<meta property="og:locale" content="en_IN" />
+<meta name="twitter:card" content="summary" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+{ld.map(x => (<script type="application/ld+json" set:html={JSON.stringify(x)}></script>))}
+<script is:inline src="https://cdn.tailwindcss.com"></script>
+<script is:inline>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { display:['Syne','sans-serif'], body:['DM Sans','sans-serif'] },
+    colors: {
+      brand: { 50:'#f7ecd5', 100:'#f0dcae', 400:'#e3ab2b', 500:'#e3ab2b', 600:'#e3ab2b', 700:'#e3ab2b' },
+      ink: { 900:'#0c1016', 800:'#12161f', 700:'#151a24', 400:'#6b7284', 200:'#a6adbb', 100:'#eef0f4' },
+    }
+  }}}
+</script>
+<style is:global>
+  body { font-family:'DM Sans',sans-serif; background:#0c1016; color:#eef0f4; }
+  h1,h2,h3,h4,.font-display { font-family:'Syne',sans-serif; }
+  :focus-visible { outline:3px solid #e3ab2b; outline-offset:3px; border-radius:6px; }
+  .hero-bg { background: radial-gradient(ellipse 70% 60% at 15% 50%, rgba(227,171,43,.15) 0%, transparent 60%), #0c1016; }
+  .glass { background:#151a24; border:1px solid rgba(255,255,255,.09); }
+  .glass-gold { background:rgba(227,171,43,.06); border:1px solid rgba(227,171,43,.2); }
+  .nav-blur { background:rgba(12,16,22,.85); backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,.06); }
+  .btn { background:#e3ab2b; color:#0c1016; transition:filter .2s ease; }
+  .btn:hover { filter:brightness(1.1); }
+  @media (prefers-reduced-motion: reduce) { .btn { transition:none; } html { scroll-behavior:auto; } }
+</style>
+</head>
+<body class="relative overflow-x-hidden">
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CAT Percentile Predictor {CONFIG.year + 1}</title>
-    <meta
-      name="description"
-      content="Enter the questions you attempted and expect to have right in each section. Get an estimated CAT score and percentile."
-    />
-  </head>
-  <body>
-    <main class="page">
-      <header class="intro">
-        <h1>CAT Percentile Predictor</h1>
-        <p>
-          Tell us how many questions you attempted and how many you think are
-          correct in each section. We estimate your score and percentile.
-        </p>
-      </header>
-
-      <form id="predictorForm" class="panel" novalidate>
-        <label class="field slot">
-          <span>Your slot</span>
-          <select name="slot" id="slot" required>
-            <option value="" disabled selected>Select slot</option>
-            <option value="1">Slot 1</option>
-            <option value="2">Slot 2</option>
-            <option value="3">Slot 3</option>
-          </select>
-        </label>
-
-        <div class="sections">
-          {sections.map((s) => (
-            <fieldset>
-              <legend>{s.label} <small>{s.total} questions</small></legend>
-              <label class="field">
-                <span>Attempted</span>
-                <input type="number" inputmode="numeric" min="0" max={s.total}
-                  name={`${s.key}_attempted`} placeholder="0" required />
-              </label>
-              <label class="field">
-                <span>Expected correct</span>
-                <input type="number" inputmode="numeric" min="0" max={s.total}
-                  name={`${s.key}_correct`} placeholder="0" required />
-              </label>
-            </fieldset>
-          ))}
-        </div>
-
-        <p id="formError" class="error" role="alert" hidden></p>
-        <button type="submit" id="submitBtn" class="primary">Get my percentile</button>
-      </form>
-
-      <!-- RESULTS (only revealed when logged in) -->
-      <section id="results" class="panel results" hidden aria-live="polite">
-        <h2>Your estimated result</h2>
-
-        <div class="hero">
-          <div>
-            <div class="big" id="overallPct">–</div>
-            <div class="caption">overall percentile</div>
-          </div>
-          <div>
-            <div class="big small" id="overallScore">–</div>
-            <div class="caption">estimated score out of 204</div>
-          </div>
-        </div>
-
-        <div class="ruler" aria-hidden="true">
-          <div class="ruler-track"><div class="ruler-marker" id="rulerMarker"></div></div>
-          <div class="ruler-scale"><span>0</span><span>50</span><span>90</span><span>99</span></div>
-        </div>
-
-        <table class="breakdown">
-          <thead>
-            <tr><th>Section</th><th>Score</th><th>Percentile</th></tr>
-          </thead>
-          <tbody id="breakdownBody"></tbody>
-        </table>
-
-        <p class="note">
-          This is an estimate based on previous-year score patterns. Your actual
-          percentile depends on your slot's difficulty and how everyone else performs.
-          Sectional percentiles are shown on the same basis. TITA questions carry no
-          negative marking, so your real score may be slightly higher.
-        </p>
-      </section>
-
-      <section class="panel reference">
-        <h2>CAT {CONFIG.year} score vs percentile</h2>
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr><th>Percentile</th><th>VARC</th><th>LRDI</th><th>QA</th><th>Overall</th></tr>
-            </thead>
-            <tbody>
-              {slotRows.map((r) => (
-                <tr>{r.map((c) => <td>{c}</td>)}</tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-    </main>
-
-    <!-- LOGIN PROMPT -->
-    <div id="loginModal" class="modal" hidden>
-      <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
-        <button type="button" class="modal-close" id="loginClose" aria-label="Close">×</button>
-        <h2 id="loginTitle">Log in to see your percentile</h2>
-        <p>
-          Your answers are saved. Log in or create a free account and your result
-          will appear as soon as you come back.
-        </p>
-        <div class="modal-actions">
-          <a class="primary" id="loginLink" href={CONFIG.loginUrl}>Log in</a>
-          <a class="secondary" id="signupLink" href={CONFIG.signupUrl}>Create account</a>
+<nav class="fixed top-0 left-0 right-0 z-50 nav-blur" aria-label="Main">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
+    <a href="/" class="font-display text-2xl font-extrabold text-white tracking-tight">Edu<span class="text-brand-500">Shastra</span></a>
+    <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-ink-200">
+      <li><a href="#predictor" class="hover:text-brand-400">Predictor</a></li>
+      <li><a href="#cat-2026" class="hover:text-brand-400">CAT 2026</a></li>
+      <li><a href="#past-years" class="hover:text-brand-400">Past years</a></li>
+      <li><a href="#faqs" class="hover:text-brand-400">FAQs</a></li>
+    </ul>
+    <div class="flex items-center gap-3">
+      <a href="https://www.edushastra.com/cat-coaching/" class="btn hidden sm:inline-block text-sm font-semibold px-5 py-2.5 rounded-full">CAT coaching</a>
+      <div id="account" class="relative">
+        <button id="login-btn" type="button" aria-label="Log in" class="invisible flex items-center gap-2 rounded-full border border-white/15 px-3 py-2 text-sm font-medium text-white hover:border-brand-400">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <span class="hidden sm:inline">Log in</span>
+        </button>
+        <button id="profile-btn" type="button" aria-label="Your profile" aria-haspopup="true" aria-expanded="false" class="hidden h-10 w-10 overflow-hidden rounded-full border border-brand-500 bg-ink-700 text-sm font-bold text-brand-400">
+          <img id="avatar" class="hidden h-full w-full object-cover" alt="" referrerpolicy="no-referrer" /><span id="initial"></span>
+        </button>
+        <div id="menu" class="glass absolute right-0 mt-2 hidden w-64 rounded-xl p-4 text-sm">
+          <p id="m-name" class="truncate font-semibold text-white"></p>
+          <p id="m-email" class="truncate text-ink-200"></p>
+          <button id="logout" type="button" class="mt-3 w-full rounded-lg border border-white/15 py-2 text-white hover:border-brand-400">Log out</button>
         </div>
       </div>
     </div>
+  </div>
+</nav>
 
-    <script define:vars={{ CONFIG, percentileData, sections }}>
-      const STORAGE_KEY = 'catPredictorForm';
-      const form = document.getElementById('predictorForm');
-      const errorEl = document.getElementById('formError');
-      const submitBtn = document.getElementById('submitBtn');
-      const resultsEl = document.getElementById('results');
-      const modal = document.getElementById('loginModal');
+<header class="hero-bg pt-28 pb-10 px-6">
+  <div class="max-w-4xl mx-auto text-center space-y-5">
+    <nav aria-label="Breadcrumb" class="text-xs text-ink-200"><a href="https://www.edushastra.com/" class="hover:text-brand-400">Home</a> / CAT Percentile Predictor</nav>
+    <h1 class="font-display text-4xl md:text-6xl font-extrabold leading-tight text-white">CAT Percentile <span class="text-brand-500">Predictor 2026</span></h1>
+    <p class="text-ink-200 text-lg max-w-2xl mx-auto">Enter your attempts and expected correct answers to estimate your overall and sectional CAT percentile.</p>
+    <p id="countdown" class="glass-gold inline-block rounded-full px-5 py-2 text-sm font-semibold text-brand-400">CAT 2026: Sunday, 29 November 2026</p>
+  </div>
+</header>
 
-      /* ---------- helpers ---------- */
-      const num = (v) => Number(v) || 0;
-      const round1 = (n) => Math.round(n * 10) / 10;
+<main>
+<section id="predictor" class="py-8 px-6">
+  <div class="max-w-3xl mx-auto">
+    <form id="form" novalidate class="glass rounded-3xl p-6 sm:p-8 space-y-6">
+      <label class="block text-sm font-medium text-white">Slot
+        <select name="slot" required class={inputCls}>
+          <option value="">Select your slot</option>
+          <option value="1">Slot 1</option><option value="2">Slot 2</option><option value="3">Slot 3</option>
+        </select>
+      </label>
+      <div class="grid gap-4 sm:grid-cols-3">
+        {sections.map((s) => (
+          <fieldset class="rounded-xl border border-white/10 p-4">
+            <legend class="px-1 text-sm font-semibold text-white">{s.name} <span class="font-normal text-ink-200">(max {s.max})</span></legend>
+            <label class="block text-xs font-medium text-ink-200">Attempted
+              <input type="number" name={s.key + "_attempted"} min="0" max={s.max} required class={inputCls} />
+            </label>
+            <label class="mt-3 block text-xs font-medium text-ink-200">Expected correct
+              <input type="number" name={s.key + "_correct"} min="0" max={s.max} required class={inputCls} />
+            </label>
+          </fieldset>
+        ))}
+      </div>
+      <p id="error" role="alert" class="text-sm text-red-400"></p>
+      <button type="submit" class="btn w-full rounded-full py-3.5 font-semibold">Predict my percentile</button>
+      <p class="text-center text-xs text-ink-200">By submitting, you agree that your email and scores are saved. See our <a href="https://www.edushastra.com/privacy-policy" class="underline hover:text-brand-400">Privacy Policy</a>.</p>
+    </form>
 
-      // Score for a section: +3 per correct, -1 per wrong attempt
-      function sectionScore(attempted, correct) {
-        return 3 * correct - (attempted - correct);
+    <section id="gate" class="glass-gold mt-6 hidden rounded-3xl p-6 text-center">
+      <h2 class="font-display text-2xl font-bold text-white">Log in to see your percentile</h2>
+      <p class="mt-2 text-ink-200">It takes one tap with Google. Your answers are saved and your result shows when you return.</p>
+      <button id="google" type="button" class="btn mt-4 rounded-full px-7 py-3 font-semibold">Continue with Google</button>
+      <p id="gate-error" role="alert" class="mt-3 text-sm text-red-400"></p>
+    </section>
+
+    <section id="result" class="glass mt-6 hidden rounded-3xl p-6 text-center" aria-live="polite">
+      <p class="text-sm text-ink-200">Your predicted percentile</p>
+      <p id="pct" class="font-display text-6xl font-extrabold text-brand-500"></p>
+      <p class="mt-3 text-ink-200">Estimated overall score: <strong id="total" class="text-white"></strong></p>
+      <div id="sections" class="mt-5 grid gap-3 sm:grid-cols-3"></div>
+      <p class="mt-5 text-xs text-ink-200">This is an estimate based on CAT 2025 trends. The real percentile depends on the paper, slot scaling and the candidate pool.</p>
+      <a href="https://www.edushastra.com/cat-coaching/" class="btn mt-4 inline-block rounded-full px-6 py-3 text-sm font-semibold">Plan your next step with EduShastra</a>
+    </section>
+  </div>
+</section>
+
+<section id="cat-2026" class="py-14 px-6">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="font-display text-3xl md:text-4xl font-extrabold text-white text-center">CAT 2026 at a glance</h2>
+    <p class="text-ink-200 text-center mt-3">Always confirm details on the official site, iimcat.ac.in.</p>
+    <dl class="mt-8 grid gap-4 sm:grid-cols-2">
+      {info.map(([k, v]) => (
+        <div class="glass rounded-2xl p-5"><dt class="text-xs font-semibold uppercase tracking-wide text-brand-400">{k}</dt><dd class="mt-1 text-white">{v}</dd></div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<section id="past-years" class="py-14 px-6">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="font-display text-3xl md:text-4xl font-extrabold text-white text-center">CAT past years: marks needed for each percentile</h2>
+    <p class="text-ink-200 text-center mt-3 max-w-2xl mx-auto">Approximate overall marks. Figures are estimates compiled from published analyses, vary by slot and source, and are not an official IIM table.</p>
+    <div class="glass rounded-3xl overflow-hidden mt-8">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm min-w-[560px]">
+          <caption class="sr-only">Approximate overall CAT marks for the 99th, 95th and 90th percentile, 2020 to 2025</caption>
+          <thead><tr class="border-b border-white/10">
+            <th scope="col" class="text-left px-5 py-4 font-display text-white">Percentile</th>
+            {years.map(y => <th scope="col" class="text-left px-5 py-4 font-display text-white">CAT {y}</th>)}
+          </tr></thead>
+          <tbody>
+            {rows.map(([label, ...vals]) => (
+              <tr class="border-b border-white/5 last:border-0 odd:bg-white/[0.02]">
+                <th scope="row" class="text-left px-5 py-4 font-display text-brand-400">{label}</th>
+                {vals.map(v => <td class="px-5 py-4 text-ink-200">{v}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="text-ink-200 text-xs mt-4">Papers differ in length: CAT 2020 had 76 questions and CAT 2021 and 2022 had 66. CAT up to 2019 was marked out of 300. Last reviewed 27 November 2026.</p>
+  </div>
+</section>
+
+<section id="faqs" class="py-14 px-6">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="font-display text-3xl md:text-4xl font-extrabold text-white text-center mb-10">CAT percentile predictor FAQs</h2>
+    <div class="space-y-3">
+      {faqs.map(([q, a]) => (
+        <div class="glass rounded-2xl overflow-hidden">
+          <button class="faq-btn w-full text-left px-7 py-5 flex items-start justify-between gap-4" aria-expanded="false">
+            <span class="font-display font-bold text-white text-sm leading-relaxed">{q}</span>
+            <span class="faq-icon text-brand-400 text-lg flex-shrink-0" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-body hidden px-7 pb-6"><p class="text-ink-200 text-sm leading-relaxed">{a}</p></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="border-t border-white/06 bg-ink-900 pt-16 pb-8 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-12 mb-12">
+      <div class="md:col-span-1 space-y-4">
+        <p class="font-display text-2xl font-800 text-white">Edu<span class="text-brand-500">Shastra</span></p>
+        <p class="text-white text-sm leading-relaxed">Affordable Quality Education for All. For People, Not Profits. Since 2016.</p><br>
+        <p class="font-display text-2xl font-800 text-white text-sm">Connect With Edu<span class="text-brand-500 text-sm">Shastra</span>:</p>
+        <a href="https://www.facebook.com/EduShastra.Philanthropy/" class="text-brand-400 text-sm hover:text-brand-400 transition-colors">ⓕ Facebook</a><br/>
+        <a href="https://www.instagram.com/edushastra/" class="text-brand-400 text-sm hover:text-brand-400 transition-colors"> 📸 Instagram</a><br/>
+        <a href="https://www.linkedin.com/company/edushastra" class="text-brand-400 text-sm hover:text-brand-400 transition-colors">🇮🇳Linkedin</a><br/>
+        <a href="https://www.youtube.com/channel/UCjLd8GlyCosf2jD49kdUGhA" class="text-brand-400 text-sm hover:text-brand-400 transition-colors">▶️Youtube</a>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Courses</p>
+        <ul class="space-y-2 text-brand-400 text-sm">
+          <li><a href="https://www.edushastra.com/cat-coaching/" class="hover:text-brand-400 transition-colors">CAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/gmat-prep/" class="hover:text-brand-400 transition-colors">GMAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/gmat-cat-coaching/" class="hover:text-brand-400 transition-colors">GMCAT Preparation</a></li>
+          <li><a href="https://www.edushastra.com/common-universities-entrance-test/" class="hover:text-brand-400 transition-colors">CUET Preparation</a></li>
+        </ul>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Links</p>
+        <ul class="space-y-2 text-brand-400 text-sm">
+          <li><a href="https://www.edushastra.com/courses" class="hover:text-brand-400 transition-colors">Courses</a></li>
+          <li><a href="https://www.edushastra.com/why-us" class="hover:text-brand-400 transition-colors">Why Us</a></li>
+          <li><a href="https://www.edushastra.com/faqs/" class="hover:text-brand-400 transition-colors">FAQs</a></li>
+          <li><a href="https://www.edushastra.com/blog/" class="hover:text-brand-400 transition-colors">Blog</a></li>
+        </ul>
+      </div>
+      <div class="space-y-4">
+        <p class="font-semibold text-white text-sm">Contact</p>
+        <ul class="space-y-2 text-brand-400 text-sm">
+          <li><a href="tel:01147082205" class="hover:text-brand-400 transition-colors">011-47082205</a></li>
+          <li><a href="mailto:contact@edushastra.com" class="hover:text-brand-400 transition-colors">contact@edushastra.com</a></li>
+          <li><a href="https://www.edushastra.com/contact-us/" class="hover:text-brand-400 transition-colors">View All Offices</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/06 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-ink-400 text-xs">
+      <p>© 2026 EduShastra Education Solutions Pvt. Ltd. All rights reserved.</p>
+      <div class="flex gap-4">
+        <a href="https://www.edushastra.com/terms-conditions-and-policies" class="hover:text-brand-400 transition-colors">Terms & Conditions</a>
+        <a href="https://www.edushastra.com/privacy-policy" class="hover:text-brand-400 transition-colors">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  import { supabase } from '../lib/supabase'
+  import { estimate, isSample } from '../data/catPercentile.js'
+
+  const $ = (id) => document.getElementById(id)
+  const form = $('form')
+  const KEY = 'catPredictorForm'
+  const PENDING = 'catPredictorPending'
+  const KEYS = ['varc', 'lrdi', 'qa']
+  const NAMES = { varc: 'VARC', lrdi: 'LRDI', qa: 'Quant' }
+  const back = () => window.location.origin + window.location.pathname
+
+  // Days to the exam (29 Nov 2026, IST)
+  const days = Math.ceil((new Date('2026-11-29T00:00:00+05:30') - Date.now()) / 86400000)
+  $('countdown').textContent = days > 1 ? 'CAT 2026 is in ' + days + ' days: Sunday, 29 November'
+    : days === 1 ? 'CAT 2026 is tomorrow: Sunday, 29 November'
+    : days === 0 ? 'CAT 2026 is today' : 'CAT 2026 is over. Predict your percentile now'
+
+  // ---- account icon: profile when logged in, login otherwise ----
+  function renderAccount(session) {
+    if (session) {
+      const m = session.user.user_metadata || {}
+      const name = m.full_name || m.name || 'Student'
+      $('m-name').textContent = name
+      $('m-email').textContent = session.user.email || ''
+      $('initial').textContent = name.charAt(0).toUpperCase()
+      if (m.avatar_url) { $('avatar').src = m.avatar_url; $('avatar').classList.remove('hidden'); $('initial').classList.add('hidden') }
+      $('login-btn').classList.add('hidden'); $('profile-btn').classList.remove('hidden')
+    } else {
+      $('profile-btn').classList.add('hidden'); $('menu').classList.add('hidden')
+      $('login-btn').classList.remove('hidden', 'invisible')
+    }
+  }
+  supabase.auth.getSession().then(({ data }) => renderAccount(data.session))
+  supabase.auth.onAuthStateChange((_e, session) => renderAccount(session))
+
+  async function startLogin(gateError) {
+    const { error } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: back() } })
+    if (error && gateError) $('gate-error').textContent = 'Could not start login. Please try again.'
+  }
+  $('login-btn').addEventListener('click', () => startLogin(false))
+  $('profile-btn').addEventListener('click', () => {
+    const open = $('menu').classList.toggle('hidden') === false
+    $('profile-btn').setAttribute('aria-expanded', String(open))
+  })
+  document.addEventListener('click', (e) => { if (!$('account').contains(e.target)) $('menu').classList.add('hidden') })
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') $('menu').classList.add('hidden') })
+  $('logout').addEventListener('click', async () => {
+    await supabase.auth.signOut()
+    $('result').classList.add('hidden')
+  })
+
+  // ---- predictor ----
+  const readForm = () => { const d = {}; new FormData(form).forEach((v, k) => { d[k] = String(v) }); return d }
+  const fillForm = (d) => { Object.entries(d).forEach(([k, v]) => { if (form.elements[k]) form.elements[k].value = v }) }
+
+  function validate(d) {
+    if (!d.slot) return 'Please select your slot.'
+    for (const k of KEYS) {
+      const max = Number(form.elements[k + '_attempted'].max)
+      const a = d[k + '_attempted'], c = d[k + '_correct']
+      if (a === '' || c === '') return 'Please fill in every field.'
+      if (Number(a) < 0 || Number(c) < 0 || Number(a) > max) return 'Attempted questions must be between 0 and ' + max + '.'
+      if (Number(c) > Number(a)) return 'Correct answers cannot be more than attempted.'
+    }
+    return ''
+  }
+
+  // +3 per correct answer, -1 per wrong answer (every wrong answer is treated as negatively marked).
+  function score(d) {
+    let total = 0
+    const secs = {}
+    for (const k of KEYS) {
+      const a = Number(d[k + '_attempted']), c = Number(d[k + '_correct'])
+      secs[k] = 3 * c - (a - c)
+      total += secs[k]
+    }
+    return { total, secs }
+  }
+
+  // Save the submission as a lead. A failure must never block the result.
+  async function save(d, total, pcts) {
+    try {
+      await supabase.from('predictor_submissions').insert({
+        slot: Number(d.slot),
+        varc_attempted: Number(d.varc_attempted), varc_correct: Number(d.varc_correct),
+        lrdi_attempted: Number(d.lrdi_attempted), lrdi_correct: Number(d.lrdi_correct),
+        qa_attempted: Number(d.qa_attempted), qa_correct: Number(d.qa_correct),
+        total_score: total,
+        overall_percentile: pcts.overall, varc_percentile: pcts.varc,
+        lrdi_percentile: pcts.lrdi, qa_percentile: pcts.qa,
+      })
+    } catch (x) {}
+  }
+
+  async function run(d) {
+    const { data } = await supabase.auth.getSession()
+    if (data.session) {
+      const { total, secs } = score(d)
+      const pcts = { overall: estimate(d.slot, 'overall', total) }
+      for (const k of KEYS) pcts[k] = estimate(d.slot, k, secs[k])
+      $('pct').textContent = pcts.overall.toFixed(2)
+      $('total').textContent = total
+      const box = $('sections')
+      box.textContent = ''
+      for (const k of KEYS) {
+        const card = document.createElement('div')
+        card.className = 'rounded-xl border border-white/10 p-3'
+        const name = document.createElement('p'); name.className = 'text-xs font-semibold text-ink-200'; name.textContent = NAMES[k]
+        const val = document.createElement('p'); val.className = 'font-display text-2xl font-bold text-white'; val.textContent = pcts[k].toFixed(2)
+        const sc = document.createElement('p'); sc.className = 'text-xs text-ink-200'; sc.textContent = 'Score ' + secs[k]
+        card.append(name, val, sc)
+        box.appendChild(card)
       }
+      $('gate').classList.add('hidden')
+      $('result').classList.remove('hidden')
+      $('result').scrollIntoView({ behavior: 'smooth' })
+      save(d, total, pcts)
+    } else {
+      $('result').classList.add('hidden')
+      $('gate').classList.remove('hidden')
+      $('gate').scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
-      // Anchor rows are sorted high -> low percentile. col = 1 VARC, 2 LRDI, 3 QA, 4 Overall
-      function scoreToPercentile(rows, col, score) {
-        const top = rows[0];
-        const bottom = rows[rows.length - 1];
-        if (score <= 0) return 0;
-        if (score >= top[col]) return 99.99;
-        if (score <= bottom[col]) {
-          // below the lowest anchor: scale linearly from (0, 0) to (lowest score, lowest percentile)
-          return round1((score / bottom[col]) * bottom[0]);
-        }
-        for (let i = 0; i < rows.length - 1; i++) {
-          const hi = rows[i], lo = rows[i + 1];
-          if (score <= hi[col] && score >= lo[col]) {
-            const span = hi[col] - lo[col];
-            const t = span === 0 ? 0 : (score - lo[col]) / span;
-            return round1(lo[0] + t * (hi[0] - lo[0]));
-          }
-        }
-        return 0;
-      }
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const d = readForm()
+    const err = validate(d)
+    $('error').textContent = err
+    if (err) return
+    try { localStorage.setItem(KEY, JSON.stringify(d)) } catch (x) {}
+    run(d)
+  })
 
-      function readForm() {
-        const data = {};
-        new FormData(form).forEach((v, k) => (data[k] = v));
-        return data;
-      }
+  $('google').addEventListener('click', () => {
+    try { localStorage.setItem(PENDING, '1') } catch (x) {}
+    startLogin(true)
+  })
 
-      function validate(data) {
-        if (!data.slot) return 'Select your slot.';
-        for (const s of sections) {
-          const a = data[`${s.key}_attempted`];
-          const c = data[`${s.key}_correct`];
-          if (a === '' || a === undefined || c === '' || c === undefined)
-            return `Fill in both numbers for ${s.label}.`;
-          if (num(a) > s.total) return `${s.label} has only ${s.total} questions.`;
-          if (num(c) > num(a)) return `${s.label}: correct answers can't be more than attempted.`;
-        }
-        return '';
-      }
-
-      /* ---------- auth ---------- */
-      async function isLoggedIn() {
-        if (CONFIG.devForceLoggedIn) return true;
-        try {
-          const res = await fetch(CONFIG.authCheckUrl, { credentials: 'include' });
-          return res.ok;
-        } catch {
-          return false; // network/CORS error: treat as logged out
-        }
-      }
-
-      function showLoginPrompt() {
-        const next = encodeURIComponent(location.pathname + location.search);
-        document.getElementById('loginLink').href = `${CONFIG.loginUrl}?next=${next}`;
-        document.getElementById('signupLink').href = `${CONFIG.signupUrl}?next=${next}`;
-        modal.hidden = false;
-        modal.querySelector('a').focus();
-      }
-
-      /* ---------- results ---------- */
-      function showResults(data) {
-        const rows = percentileData[data.slot];
-        const body = document.getElementById('breakdownBody');
-        body.innerHTML = '';
-
-        let total = 0;
-        sections.forEach((s, i) => {
-          const score = sectionScore(num(data[`${s.key}_attempted`]), num(data[`${s.key}_correct`]));
-          total += score;
-          const pct = scoreToPercentile(rows, i + 1, score);
-          const tr = document.createElement('tr');
-          tr.innerHTML = `<td>${s.label}</td><td>${score}</td><td>${pct}</td>`;
-          body.appendChild(tr);
-        });
-
-        const overall = scoreToPercentile(rows, 4, total);
-        document.getElementById('overallPct').textContent = overall.toFixed(2);
-        document.getElementById('overallScore').textContent = total;
-
-        // ruler: spread 0-100 so the 90-100 zone gets extra room
-        const pos = overall <= 90 ? (overall / 90) * 70 : 70 + ((overall - 90) / 10) * 30;
-        document.getElementById('rulerMarker').style.left = Math.min(pos, 100) + '%';
-
-        resultsEl.hidden = false;
-        resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-
-      async function handleSubmit(data) {
-        errorEl.hidden = true;
-        const problem = validate(data);
-        if (problem) {
-          errorEl.textContent = problem;
-          errorEl.hidden = false;
-          return;
-        }
-
-        // Save so the student doesn't retype after logging in
-        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
-
-        submitBtn.disabled = true;
-        const loggedIn = await isLoggedIn();
-        submitBtn.disabled = false;
-
-        if (loggedIn) {
-          resultsEl.hidden = true;
-          showResults(data);
-        } else {
-          resultsEl.hidden = true;
-          showLoginPrompt();
-        }
-      }
-
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        handleSubmit(readForm());
-      });
-
-      /* ---------- modal ---------- */
-      const closeModal = () => (modal.hidden = true);
-      document.getElementById('loginClose').addEventListener('click', closeModal);
-      modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
-
-      /* ---------- restore after returning from login ---------- */
-      (async function restore() {
-        let saved;
-        try { saved = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || 'null'); } catch {}
-        if (!saved) return;
-        Object.entries(saved).forEach(([k, v]) => {
-          const field = form.elements[k];
-          if (field) field.value = v;
-        });
-        // Only auto-show for a logged-in student; never pop the login box on page load
-        if (await isLoggedIn()) {
-          if (!validate(saved)) showResults(saved);
-        }
-      })();
-    </script>
-
-    <style is:global>
-      :root {
-        --paper: #f5f6f8;
-        --panel: #ffffff;
-        --ink: #17212b;
-        --muted: #5d6b79;
-        --line: #d9dee4;
-        --accent: #0b6e8c;
-        --accent-dark: #084f66;
-        --danger: #b3261e;
-        color-scheme: light;
-      }
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --paper: #0f161c;
-          --panel: #17212b;
-          --ink: #e8edf2;
-          --muted: #9aa8b5;
-          --line: #2c3a47;
-          --accent: #4fb3d1;
-          --accent-dark: #7cc9e0;
-          --danger: #f2877f;
-          color-scheme: dark;
-        }
-      }
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        background: var(--paper);
-        color: var(--ink);
-        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-        line-height: 1.55;
-      }
-      .page { max-width: 880px; margin: 0 auto; padding: 40px 20px 80px; }
-      .intro h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; margin: 0 0 12px; letter-spacing: -0.02em; }
-      .intro p { color: var(--muted); max-width: 60ch; margin: 0 0 28px; }
-
-      .panel {
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: 10px;
-        padding: 24px;
-        margin-bottom: 24px;
-      }
-      .panel h2 { margin: 0 0 16px; font-size: 1.35rem; }
-
-      .field { display: block; margin-bottom: 14px; }
-      .field span { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 4px; }
-      input, select {
-        width: 100%; padding: 10px 12px; font: inherit; color: inherit;
-        background: var(--paper); border: 1px solid var(--line); border-radius: 6px;
-      }
-      input:focus-visible, select:focus-visible, button:focus-visible, a:focus-visible {
-        outline: 3px solid var(--accent); outline-offset: 2px;
-      }
-      .slot { max-width: 260px; margin-bottom: 20px; }
-
-      .sections { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-      fieldset { border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px 4px; margin: 0; min-width: 0; }
-      legend { font-weight: 700; padding: 0 6px; }
-      legend small { font-weight: 400; color: var(--muted); margin-left: 4px; }
-
-      .primary, .secondary {
-        display: inline-block; text-align: center; text-decoration: none; cursor: pointer;
-        font: inherit; font-weight: 600; padding: 12px 22px; border-radius: 6px; border: 1px solid var(--accent);
-      }
-      .primary { background: var(--accent); color: #fff; }
-      .primary:hover { background: var(--accent-dark); }
-      .primary:disabled { opacity: .6; cursor: wait; }
-      .secondary { background: transparent; color: var(--accent); }
-      #submitBtn { margin-top: 18px; width: 100%; }
-      @media (prefers-color-scheme: dark) { .primary { color: #08202a; } .primary:hover { color: #08202a; } }
-
-      .error { color: var(--danger); margin: 8px 0 0; font-weight: 500; }
-
-      /* results */
-      .hero { display: flex; gap: 48px; flex-wrap: wrap; margin-bottom: 24px; }
-      .big { font-size: clamp(3rem, 9vw, 5rem); font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: var(--accent); }
-      .big.small { font-size: clamp(2rem, 6vw, 3rem); color: var(--ink); padding-top: 14px; }
-      .caption { color: var(--muted); font-size: .9rem; margin-top: 6px; }
-
-      .ruler { margin: 8px 0 28px; }
-      .ruler-track { position: relative; height: 10px; border-radius: 5px; background: linear-gradient(90deg, var(--line) 0 70%, var(--accent) 70% 100%); }
-      .ruler-marker {
-        position: absolute; top: -6px; width: 4px; height: 22px; border-radius: 2px;
-        background: var(--ink); transform: translateX(-50%); transition: left .6s ease;
-      }
-      .ruler-scale { display: flex; justify-content: space-between; font-size: .75rem; color: var(--muted); margin-top: 6px; }
-
-      table { width: 100%; border-collapse: collapse; text-align: center; }
-      th, td { padding: 10px 8px; border-bottom: 1px solid var(--line); }
-      th { font-size: .85rem; color: var(--muted); font-weight: 600; }
-      .breakdown td:first-child, .breakdown th:first-child { text-align: left; font-weight: 600; }
-      .table-scroll { overflow-x: auto; }
-      .note { color: var(--muted); font-size: .85rem; margin: 16px 0 0; max-width: 70ch; }
-
-      /* modal */
-      .modal { position: fixed; inset: 0; background: rgba(10, 16, 22, .6); display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 50; }
-      .modal[hidden] { display: none; }
-      .modal-box { position: relative; background: var(--panel); border-radius: 12px; padding: 32px 28px 28px; max-width: 420px; width: 100%; }
-      .modal-box h2 { margin: 0 0 10px; font-size: 1.4rem; padding-right: 24px; }
-      .modal-box p { color: var(--muted); margin: 0 0 22px; }
-      .modal-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-      .modal-actions > * { flex: 1 1 140px; }
-      .modal-close { position: absolute; top: 10px; right: 14px; background: none; border: 0; font-size: 1.8rem; line-height: 1; color: var(--muted); cursor: pointer; }
-
-      @media (max-width: 720px) { .sections { grid-template-columns: 1fr; } .hero { gap: 24px; } }
-    </style>
-  </body>
+  // After the Google redirect, restore the saved answers and show the result.
+  async function restore() {
+    let saved = null
+    try { saved = JSON.parse(localStorage.getItem(KEY) || 'null') } catch (x) {}
+    if (!saved) return
+    fillForm(saved)
+    let pending = false
+    try { pending = localStorage.getItem(PENDING) === '1' } catch (x) {}
+    if (!pending) return
+    const { data } = await supabase.auth.getSession()
+    if (data.session) {
+      try { localStorage.removeItem(PENDING) } catch (x) {}
+      if (!validate(saved)) run(saved)
+    }
+  }
+  restore()
+</script>
+<script is:inline>
+  document.querySelectorAll('.faq-btn').forEach(btn => btn.addEventListener('click', () => {
+    const body = btn.nextElementSibling, open = !body.classList.contains('hidden');
+    document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+    document.querySelectorAll('.faq-btn').forEach(b => { b.setAttribute('aria-expanded','false'); b.querySelector('.faq-icon').textContent = '+'; });
+    if (!open) { body.classList.remove('hidden'); btn.setAttribute('aria-expanded','true'); btn.querySelector('.faq-icon').textContent = '\u2212'; }
+  }));
+</script>
+</body>
 </html>
