@@ -151,7 +151,6 @@ const ld = [
       </div>
       <p id="error" role="alert" class="text-sm text-red-400"></p>
       <button type="submit" class="btn w-full rounded-full py-3.5 font-semibold">Predict my percentile</button>
-      <p class="text-center text-xs text-ink-200">By submitting, you agree that your email and scores are saved. See our <a href="https://www.edushastra.com/privacy-policy" class="underline hover:text-brand-400">Privacy Policy</a>.</p>
     </form>
 
     <section id="gate" class="glass-gold mt-6 hidden rounded-3xl p-6 text-center">
@@ -359,19 +358,20 @@ const ld = [
   }
 
   // Save the submission as a lead. A failure must never block the result.
-  async function save(d, total, pcts) {
-    try {
-      await supabase.from('predictor_submissions').insert({
-        slot: Number(d.slot),
-        varc_attempted: Number(d.varc_attempted), varc_correct: Number(d.varc_correct),
-        lrdi_attempted: Number(d.lrdi_attempted), lrdi_correct: Number(d.lrdi_correct),
-        qa_attempted: Number(d.qa_attempted), qa_correct: Number(d.qa_correct),
-        total_score: total,
-        overall_percentile: pcts.overall, varc_percentile: pcts.varc,
-        lrdi_percentile: pcts.lrdi, qa_percentile: pcts.qa,
-      })
-    } catch (x) {}
-  }
+async function save(d, total, pcts) {
+  try {
+    await supabase.from('predictor_submissions').upsert({
+      slot: Number(d.slot),
+      varc_attempted: Number(d.varc_attempted), varc_correct: Number(d.varc_correct),
+      lrdi_attempted: Number(d.lrdi_attempted), lrdi_correct: Number(d.lrdi_correct),
+      qa_attempted: Number(d.qa_attempted), qa_correct: Number(d.qa_correct),
+      total_score: total,
+      overall_percentile: pcts.overall, varc_percentile: pcts.varc,
+      lrdi_percentile: pcts.lrdi, qa_percentile: pcts.qa,
+      updated_at: new Date().toISOString(),
+    }, { onConflict: 'user_id' })
+  } catch (x) {}
+}
 
   async function run(d) {
     const { data } = await supabase.auth.getSession()
