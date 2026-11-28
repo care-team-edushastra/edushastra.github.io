@@ -8,6 +8,7 @@ const sections = [
   { key: "lrdi", name: "LRDI", max: 66 },
   { key: "qa", name: "Quant (QA)", max: 66 },
 ];
+const openSlots = [1];
 const inputCls = "mt-1 w-full rounded-lg border border-ink-100/15 bg-ink-800 px-3 py-2.5 text-sm text-ink-100";
 const faqs = [
   ["How is the CAT percentile calculated?", "A percentile shows the percentage of candidates who scored below you. Since CAT is conducted in multiple slots, scores are normalised to account for differences in paper difficulty before final percentiles are calculated."],
@@ -145,12 +146,19 @@ const ld = [
 <section id="predictor" class="py-8 px-6">
   <div class="max-w-3xl mx-auto">
     <form id="form" novalidate class="glass rounded-3xl p-6 sm:p-8 space-y-6">
-      <label class="block text-sm font-bold text-ink-100">Slot
-        <select name="slot" required class={inputCls}>
-          <option value="">Select your slot</option>
-          <option value="1">Slot 1</option><option value="2">Slot 2</option><option value="3">Slot 3</option>
-        </select>
-      </label>
+<label class="block text-sm font-bold text-ink-100">Slot
+  <select name="slot" required class={inputCls}>
+    <option value="">Select your slot</option>
+    {openSlots.map((n) => <option value={String(n)}>Slot {n}</option>)}
+  </select>
+  {openSlots.length < 3 && (
+    <span class="mt-1 block text-xs font-normal text-ink-200">
+      {openSlots.length === 1
+        ? "Slot 2 and Slot 3 will be added once those slots are over."
+        : "Slot 3 will be added once it is over."}
+    </span>
+  )}
+</label>
 <div class="grid gap-4 sm:grid-cols-3">
   {sections.map((s) => (
     <label class="block rounded-xl border border-ink-100/15 p-4 text-sm font-semibold text-ink-100">
