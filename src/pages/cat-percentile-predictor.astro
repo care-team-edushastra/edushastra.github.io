@@ -2,11 +2,11 @@
 const U = "https://www.edushastra.com";
 const PAGE = `${U}/cat-percentile-predictor/`;
 const TITLE = "CAT Percentile Predictor 2026 | Score vs Percentile | EduShastra";
-const DESC = "Predict your CAT 2026 percentile from your attempts and correct answers. See CAT 2026 dates, exam pattern and past years score vs percentile data.";
+const DESC = "Predict your CAT 2026 percentile from your section-wise marks. See CAT 2026 dates, exam pattern and past years score vs percentile data.";
 const sections = [
-  { key: "varc", name: "VARC", max: 24 },
-  { key: "lrdi", name: "LRDI", max: 22 },
-  { key: "qa", name: "Quant (QA)", max: 22 },
+  { key: "varc", name: "VARC", max: 72 },
+  { key: "lrdi", name: "LRDI", max: 66 },
+  { key: "qa", name: "Quant (QA)", max: 66 },
 ];
 const inputCls = "mt-1 w-full rounded-lg border border-ink-100/15 bg-ink-800 px-3 py-2.5 text-sm text-ink-100";
 const info = [
@@ -159,7 +159,7 @@ const ld = [
   <div class="max-w-7xl mx-auto text-center space-y-5">
     <nav aria-label="Breadcrumb" class="text-xs text-ink-200"><a href="https://www.edushastra.com/" class="hover:text-brand-400">Home</a> / CAT Percentile Predictor</nav>
     <h1 class="font-display text-4xl md:text-6xl font-bold leading-tight text-ink-100">CAT Percentile <span class="text-brand-500">Predictor 2026</span></h1>
-    <p class="text-ink-200 text-lg max-w-2xl mx-auto">Enter your attempts and expected correct answers to estimate your overall and sectional CAT percentile.</p>
+    <p class="text-ink-200 text-lg max-w-2xl mx-auto">Enter your marks in each section to estimate your overall and sectional CAT percentile.</p>
     <p id="countdown" class="glass-gold inline-block rounded-full px-5 py-2 text-sm font-semibold text-brand-400">CAT 2026: Sunday, 29 November 2026</p>
   </div>
 </header>
@@ -174,19 +174,15 @@ const ld = [
           <option value="1">Slot 1</option><option value="2">Slot 2</option><option value="3">Slot 3</option>
         </select>
       </label>
-      <div class="grid gap-4 sm:grid-cols-3">
-        {sections.map((s) => (
-          <fieldset class="rounded-xl border border-ink-100/15 p-4">
-            <legend class="px-1 text-sm font-semibold text-ink-100">{s.name} <span class="font-normal text-ink-200">(max {s.max})</span></legend>
-            <label class="block text-xs font-medium text-ink-200">Attempted
-              <input type="number" name={s.key + "_attempted"} min="0" max={s.max} required class={inputCls} />
-            </label>
-            <label class="mt-3 block text-xs font-medium text-ink-200">Expected correct
-              <input type="number" name={s.key + "_correct"} min="0" max={s.max} required class={inputCls} />
-            </label>
-          </fieldset>
-        ))}
-      </div>
+<div class="grid gap-4 sm:grid-cols-3">
+  {sections.map((s) => (
+    <label class="block rounded-xl border border-ink-100/15 p-4 text-sm font-semibold text-ink-100">
+      {s.name} <span class="font-normal text-ink-200">(max {s.max})</span>
+      <input type="number" name={s.key} min="-15" max={s.max} step="1" inputmode="numeric" required class={inputCls} />
+    </label>
+  ))}
+</div>
+<p class="text-xs text-ink-200">Enter marks after negative marking: +3 per correct answer, -1 per wrong MCQ, and no negative marking for TITA. Negative section scores are allowed.</p>
       <p id="error" role="alert" class="text-sm text-red-700"></p>
       <button type="submit" class="btn w-full rounded-full py-3.5 font-semibold">Predict my percentile</button>
     </form>
@@ -483,39 +479,32 @@ const ld = [
   const readForm = () => { const d = {}; new FormData(form).forEach((v, k) => { d[k] = String(v) }); return d }
   const fillForm = (d) => { Object.entries(d).forEach(([k, v]) => { if (form.elements[k]) form.elements[k].value = v }) }
 
-  function validate(d) {
-    if (!d.slot) return 'Please select your slot.'
-    for (const k of KEYS) {
-      const max = Number(form.elements[k + '_attempted'].max)
-      const a = d[k + '_attempted'], c = d[k + '_correct']
-      if (a === '' || c === '') return 'Please fill in every field.'
-      if (Number(a) < 0 || Number(c) < 0 || Number(a) > max) return 'Attempted questions must be between 0 and ' + max + '.'
-      if (Number(c) > Number(a)) return 'Correct answers cannot be more than attempted.'
-    }
-    return ''
+function validate(d) {
+  if (!d.slot) return 'Please select your slot.'
+  for (const k of KEYS) {
+    if (d[k] === '') return 'Please fill in every field.'
+    const n = Number(d[k]), max = Number(form.elements[k].max)
+    if (!Number.isInteger(n) || n < -15 || n > max)
+      return NAMES[k] + ' marks must be a whole number between -15 and ' + max + '.'
   }
+  return ''
+}
 
-  // +3 per correct answer, -1 per wrong answer (every wrong answer is treated as negatively marked).
-  function score(d) {
-    let total = 0
-    const secs = {}
-    for (const k of KEYS) {
-      const a = Number(d[k + '_attempted']), c = Number(d[k + '_correct'])
-      secs[k] = 3 * c - (a - c)
-      total += secs[k]
-    }
-    return { total, secs }
-  }
+// Marks are entered directly, so no attempted/correct conversion is needed.
+function score(d) {
+  let total = 0
+  const secs = {}
+  for (const k of KEYS) { secs[k] = Number(d[k]); total += secs[k] }
+  return { total, secs }
+}
 
   // Save the submission as a lead. A failure must never block the result.
 async function save(d, total, pcts) {
   try {
     await supabase.from('predictor_submissions').upsert({
-      slot: Number(d.slot),
-      varc_attempted: Number(d.varc_attempted), varc_correct: Number(d.varc_correct),
-      lrdi_attempted: Number(d.lrdi_attempted), lrdi_correct: Number(d.lrdi_correct),
-      qa_attempted: Number(d.qa_attempted), qa_correct: Number(d.qa_correct),
-      total_score: total,
+slot: Number(d.slot),
+varc_marks: Number(d.varc), lrdi_marks: Number(d.lrdi), qa_marks: Number(d.qa),
+total_score: total,
       overall_percentile: pcts.overall, varc_percentile: pcts.varc,
       lrdi_percentile: pcts.lrdi, qa_percentile: pcts.qa,
       updated_at: new Date().toISOString(),
