@@ -152,11 +152,6 @@ const ld = [
     {openSlots.map((n) => <option value={String(n)}>Slot {n}</option>)}
   </select>
   {openSlots.length < 3 && (
-    <span class="mt-1 block text-xs font-normal text-ink-200">
-      {openSlots.length === 1
-        ? "Slot 2 and Slot 3 will be added once those slots are over."
-        : "Slot 3 will be added once it is over."}
-    </span>
   )}
 </label>
 <div class="grid gap-4 sm:grid-cols-3">
