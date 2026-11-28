@@ -151,8 +151,7 @@ const ld = [
     <option value="">Select your slot</option>
     {openSlots.map((n) => <option value={String(n)}>Slot {n}</option>)}
   </select>
-  {openSlots.length < 3 && (
-  )}
+  {openSlots.length < 3}
 </label>
 <div class="grid gap-4 sm:grid-cols-3">
   {sections.map((s) => (
