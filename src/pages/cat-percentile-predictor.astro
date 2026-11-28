@@ -2,46 +2,22 @@
 const U = "https://www.edushastra.com";
 const PAGE = `${U}/cat-percentile-predictor/`;
 const TITLE = "CAT Percentile Predictor 2026 | Score vs Percentile | EduShastra";
-const DESC = "Predict your CAT 2026 percentile from your section-wise marks. See CAT 2026 dates, exam pattern and past years score vs percentile data.";
+const DESC = "Know your CAT 2026 percentile in seconds with EduShastra's free CAT percentile predictor. Get section-wise estimates and explore free CAT preparation resources.";
 const sections = [
   { key: "varc", name: "VARC", max: 72 },
   { key: "lrdi", name: "LRDI", max: 66 },
   { key: "qa", name: "Quant (QA)", max: 66 },
 ];
 const inputCls = "mt-1 w-full rounded-lg border border-ink-100/15 bg-ink-800 px-3 py-2.5 text-sm text-ink-100";
-const info = [
-  ["Conducting IIM", "IIM Indore"],
-  ["Exam date", "Sunday, 29 November 2026, in three sessions"],
-  ["Mode and duration", "Computer-based, 120 minutes, 40 minutes per section"],
-  ["Questions", " 68, a mix of MCQ and TITA"],
-  ["Marking", "+3 for a correct answer, -1 for a wrong MCQ, no negative marking for TITA"],
-  ["Registration", "3 August to 22 September 2026 (extended from 15 September)"],
-  ["Admit card", "Released on 4 November 2026"],
-  ["Result", "Expected in the first week of January 2027"],
-];
-const years = ["2025", "2024", "2023", "2022", "2021", "2020"];
-const rows = [
-  ["99th", "81-91", "87-92", "77-83", "84", "98", "101"],
-  ["95th", "62-70", "65-70", "55-59", "60-62", "73", "76"],
-  ["90th", "50-55", "53-58", "48-50", "49", "60", "63"],
-];
 const faqs = [
-  ["How is the CAT percentile calculated?", "A percentile shows the share of candidates who scored below you. Because CAT is held in three slots with different papers, raw scores are scaled across slots before percentiles are worked out."],
-  ["How does this predictor work?", "It turns your attempts and correct answers into marks (+3 for correct, -1 for wrong), then compares your marks with estimated score-to-percentile trends from CAT 2025. Slot scaling is not modelled."],
-  ["How accurate is it?", "It is an estimate, not a result. Real percentiles depend on the paper's difficulty, the slot scaling and how everyone else performs, so treat the number as a range of a few percentile points either way."],
-  ["Why do I need to log in?", "A free Google login shows your result and saves your scores so you can come back to them. We store your email and the scores you enter. Read our Privacy Policy for details."],
-  ["Are TITA questions counted correctly?", "TITA questions have no negative marking, but the predictor treats every wrong answer as -1. Your estimate may be slightly lower than your real score."],
-  ["When is the CAT 2026 result?", "The result is expected in the first week of January 2027. Check iimcat.ac.in for official dates and updates."],
-  ["Does CAT percentile depend on the difficulty level of the paper?", "Yes. The difficulty level affects the score distribution. A more difficult examination may result in a lower score requirement for achieving a particular percentile."],
-  ["How many marks are required for 99 percentile in CAT?", "The required marks change every year. Historical estimates suggest approximately 85 marks in CAT 2025, 95–96 marks in CAT 2024 and 76 marks in CAT 2023 for the 99 percentile benchmark."],
-  ["What is the difference between CAT score and CAT percentile?", "CAT score represents the marks obtained by a candidate, whereas CAT percentile indicates the candidate's relative position compared with other test takers."],
-  ["Is CAT percentile calculated separately for each section?", "Yes. CAT calculates separate percentiles for VARC, DILR and QA, along with an overall percentile."],
-  ["Can I get an IIM call with 90 percentile in CAT?", "Yes, a 90 percentile may make you eligible for consideration at certain IIMs and other B-schools, depending on your category, academic profile, sectional scores and the institute's admission policy. However, an interview call is not guaranteed."],
-  ["Can I get into an IIM with a low sectional percentile?", "It depends on the specific IIM's admission policy. Many IIMs specify minimum sectional percentile requirements, and failing to meet these requirements can affect your eligibility."],
-  ["What is a scaled score in CAT?", "A scaled score is the score obtained after the CAT normalization process, which adjusts for differences in difficulty across examination slots."],
+  ["How is the CAT percentile calculated?", "A percentile shows the percentage of candidates who scored below you. Since CAT is conducted in multiple slots, scores are normalised to account for differences in paper difficulty before final percentiles are calculated."],
+  ["How accurate is the CAT 2026 percentile predictor?", "The predictor provides an estimate, not an official result. Actual percentiles depend on slot-wise performance, the overall score distribution and IIMs' normalisation process."],
+  ["Should I include negative marking for TITA questions?", "No. Incorrect MCQ answers carry a penalty of 1 mark, while incorrect TITA answers carry no negative marking. Enter your final raw score after applying the correct marking scheme."],
+  ["When will the CAT 2026 result be declared?", "The CAT 2026 result is expected in January 2027. The exact announcement date will be confirmed by the official CAT authorities. Check iimcat.ac.in for the latest updates."]
 ];
-const u = (p) => (p.startsWith("http") ? p : U + p);
-const menu = [
+const u = (p: string) => (p.startsWith("http") ? p : U + p);
+// [label, href, optional submenu of [label, href]]
+const menu: [string, string, [string, string][]?][] = [
   ["Home", "/"],
   ["About Us", "/about-us/"],
   ["Courses", "/courses/", [["CAT 2027 Coaching", "/cat-2027-coaching"], ["Live Online Academy", "/live-online-academy/"], ["GMAT Preparation", "/gmat-coaching/"], ["GMCAT Prep", "/gmat-cat-coaching/"], ["CAT Preparation", "/cat-coaching/"], ["CUET (UG) 2026 & 2027", "/common-universities-entrance-test/"], ["SAT Preparation", "/sat-preparation/"], ["XAT Preparation", "/xat-preparation/"], ["SNAP Preparation", "/snap-preparation/"], ["NMAT Preparation", "/nmat-preparation/"], ["Mapping Test", "/new-mapping-test/"], ["Profile Evaluator", "/profile-evaluator/"]]],
@@ -51,13 +27,14 @@ const menu = [
   ["Blog", "/blog/"],
   ["Contact Us", "/contact-us/"],
 ];
-const T = {
+type Tbl = { head: string[]; rows: string[][] };
+const T: Record<string, Tbl> = {
   five: { head: ["CAT Year", "99 Percentile", "95 Percentile", "90 Percentile"], rows: [["CAT 2025", "84–85", "62–63", "51–52"], ["CAT 2024", "95–96", "70", "57–58"], ["CAT 2023", "76", "54–55", "44–45"], ["CAT 2022", "84", "60–62", "48–49"], ["CAT 2021", "97–98", "72–73", "60"]] },
   y25: { head: ["CAT Percentile", "Approx. Scaled Score"], rows: [["99.99", "132.8"], ["99.95", "118.4"], ["99.90", "111.5"], ["99.50", "93"], ["99", "84.8"], ["98", "76"], ["97", "70"], ["95", "62.3"], ["90", "51.5"], ["85", "44.2"], ["80", "38"], ["75", "33"], ["70", "29.5"], ["60", "23"]] },
   sec: { head: ["Percentile", "VARC", "DILR", "QA"], rows: [["99", "43.2", "29.9", "26.7"], ["98", "39.2", "25.9", "23.4"], ["95", "32.3", "21.2", "18.5"], ["90", "26.4", "16.7", "14.3"], ["85", "22.6", "13.9", "12.1"], ["80", "19.4", "10.0", "10.1"]] },
   good: { head: ["CAT Percentile", "General Performance Level"], rows: [["99+", "Excellent – Highly competitive"], ["95–99", "Very Good – Competitive for several leading B-schools"], ["90–95", "Good – Opens opportunities at many reputed institutes"], ["85–90", "Competitive – Several MBA options available"], ["75–85", "Moderate – Opportunities at selected B-schools"], ["Below 75", "Focus on a wider range of MBA institutions"]] },
 };
-const tbl = (t) => `<div class="glass rounded-2xl overflow-hidden my-5"><div class="overflow-x-auto"><table class="w-full text-sm min-w-[420px]"><thead><tr class="border-b border-ink-100/15">${t.head.map((h) => `<th scope="col" class="text-left px-5 py-3 font-display text-ink-100">${h}</th>`).join("")}</tr></thead><tbody>${t.rows.map((r) => `<tr class="border-b border-ink-100/10 last:border-0 odd:bg-ink-100/[0.03]">${r.map((c, i) => (i ? `<td class="px-5 py-3 text-ink-200">${c}</td>` : `<th scope="row" class="text-left px-5 py-3 font-display text-brand-400">${c}</th>`)).join("")}</tr>`).join("")}</tbody></table></div></div>`;
+const tbl = (t: Tbl) => `<div class="glass rounded-2xl overflow-hidden my-5"><div class="overflow-x-auto"><table class="w-full text-sm min-w-[420px]"><thead><tr class="border-b border-ink-100/15">${t.head.map((h) => `<th scope="col" class="text-left px-5 py-3 font-display text-ink-100">${h}</th>`).join("")}</tr></thead><tbody>${t.rows.map((r) => `<tr class="border-b border-ink-100/10 last:border-0 odd:bg-ink-100/[0.03]">${r.map((c, i) => (i ? `<td class="px-5 py-3 text-ink-200">${c}</td>` : `<th scope="row" class="text-left px-5 py-3 font-display text-brand-400">${c}</th>`)).join("")}</tr>`).join("")}</tbody></table></div></div>`;
 const ld = [
   { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home", "item": U },
@@ -199,23 +176,10 @@ const ld = [
       <p id="pct" class="font-display text-6xl font-medium text-brand-500"></p>
       <p class="mt-3 text-ink-200">Estimated overall score: <strong id="total" class="text-ink-100"></strong></p>
       <div id="sections" class="mt-5 grid gap-3 sm:grid-cols-3"></div>
-      <p class="mt-5 text-xs text-ink-200">This is an estimate based on CAT 2025 trends. The real percentile depends on the paper, slot scaling and the candidate pool.</p>
       <a href="https://www.edushastra.com/cat-coaching/" class="btn mt-4 inline-block rounded-full px-6 py-3 text-sm font-semibold">Plan your next step with EduShastra</a>
     </section>
   </div>
 </section>
-
-<section id="cat-2026" class="py-14 px-6">
-  <div class="max-w-5xl mx-auto">
-    <h2 class="font-display text-3xl md:text-4xl font-bold text-ink-100 text-center">CAT 2026 at a glance</h2>
-    <dl class="mt-8 grid gap-4 sm:grid-cols-2">
-      {info.map(([k, v]) => (
-        <div class="glass rounded-2xl p-5"><dt class="text-xs font-semibold uppercase tracking-wide text-brand-400">{k}</dt><dd class="mt-1 text-ink-100">{v}</dd></div>
-      ))}
-    </dl>
-  </div>
-</section>
-
 
 <section id="what-is-cat-percentile" class="py-10 px-6"><div class="max-w-7xl mx-auto">
   <h2 class="font-display text-3xl md:text-4xl font-bold text-ink-100 mb-5">What Is CAT Percentile?</h2>
@@ -309,17 +273,6 @@ const ld = [
     <p>The normalization process adjusts for differences in the score distributions across examination slots.</p>
     <p>The resulting scaled scores are used for calculating the final CAT percentile.</p>
     <p>Therefore, your raw score and final scaled score may not always be identical.</p>
-  </div>
-</div></section>
-
-<section id="good-cat-percentile" class="py-10 px-6"><div class="max-w-7xl mx-auto">
-  <h2 class="font-display text-3xl md:text-4xl font-bold text-ink-100 mb-5">What Is a Good CAT Percentile?</h2>
-  <div class="space-y-4 leading-relaxed text-ink-200">
-    <p>A good CAT percentile depends on your target B-school, academic profile, category, sectional performance and admission requirements.</p>
-    <p>Here is a broad guide to understanding different CAT percentile ranges.</p>
-    <Fragment set:html={tbl(T.good)} />
-    <p>These are general performance bands, not guaranteed admission thresholds.</p>
-    <p>The actual admission criteria vary across institutions and admission cycles.</p>
   </div>
 </div></section>
 
@@ -424,32 +377,38 @@ const ld = [
 </footer>
 
 <script>
+  import type { Session } from '@supabase/supabase-js'
   import { supabase } from '../lib/supabase'
-  import { estimate, isSample } from '../data/catPercentile.js'
+  import { estimate } from '../data/catPercentile.js'
 
-  const $ = (id) => document.getElementById(id)
-  const form = $('form')
+  type FormState = Record<string, string>
+
+  // Typed, non-null element lookup (all ids exist in the markup above)
+  const $ = <T extends HTMLElement = HTMLElement>(id: string) =>
+    document.getElementById(id) as T
+  const form = $<HTMLFormElement>('form')
+  const avatar = $<HTMLImageElement>('avatar')
   const KEY = 'catPredictorForm'
   const PENDING = 'catPredictorPending'
   const KEYS = ['varc', 'lrdi', 'qa']
-  const NAMES = { varc: 'VARC', lrdi: 'LRDI', qa: 'Quant' }
+  const NAMES: Record<string, string> = { varc: 'VARC', lrdi: 'LRDI', qa: 'Quant' }
   const back = () => window.location.origin + window.location.pathname
 
   // Days to the exam (29 Nov 2026, IST)
-  const days = Math.ceil((new Date('2026-11-29T00:00:00+05:30') - Date.now()) / 86400000)
+  const days = Math.ceil((new Date('2026-11-29T00:00:00+05:30').getTime() - Date.now()) / 86400000)
   $('countdown').textContent = days > 1 ? 'CAT 2026 is in ' + days + ' days: Sunday, 29 November'
     : days === 1 ? 'CAT 2026 is tomorrow: Sunday, 29 November'
     : days === 0 ? 'CAT 2026 is today' : 'CAT 2026 is over. Predict your percentile now'
 
   // ---- account icon: profile when logged in, login otherwise ----
-  function renderAccount(session) {
+  function renderAccount(session: Session | null) {
     if (session) {
       const m = session.user.user_metadata || {}
       const name = m.full_name || m.name || 'Student'
       $('m-name').textContent = name
       $('m-email').textContent = session.user.email || ''
       $('initial').textContent = name.charAt(0).toUpperCase()
-      if (m.avatar_url) { $('avatar').src = m.avatar_url; $('avatar').classList.remove('hidden'); $('initial').classList.add('hidden') }
+      if (m.avatar_url) { avatar.src = m.avatar_url; avatar.classList.remove('hidden'); $('initial').classList.add('hidden') }
       $('login-btn').classList.add('hidden'); $('profile-btn').classList.remove('hidden')
     } else {
       $('profile-btn').classList.add('hidden'); $('menu').classList.add('hidden')
@@ -459,7 +418,7 @@ const ld = [
   supabase.auth.getSession().then(({ data }) => renderAccount(data.session))
   supabase.auth.onAuthStateChange((_e, session) => renderAccount(session))
 
-  async function startLogin(gateError) {
+  async function startLogin(gateError: boolean) {
     const { error } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: back() } })
     if (error && gateError) $('gate-error').textContent = 'Could not start login. Please try again.'
   }
@@ -468,7 +427,7 @@ const ld = [
     const open = $('menu').classList.toggle('hidden') === false
     $('profile-btn').setAttribute('aria-expanded', String(open))
   })
-  document.addEventListener('click', (e) => { if (!$('account').contains(e.target)) $('menu').classList.add('hidden') })
+  document.addEventListener('click', (e) => { if (!$('account').contains(e.target as Node)) $('menu').classList.add('hidden') })
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') $('menu').classList.add('hidden') })
   $('logout').addEventListener('click', async () => {
     await supabase.auth.signOut()
@@ -476,50 +435,51 @@ const ld = [
   })
 
   // ---- predictor ----
-  const readForm = () => { const d = {}; new FormData(form).forEach((v, k) => { d[k] = String(v) }); return d }
-  const fillForm = (d) => { Object.entries(d).forEach(([k, v]) => { if (form.elements[k]) form.elements[k].value = v }) }
+  const field = (k: string) => form.elements.namedItem(k) as HTMLInputElement | null
+  const readForm = (): FormState => { const d: FormState = {}; new FormData(form).forEach((v, k) => { d[k] = String(v) }); return d }
+  const fillForm = (d: FormState) => { Object.entries(d).forEach(([k, v]) => { const el = field(k); if (el) el.value = v }) }
 
-function validate(d) {
-  if (!d.slot) return 'Please select your slot.'
-  for (const k of KEYS) {
-    if (d[k] === '') return 'Please fill in every field.'
-    const n = Number(d[k]), max = Number(form.elements[k].max)
-    if (!Number.isInteger(n) || n < -15 || n > max)
-      return NAMES[k] + ' marks must be a whole number between -15 and ' + max + '.'
+  function validate(d: FormState) {
+    if (!d.slot) return 'Please select your slot.'
+    for (const k of KEYS) {
+      if (d[k] === '' || d[k] === undefined) return 'Please fill in every field.'
+      const n = Number(d[k]), max = Number(field(k)?.max)
+      if (!Number.isInteger(n) || n < -15 || n > max)
+        return NAMES[k] + ' marks must be a whole number between -15 and ' + max + '.'
+    }
+    return ''
   }
-  return ''
-}
 
-// Marks are entered directly, so no attempted/correct conversion is needed.
-function score(d) {
-  let total = 0
-  const secs = {}
-  for (const k of KEYS) { secs[k] = Number(d[k]); total += secs[k] }
-  return { total, secs }
-}
+  // Marks are entered directly, so no attempted/correct conversion is needed.
+  function score(d: FormState) {
+    let total = 0
+    const secs: Record<string, number> = {}
+    for (const k of KEYS) { secs[k] = Number(d[k]); total += secs[k] }
+    return { total, secs }
+  }
 
   // Save the submission as a lead. A failure must never block the result.
-async function save(d, total, pcts) {
-  try {
-    await supabase.from('predictor_submissions').upsert({
-slot: Number(d.slot),
-varc_marks: Number(d.varc), lrdi_marks: Number(d.lrdi), qa_marks: Number(d.qa),
-total_score: total,
-      overall_percentile: pcts.overall, varc_percentile: pcts.varc,
-      lrdi_percentile: pcts.lrdi, qa_percentile: pcts.qa,
-      updated_at: new Date().toISOString(),
-    }, { onConflict: 'user_id' })
-  } catch (x) {}
-}
+  async function save(d: FormState, total: number, pcts: Record<string, number>) {
+    try {
+      await supabase.from('predictor_submissions').upsert({
+        slot: Number(d.slot),
+        varc_marks: Number(d.varc), lrdi_marks: Number(d.lrdi), qa_marks: Number(d.qa),
+        total_score: total,
+        overall_percentile: pcts.overall, varc_percentile: pcts.varc,
+        lrdi_percentile: pcts.lrdi, qa_percentile: pcts.qa,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: 'user_id' })
+    } catch (x) {}
+  }
 
-  async function run(d) {
+  async function run(d: FormState) {
     const { data } = await supabase.auth.getSession()
     if (data.session) {
       const { total, secs } = score(d)
-      const pcts = { overall: estimate(d.slot, 'overall', total) }
+      const pcts: Record<string, number> = { overall: estimate(d.slot, 'overall', total) }
       for (const k of KEYS) pcts[k] = estimate(d.slot, k, secs[k])
       $('pct').textContent = pcts.overall.toFixed(2)
-      $('total').textContent = total
+      $('total').textContent = String(total)
       const box = $('sections')
       box.textContent = ''
       for (const k of KEYS) {
@@ -559,7 +519,7 @@ total_score: total,
 
   // After the Google redirect, restore the saved answers and show the result.
   async function restore() {
-    let saved = null
+    let saved: FormState | null = null
     try { saved = JSON.parse(localStorage.getItem(KEY) || 'null') } catch (x) {}
     if (!saved) return
     fillForm(saved)
